@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="PlcDbRecord">
+  <DataContextMoniker Name="/PlcDbRecordDataContext" />
+  <nestedChildShapes>
+    <classShape Id="46c77790-6bdc-46f6-b954-5b9f53b28581" absoluteBounds="1.75, 1.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/PlcDbRecordDataContext/PlcDbRecord" />
+      <nestedChildShapes>
+        <elementListCompartment Id="46579354-a507-4a45-a04d-3e47056b2b2d" absoluteBounds="1.7650000000000001, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
