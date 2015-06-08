@@ -99,10 +99,6 @@
       <Project>{1fbff72b-53a3-41ad-94fd-9f0eba3a87a4}</Project>
       <Name>DataCollector</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HlxPortal\HlxPortal.csproj">
-      <Project>{137F3FFB-8453-46B8-91E5-2F36A1846B52}</Project>
-      <Name>HlxPortal</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
