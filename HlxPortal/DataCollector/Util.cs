@@ -103,7 +103,6 @@ namespace LeSan.HlxPortal.Common
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        [CLSCompliant(false)]
         public static ushort ToUInt16(byte[] value, int startIndex)
         {
             return (UInt16)(value[startIndex] << 8 | value[startIndex + 1]);
@@ -134,7 +133,6 @@ namespace LeSan.HlxPortal.Common
         //
         //   System.ArgumentOutOfRangeException:
         //     startIndex is less than zero or greater than the length of value minus 1.
-        [CLSCompliant(false)]
         public static uint ToUInt32(byte[] value, int startIndex)
         {
             return (UInt32)(value[startIndex] << 24 | value[startIndex + 1] << 16 | value[startIndex + 2] << 8 | value[startIndex + 3]);
@@ -150,7 +148,6 @@ namespace LeSan.HlxPortal.Common
         //
         // Returns:
         //     An array of bytes with length 2.
-        [CLSCompliant(false)]
         public static byte[] GetBytes(ushort value)
         {
             return new byte[] { (byte)(value >> 8), (byte)value };

@@ -2,13 +2,100 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, IE=EmulateIE7" http-equiv="X-UA-Compatible">
+    <title>@ViewBag.Title - TC-SCAN</title>
     @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/css1")*@
     @Scripts.Render("~/bundles/modernizr")
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".total").click(function () {
+                if ($(".totalList:visible").length == 0)
+                    $(".totalList").slideDown();
+                else
+                    $(".totalList").slideUp();
+            });
+            $(".siteName").click(function () {
+                if (!$(this).next().hasClass("curr")) {
+                    $(".siteNameS").removeClass().addClass("siteName");
+                    $(this).removeClass().addClass("siteNameS");
+                    $(".siteSel:visible").slideUp();
+                    $(".curr").removeClass("curr");
+                    $(this).next().addClass("curr").slideDown();
+                }
+            });
+        });
+    </script>
 </head>
+
 <body>
+    <div class="topSite">
+        <div class="topBanner"></div>
+        <div class="login"><span class="date">@DateTime.Now.ToLongDateString()</span><span class="log">您好！<span>username</span>&nbsp;&nbsp;<a href="#">[修改密码]</a>&nbsp;&nbsp;<a href="#">[退出登录]</a></span></div>
+    </div>
+    @{
+        
+    }
+    <div class="content">
+        <div class="lContent">
+            <div class="total"></div>
+            <ul class="totalList" style="display:none;">
+                <li><a href="#">全国站点分布情况</a></li>
+                <li style="border:none;"><a href="#">全国站点设备热图</a></li>
+            </ul>
+            <div class="allSite"></div>
+            <div class="aSList">
+                <a class="siteName">具体站点名称</a>
+                <ul class="siteSel" style="display:none;">
+                    <li><a href="#">设备实时监控</a></li>
+                    <li><a href="#">放射剂量信息</a></li>
+                    <li><a href="#">图像扫描记录</a></li>
+                </ul>
+                <a class="siteName">具体站点名称</a>
+                <ul class="siteSel" style="display:none">
+                    <li><a href="#">设备实时监控</a></li>
+                    <li><a href="#">放射剂量信息</a></li>
+                    <li><a href="#">图像扫描记录</a></li>
+                </ul>
+                <a class="siteName">具体站点名称</a>
+                <ul class="siteSel" style="display:none">
+                    <li><a href="#">设备实时监控</a></li>
+                    <li><a href="#">放射剂量信息</a></li>
+                    <li><a href="#">图像扫描记录</a></li>
+                </ul>
+                <a class="siteName">具体站点名称</a>
+                <ul class="siteSel" style="display:none">
+                    <li><a href="#">设备实时监控</a></li>
+                    <li><a href="#">放射剂量信息</a></li>
+                    <li><a href="#">图像扫描记录</a></li>
+                </ul>
+                <a class="siteName">具体站点名称</a>
+                <ul class="siteSel" style="display:none">
+                    <li><a href="#">设备实时监控</a></li>
+                    <li><a href="#">放射剂量信息</a></li>
+                    <li><a href="#">图像扫描记录</a></li>
+                </ul>
+                <a class="siteName">具体站点名称</a>
+                <ul class="siteSel" style="display:none">
+                    <li><a href="#">设备实时监控</a></li>
+                    <li><a href="#">放射剂量信息</a></li>
+                    <li><a href="#">图像扫描记录</a></li>
+                </ul>
+            </div>
+            <a href="#" class="member"></a>
+        </div>
+        <div class="rContent">
+            @RenderBody()
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="footer">Copyright &copy; @DateTime.Now.Year BEIJING HUALIXING SCI-TECH Development Co., Ltd. All Rights Reserved.</div>
+    @RenderSection("scripts", required: false)
+</body>
+
+@*<body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -36,9 +123,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-</body>
+</body>*@
 </html>
