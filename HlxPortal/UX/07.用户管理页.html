@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>华力兴设备监控系统</title>
+<link href="css/layout.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	$(".total").click(function(){
+      if($(".totalList:visible").length==0)
+	    $(".totalList").slideDown();
+	  else
+		$(".totalList").slideUp();
+    });
+    $(".siteName").click(function(){		
+	  if(!$(this).next().hasClass("curr"))
+	    {
+		  $(".siteNameS").removeClass().addClass("siteName");
+		  $(this).removeClass().addClass("siteNameS");
+		  $(".siteSel:visible").slideUp();
+		  $(".curr").removeClass("curr");
+		  $(this).next().addClass("curr").slideDown();
+		}		
+    });
+  });
+</script>
+</head>
+
+<body>
+<div class="topSite">
+  <div class="topBanner"></div>
+  <div class="login"><span class="date">Wed. 2015/10/10 - 20:00</span><span class="log">您好！<span>username</span>&nbsp;&nbsp;<a href="#">[修改密码]</a>&nbsp;&nbsp;<a href="#">[退出登录]</a></span></div>
+</div>
+<div class="content">   
+  <div class="lContent">
+    <div class="total"></div>
+    <ul class="totalList" style="display:none;">
+      <li><a href="#">全国站点分布情况</a></li>
+      <li style="border:none;"><a href="#">全国站点设备热图</a></li>
+    </ul>
+    <div class="allSite"></div>
+    <div class="aSList">
+      <a class="siteName">具体站点名称</a>
+      <ul class="siteSel" style="display:none;">
+        <li><a href="#">设备实时监控</a></li>
+        <li><a href="#">放射剂量信息</a></li>
+        <li><a href="#">图像扫描记录</a></li>
+      </ul>
+      <a class="siteName">具体站点名称</a>
+      <ul class="siteSel" style="display:none">
+        <li><a href="#">设备实时监控</a></li>
+        <li><a href="#">放射剂量信息</a></li>
+        <li><a href="#">图像扫描记录</a></li>
+      </ul>
+      <a class="siteName">具体站点名称</a>
+      <ul class="siteSel" style="display:none">
+        <li><a href="#">设备实时监控</a></li>
+        <li><a href="#">放射剂量信息</a></li>
+        <li><a href="#">图像扫描记录</a></li>
+      </ul>
+      <a class="siteName">具体站点名称</a>
+      <ul class="siteSel" style="display:none">
+        <li><a href="#">设备实时监控</a></li>
+        <li><a href="#">放射剂量信息</a></li>
+        <li><a href="#">图像扫描记录</a></li>
+      </ul>
+      <a class="siteName">具体站点名称</a>
+      <ul class="siteSel" style="display:none">
+        <li><a href="#">设备实时监控</a></li>
+        <li><a href="#">放射剂量信息</a></li>
+        <li><a href="#">图像扫描记录</a></li>
+      </ul>
+      <a class="siteName">具体站点名称</a>
+      <ul class="siteSel" style="display:none">
+        <li><a href="#">设备实时监控</a></li>
+        <li><a href="#">放射剂量信息</a></li>
+        <li><a href="#">图像扫描记录</a></li>
+      </ul>
+    </div>
+    <a href="#" class="member"></a>
+  </div>
+  <div class="rContentL">
+    <div class="itemTitleL" style="background:url(images/itemTitle5.jpg);"><b class="iTLText f14">用户权限管理</b></div>
+    <table class="infoTab" style="width:1002px;">
+      <tbody>
+        <tr>
+          <td width="60" align="center" bgcolor="#efefef">选 择</td>
+          <td width="230" align="center" bgcolor="#efefef">用户名称</td>
+          <td width="388" align="center" bgcolor="#efefef">用户单位</td>
+          <td width="150" align="center" bgcolor="#efefef">加入时间</td>
+          <td width="150" align="center" bgcolor="#efefef">选择操作</td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#f7f7f7"><input type="checkbox"></td>
+          <td bgcolor="#f7f7f7">真实姓名或自定义名称</td>
+          <td bgcolor="#f7f7f7">用户单位名称......</td>
+          <td align="center" bgcolor="#f7f7f7">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#f7f7f7"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef"><input type="checkbox"></td>
+          <td bgcolor="#efefef">真实姓名或自定义名称</td>
+          <td bgcolor="#efefef">用户单位名称......</td>
+          <td align="center" bgcolor="#efefef">2015-10-10 10:10</td>
+          <td align="center" bgcolor="#efefef"><a href="#" class="blue2">[查看权限]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">[删除]</a></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#efefef" style="height:34px;"><input type="checkbox"></td>
+          <td colspan="4" bgcolor="#efefef"><span class="iTLText"><a href="#" class="gray">全选</a>&nbsp;&nbsp;/&nbsp;&nbsp;<a href="#" class="gray">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;共&nbsp;&nbsp;<span class="Tred">000</span>&nbsp;&nbsp;个用户&nbsp;&nbsp;<input type="button" class="addBtn"></span><span class="iTRText"><a href="#" class="gray">首 页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="gray">上一页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="gray">下一页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="gray">尾 页</a></span></td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="footer">Copyright © 2015 BEIJING HUALIXING SCI-TECH Development Co., Ltd. All Rights Reserved.</div>
+</body>
+</html>
