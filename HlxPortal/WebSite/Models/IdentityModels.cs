@@ -6,8 +6,8 @@ namespace LeSan.HlxPortal.WebSite.Models
     public class ApplicationUser : IdentityUser
     {
         public string Password { get; set; }
-        //public static string ConnStriongName = "HlxPortal0";
-        public static string ConnStriongName = "HlxPortal1";
+        public static string ConnStriongName = "HlxPortal0";
+        //public static string ConnStriongName = "HlxPortal1";
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

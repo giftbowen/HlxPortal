@@ -67,7 +67,6 @@
     </Compile>
     <Compile Include="RadiationDbData.cs" />
     <Compile Include="SockHelper.cs" />
-    <Compile Include="Tracing.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +89,12 @@
     <None Include="PlcDbRecord.dbml.layout">
       <DependentUpon>PlcDbRecord.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{c95960d1-1fb0-4c05-8936-21fb26fceb7f}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

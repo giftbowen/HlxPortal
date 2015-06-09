@@ -44,12 +44,12 @@ namespace LeSan.HlxPortal.WebSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            var aa = new ApplicationDbContext();
-            var role1 = aa.Roles.Add(new IdentityRole("site1"));
-            int a1 = aa.SaveChanges();
-            var u1 = await UserManager.FindAsync("xm1", "111111");
-            var res = UserManager.AddToRole(u1.Id, "site1");
-            return null;
+            //var aa = new ApplicationDbContext();
+            //var role1 = aa.Roles.Add(new IdentityRole("site1"));
+            //int a1 = aa.SaveChanges();
+            //var u1 = await UserManager.FindAsync("xm1", "111111");
+            //var res = UserManager.AddToRole(u1.Id, "site1");
+            //return null;
 
             if (ModelState.IsValid)
             {

@@ -1,0 +1,9 @@
+*.suo
+HlxPortal/DataCollector/bin/*
+HlxPortal/DataCollector/obj/*
+HlxPortal/HlxPortal.Tests/bin/*
+HlxPortal/HlxPortal.Tests/obj/*
+HlxPortal/WebSite/bin/*
+HlxPortal/WebSite/obj/*
+HlxPortal/Common/bin/*
+HlxPortal/Common/obj/*

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -33,10 +34,14 @@
 <body>
     <div class="topSite">
         <div class="topBanner"></div>
-        <div class="login"><span class="date">@DateTime.Now.ToLongDateString()</span><span class="log">您好！<span>username</span>&nbsp;&nbsp;<a href="#">[修改密码]</a>&nbsp;&nbsp;<a href="#">[退出登录]</a></span></div>
+        <div class="login">
+        <span class="date">@DateTime.Now.ToLongDateString()</span>
+        <span class="log">您好！<span>username</span>&nbsp;&nbsp;<a href="#">[修改密码]</a>&nbsp;&nbsp;<a href="#">[退出登录]</a></span></div>
     </div>
     @{
-        
+        string uid = HttpContext.Current.User.Identity.GetUserId();
+        var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
+        DataContext
     }
     <div class="content">
         <div class="lContent">

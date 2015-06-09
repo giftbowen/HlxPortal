@@ -4,7 +4,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Web;
 
-namespace LeSan.HlxPortal.DataCollector
+namespace LeSan.HlxPortal.Common
 {
     /// <summary>
     /// Warpper the trace functionality to add trace time, caller info and request ID in each line of trace. 
