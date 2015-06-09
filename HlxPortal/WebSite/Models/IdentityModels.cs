@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using LeSan.HlxPortal.WebSite;
 
 namespace LeSan.HlxPortal.WebSite.Models
 {
@@ -6,14 +7,12 @@ namespace LeSan.HlxPortal.WebSite.Models
     public class ApplicationUser : IdentityUser
     {
         public string Password { get; set; }
-        public static string ConnStriongName = "HlxPortal0";
-        //public static string ConnStriongName = "HlxPortal1";
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base(ApplicationUser.ConnStriongName)
+            : base(Consts.DbConnectionStringName)
         {
         }
     }

@@ -17,13 +17,8 @@ namespace LeSan.HlxPortal.WebSite.Controllers
     public class AccountController : Controller
     {
         public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
-        }
-
-        public AccountController(UserManager<ApplicationUser> userManager)
-        {
-            UserManager = userManager;
+            this.UserManager = PerRequestData.Current.UserManager;
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
@@ -44,13 +39,6 @@ namespace LeSan.HlxPortal.WebSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            //var aa = new ApplicationDbContext();
-            //var role1 = aa.Roles.Add(new IdentityRole("site1"));
-            //int a1 = aa.SaveChanges();
-            //var u1 = await UserManager.FindAsync("xm1", "111111");
-            //var res = UserManager.AddToRole(u1.Id, "site1");
-            //return null;
-
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);

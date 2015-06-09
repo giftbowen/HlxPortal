@@ -36,13 +36,8 @@
         <div class="topBanner"></div>
         <div class="login">
         <span class="date">@DateTime.Now.ToLongDateString()</span>
-        <span class="log">您好！<span>username</span>&nbsp;&nbsp;<a href="#">[修改密码]</a>&nbsp;&nbsp;<a href="#">[退出登录]</a></span></div>
+        <span class="log">您好！<span>@PerRequestData.Current.AppUser.UserName</span>&nbsp;&nbsp;<a href="#">[修改密码]</a>&nbsp;&nbsp;<a href="#">[退出登录]</a></span></div>
     </div>
-    @{
-        string uid = HttpContext.Current.User.Identity.GetUserId();
-        var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()))
-        DataContext
-    }
     <div class="content">
         <div class="lContent">
             <div class="total"></div>
@@ -52,7 +47,17 @@
             </ul>
             <div class="allSite"></div>
             <div class="aSList">
-                <a class="siteName">具体站点名称</a>
+                @foreach (var site in PerRequestData.Current.UserSites)
+                {
+                    <a class="siteName">@site.Name</a>
+                    <ul class="siteSel" style="display:none;">
+                        <li>@Html.ActionLink("设备实时监控", "actionname", "controllername")</li>
+                        <li>@Html.ActionLink("放射剂量信息", "actionname", "controllername")</li>
+                        <li>@Html.ActionLink("图像扫描记录", "actionname", "controllername")</li>
+                    </ul>
+                }
+
+                @*<a class="siteName">具体站点名称</a>
                 <ul class="siteSel" style="display:none;">
                     <li><a href="#">设备实时监控</a></li>
                     <li><a href="#">放射剂量信息</a></li>
@@ -87,7 +92,7 @@
                     <li><a href="#">设备实时监控</a></li>
                     <li><a href="#">放射剂量信息</a></li>
                     <li><a href="#">图像扫描记录</a></li>
-                </ul>
+                </ul>*@
             </div>
             <a href="#" class="member"></a>
         </div>

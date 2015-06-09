@@ -1,3 +1,4 @@
+*.userosscache
 *.suo
 HlxPortal/DataCollector/bin/*
 HlxPortal/DataCollector/obj/*
