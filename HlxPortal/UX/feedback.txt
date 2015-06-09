@@ -1,0 +1,8 @@
+
+1. login:
+
+2. change password:
+   error hint
+   use form
+3. layout:
+   change the logo image into the yellow one

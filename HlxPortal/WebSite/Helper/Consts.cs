@@ -16,8 +16,8 @@ namespace LeSan.HlxPortal.WebSite
 
         public const string RoleVip = "Vip";
 
-        //public const string DbConnectionStringName = "HlxPortal0";
-        public const string DbConnectionStringName = "HlxPortal1";
+        public const string DbConnectionStringName = "HlxPortal0";
+        //public const string DbConnectionStringName = "HlxPortal1";
 
     }
 }

@@ -1,24 +1,40 @@
 ﻿@using LeSan.HlxPortal.WebSite.Models;
 @using Microsoft.AspNet.Identity;
+@model LeSan.HlxPortal.WebSite.Models.ManageUserViewModel
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = "修改密码";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div class="itemTitle" style="background:url(/images/itemTitle7.jpg);"><b class="iTLText f14">修改密码</b></div>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
-<div class="row">
-    <div class="col-md-12">
-        @if (ViewBag.HasLocalPassword)
-        {
-            @Html.Partial("_ChangePasswordPartial")
-        }
-        else
-        {
-            @Html.Partial("_SetPasswordPartial")
-        }
-    </div>
-</div>
+<div class="password f14">
+    @using (Html.BeginForm("Manage", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    { 
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <table>
+            <tbody>
+                <tr>
+                    <td width="140">输入原密码</td>
+                    <td width="300">@Html.PasswordFor(m => m.OldPassword, new { @class = "infoInput" })</td>
+                </tr>
+                <tr>
+                    <td>输入新密码</td>
+                    <td>@Html.PasswordFor(m => m.NewPassword, new { @class = "infoInput" })</td>
+                </tr>
+                <tr>
+                    <td>确认新密码</td>
+                    <td>@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "infoInput" })</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2" align="left"><input type="submit" class="saveBtn" value=""></td>
+                </tr>
+            </tbody>
+        </table>
+            }
+        </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -30,14 +30,18 @@
         });
     </script>
 </head>
-
 <body>
     <div class="topSite">
         <div class="topBanner"></div>
         <div class="login">
-        <span class="date">@DateTime.Now.ToLongDateString()</span>
-        <span class="log">您好！<span>@PerRequestData.Current.AppUser.UserName</span>&nbsp;&nbsp;<a href="#">[修改密码]</a>&nbsp;&nbsp;<a href="#">[退出登录]</a></span></div>
-    </div>
+            <span class="date">@DateTime.Now.ToLongDateString()</span>
+            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+            {
+                @Html.AntiForgeryToken()
+                <span class="log">您好！<span>User.Identity.GetUserName()</span>&nbsp;&nbsp;@Html.ActionLink("[修改密码]", "Manage", "Account")&nbsp;&nbsp;<a href="javascript:document.getElementById('logoutForm').submit()">[退出登录]</a></span>
+            }
+        </div>
+        </div>
     <div class="content">
         <div class="lContent">
             <div class="total"></div>
@@ -56,43 +60,6 @@
                         <li>@Html.ActionLink("图像扫描记录", "actionname", "controllername")</li>
                     </ul>
                 }
-
-                @*<a class="siteName">具体站点名称</a>
-                <ul class="siteSel" style="display:none;">
-                    <li><a href="#">设备实时监控</a></li>
-                    <li><a href="#">放射剂量信息</a></li>
-                    <li><a href="#">图像扫描记录</a></li>
-                </ul>
-                <a class="siteName">具体站点名称</a>
-                <ul class="siteSel" style="display:none">
-                    <li><a href="#">设备实时监控</a></li>
-                    <li><a href="#">放射剂量信息</a></li>
-                    <li><a href="#">图像扫描记录</a></li>
-                </ul>
-                <a class="siteName">具体站点名称</a>
-                <ul class="siteSel" style="display:none">
-                    <li><a href="#">设备实时监控</a></li>
-                    <li><a href="#">放射剂量信息</a></li>
-                    <li><a href="#">图像扫描记录</a></li>
-                </ul>
-                <a class="siteName">具体站点名称</a>
-                <ul class="siteSel" style="display:none">
-                    <li><a href="#">设备实时监控</a></li>
-                    <li><a href="#">放射剂量信息</a></li>
-                    <li><a href="#">图像扫描记录</a></li>
-                </ul>
-                <a class="siteName">具体站点名称</a>
-                <ul class="siteSel" style="display:none">
-                    <li><a href="#">设备实时监控</a></li>
-                    <li><a href="#">放射剂量信息</a></li>
-                    <li><a href="#">图像扫描记录</a></li>
-                </ul>
-                <a class="siteName">具体站点名称</a>
-                <ul class="siteSel" style="display:none">
-                    <li><a href="#">设备实时监控</a></li>
-                    <li><a href="#">放射剂量信息</a></li>
-                    <li><a href="#">图像扫描记录</a></li>
-                </ul>*@
             </div>
             <a href="#" class="member"></a>
         </div>
@@ -104,35 +71,4 @@
     <div class="footer">Copyright &copy; @DateTime.Now.Year BEIJING HUALIXING SCI-TECH Development Co., Ltd. All Rights Reserved.</div>
     @RenderSection("scripts", required: false)
 </body>
-
-@*<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-    @RenderSection("scripts", required: false)
-</body>*@
 </html>
