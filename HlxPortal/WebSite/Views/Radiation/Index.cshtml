@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "放射剂量";
+}
+<link rel="stylesheet" href="~/Content/kendo.common.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.silver.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.dataviz.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.dataviz.silver.min.css" />
+<script src="~/Scripts/kendo.all.min.js"></script>
+
+<div class="itemTitle" style="background:url(images/itemTitle3.jpg);"><b class="iTLText f14">放射剂量情况 - <span>站点或设备名称</span></b></div>
+<div class="hotSel">
+    <ul>
+        <li class="hSS"><a class="hK2">当前状态</a></li>
+        <li><a class="hK1">历史数据</a></li>
+    </ul>
+</div>
+<div class="hotSite">
+    <div class="hotKind">
+        <span class="graph">图 示:&nbsp;&nbsp;<img src="images/green.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/blue.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/yellow.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/red.gif" />&nbsp;&nbsp;图示说明</span>
+        @Html.Partial("LatestPartial")
+    </div>
+</div>
+<div class="hotSite" style="display:none;">
+    <div class="hotKind">
+        <span class="graph">图 示:&nbsp;&nbsp;<img src="images/green.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/blue.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/yellow.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/red.gif" />&nbsp;&nbsp;图示说明</span>
+        @Html.Partial("HistoryPartial")
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+	    $(".hotSel a").click(function(){
+	      index=$(this).index('.hotSel a');
+	      $('.hSS a').removeClass("hK2").addClass("hK1");
+	      $('.hSS').removeClass();
+	      $('.hotSel li:eq('+index+')').addClass("hSS");
+	      $('.hotSel li:eq('+index+') a').removeClass("hK1").addClass("hK2");
+	      $('.hotSite:visible').hide();
+	      $('.hotSite:eq('+index+')').show();
+	    });
+    });
+</script>    
+

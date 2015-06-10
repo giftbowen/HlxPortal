@@ -8,3 +8,4 @@ HlxPortal/WebSite/bin/*
 HlxPortal/WebSite/obj/*
 HlxPortal/Common/bin/*
 HlxPortal/Common/obj/*
+*.user

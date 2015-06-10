@@ -64,7 +64,7 @@ namespace LeSan.HlxPortal.WebSite
             //return;
 
             //data.AppUser = data.UserManager.FindById(userId);
-            data.AppUser = data.UserManager.FindByName("xm1");
+            data.AppUser = data.UserManager.FindByName("admin");
             data.SetUserSites();
 
             
@@ -78,8 +78,10 @@ namespace LeSan.HlxPortal.WebSite
             {
                 this.UserSites = allSites;
             }
-
-            this.UserSites = (from site in allSites where UserManager.IsInRole(AppUser.Id, site.SiteId.ToString()) select site).ToList();
+            else
+            {
+                this.UserSites = (from site in allSites where UserManager.IsInRole(AppUser.Id, site.SiteId.ToString()) select site).ToList();
+            }
         }
 
     }

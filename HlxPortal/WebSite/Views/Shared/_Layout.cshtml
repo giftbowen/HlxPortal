@@ -38,7 +38,7 @@
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
             {
                 @Html.AntiForgeryToken()
-                <span class="log">您好！<span>User.Identity.GetUserName()</span>&nbsp;&nbsp;@Html.ActionLink("[修改密码]", "Manage", "Account")&nbsp;&nbsp;<a href="javascript:document.getElementById('logoutForm').submit()">[退出登录]</a></span>
+                <span class="log">您好！<span>@PerRequestData.Current.AppUser.UserName</span>&nbsp;&nbsp;@Html.ActionLink("[修改密码]", "Manage", "Account")&nbsp;&nbsp;<a href="javascript:document.getElementById('logoutForm').submit()">[退出登录]</a></span>
             }
         </div>
         </div>
@@ -55,8 +55,8 @@
                 {
                     <a class="siteName">@site.Name</a>
                     <ul class="siteSel" style="display:none;">
+                        <li>@Html.ActionLink("放射剂量信息", "Index", "Radiation", new {siteId = site.SiteId}, null)</li>
                         <li>@Html.ActionLink("设备实时监控", "actionname", "controllername")</li>
-                        <li>@Html.ActionLink("放射剂量信息", "actionname", "controllername")</li>
                         <li>@Html.ActionLink("图像扫描记录", "actionname", "controllername")</li>
                     </ul>
                 }

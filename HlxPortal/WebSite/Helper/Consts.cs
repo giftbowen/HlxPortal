@@ -16,8 +16,12 @@ namespace LeSan.HlxPortal.WebSite
 
         public const string RoleVip = "Vip";
 
-        public const string DbConnectionStringName = "HlxPortal0";
-        //public const string DbConnectionStringName = "HlxPortal1";
+        public const int NumberRadiationCameraImages = 3;
+
+        public const string ConfigRadiationCameraRoot = "RadiationCameraRoot";
+
+        //public const string DbConnectionStringName = "HlxPortal0";
+        public const string DbConnectionStringName = "HlxPortal1";
 
     }
 }
