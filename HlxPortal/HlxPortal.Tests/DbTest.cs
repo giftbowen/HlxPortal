@@ -11,7 +11,7 @@ namespace HlxPortal.Tests
     {
         private const string connectionString0 = @"Data Source=(localdb)\Projects;Initial Catalog=HlxPortal;Integrated Security=True;Connect Timeout=30";
         private const string connectionString1 = @"Data Source=Bowenz-1;Initial Catalog=HlxPortal;Integrated Security=True";
-        private const string connString = connectionString1;
+        private const string connString = connectionString0;
 
         [TestMethod]
         public void TestMethod1()

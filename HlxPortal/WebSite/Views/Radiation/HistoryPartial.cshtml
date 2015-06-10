@@ -1,1 +1,78 @@
-﻿
+﻿<div>
+    <h4>Select start and end date:</h4>
+    <p>
+        <input id="startDate" style="width: 200px"/>
+        <input id="endDate" style="width: 200px"/>
+        <input id="queryBt" type="button" class="confirm" onclick="getRadiationData()">
+    </p>
+    
+</div>
+
+<div id="grid"></div>
+
+<script type="text/javascript">
+    var startDt = $("#startDate").kendoDatePicker({
+        value: new Date(),
+        max: new Date()
+    }).data("kendoDatePicker");
+    var endDt = $("#endDate").kendoDatePicker({
+        value: new Date(),
+        max: new Date()
+    }).data("kendoDatePicker");
+
+    var radiationData = [];
+    getRadiationData();
+
+    function getRadiationData() {
+        var a = startDt.value().toISOString();
+        var b = new Date().toDateString();
+        $.ajax({
+            url: "api/RadiationApi",
+            dataType: "json",
+            async: true,
+            data: {
+                startDate: startDt.value().toDateString(),
+                endDate: endDt.value().toDateString()
+            },
+            success: function (jsonData, textStatus, qXHR) {
+                radiationData = jsonData;
+                loadTableData();
+            },
+        });
+    }
+    
+    function loadTableData()
+    {
+        $("#grid").kendoGrid({
+            dataSource: {
+                data: radiationData,
+                pageSize: 10
+            },
+            height: 543,
+            scrollable: {
+                virtual: true
+            },
+            pageable: {
+                info: true,
+                numeric: true,
+                previousNext: true
+            },
+            columns: [
+                { field: "TimeStamp", title: "时间"},
+                { field: "Dose1", title: "dose1"},
+                { field: "Dose2", title: "dose2"},
+                { field: "Dose3", title: "dose3"},
+                { field: "Dose4", title: "dose4"},
+                { field: "Dose5", title: "dose5"},
+                { field: "Temperature", title: "temperature"},
+                { field: "Humidity", title: "humidity"},
+                { field: "Flame", title: "flame"},
+                { field: "Shutter", title: "shutter"},
+                { field: "Position", title: "position"},
+                { field: "Gate", title: "gate"},
+            ]
+        });
+    }
+
+    
+</script>

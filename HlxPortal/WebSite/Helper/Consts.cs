@@ -20,8 +20,9 @@ namespace LeSan.HlxPortal.WebSite
 
         public const string ConfigRadiationCameraRoot = "RadiationCameraRoot";
 
-        //public const string DbConnectionStringName = "HlxPortal0";
-        public const string DbConnectionStringName = "HlxPortal1";
+        public const string ConfigCpfLpnRoot = "CpfLpnRoot";
 
+        public const string DbConnectionStringName = "HlxPortal0";
+        //public const string DbConnectionStringName = "HlxPortal1";
     }
 }

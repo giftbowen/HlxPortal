@@ -9,6 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using LeSan.HlxPortal.Common;
 using LeSan.HlxPortal.WebSite.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web.Http;
 
 namespace LeSan.HlxPortal.WebSite.Controllers
 {
@@ -58,8 +63,19 @@ namespace LeSan.HlxPortal.WebSite.Controllers
 
             return View(model);
         }
+    }
 
+    public class RadiationApiController : ApiController
+    {
+        public List<RadiationDbData> Get (DateTime startDate, DateTime endDate)
+        {
+            var connstring = ConfigurationManager.ConnectionStrings[Consts.DbConnectionStringName].ConnectionString;
+            DataContext db = new DataContext(connstring);
+            var radiationTable = db.GetTable<RadiationDbData>();
 
+            var radiations = (from r in radiationTable where r.Date >= startDate.Date && r.Date <= endDate.Date  orderby r.TimeStamp select r).ToList();
 
+            return radiations;
+        }
     }
 }

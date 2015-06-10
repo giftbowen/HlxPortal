@@ -1,11 +1,11 @@
-﻿using System;
+﻿using LeSan.HlxPortal.WebSite.DataEntity;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using LeSan.HlxPortal.WebSite.DataEntity;
 
 namespace LeSan.HlxPortal.WebSite
 {
@@ -15,9 +15,10 @@ namespace LeSan.HlxPortal.WebSite
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            
             this.BeginRequest += Application_BeginRequest;
             this.PostAuthorizeRequest += this.Application_PostAuthorizeRequest;
 
