@@ -6,10 +6,11 @@ using System.Data.Linq;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
+
 
 namespace LeSan.HlxPortal.WebSite.Controllers
 {
+    [Authorize]
     public class RadiationApiController : ApiController
     {
         public List<RadiationDbData> Get(int siteId, DateTime startDate, DateTime endDate)

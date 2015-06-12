@@ -17,5 +17,9 @@ namespace LeSan.HlxPortal.WebSite.DataEntity
         public string Location { get; set; }
         [Column]
         public string Description { get; set; }
+        [Column]
+        public double Longitude {get;set;}
+        [Column]
+        public double Latitude {get;set;}
     }
 }

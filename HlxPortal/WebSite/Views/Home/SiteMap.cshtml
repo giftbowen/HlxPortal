@@ -1,0 +1,78 @@
+﻿@model List<SiteDbData>
+@using LeSan.HlxPortal.WebSite.DataEntity;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "站点地图";
+}
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PRq4PIKtTrZSZzEeHvuuzSuq"></script>
+
+<div class="itemTitle" style="background:url(/images/itemTitle1.jpg);"><b class="iTLText f14">全国站点分布情况</b><span class="iTRText">共 <span class="Tred">@Model.Count</span> 个站点</span></div>
+<div id="allmap" style="width:1000px;height:800px;overflow:auto;margin:0;font-family:'Microsoft YaHei'"></div>
+<div class="selInfo">
+    <div class="selName f14"><b><a id="siteLink">地图上选择站点名称</a></b></div>
+    <table class="infoTab" style="width:950px;margin:24px auto 0px auto;">
+        <tbody>
+            <tr>
+                <td width="160" align="center" bgcolor="#efefef">位置</td>
+                <td width="610" bgcolor="#f7f7f7" id="siteLoc">内容文字</td>
+            </tr>
+            <tr>
+                <td align="center" bgcolor="#efefef">描述</td>
+                <td bgcolor="#f7f7f7" id="siteDes">内容文字</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+
+    var siteArray = @Html.Raw(JsonConvert.SerializeObject(Model));
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom("西安", 5);
+
+    var top_left_control = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_TOP_LEFT });// 左上角，添加比例尺
+    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+    var top_right_navigation = new BMap.NavigationControl({ anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL }); //右上角，仅包含平移和缩放按钮
+
+    map.addControl(top_left_control);
+    map.addControl(top_left_navigation);
+    map.addControl(top_right_navigation);
+
+    for(var i = 0; i < siteArray.length; i++)
+    {
+        var site = siteArray[i];
+        var point = new BMap.Point(site.Longitude, site.Latitude);
+        var marker = new BMap.Marker(point);  // 创建标注
+        marker.setTitle(site.Name);
+        marker.siteObj = site;                // attach site object into marker object
+        map.addOverlay(marker);               // 将标注添加到地图中
+        marker.addEventListener("click", onClickSite);
+    }
+
+    showSiteInfo(siteArray[0]);
+
+    function onClickSite(e) {
+        var site = e.target.siteObj;
+        showSiteInfo(site);
+
+        var opts = {
+            width: 100,     // 信息窗口宽度
+            height: 10,     // 信息窗口高度
+            title: site.Name, // 信息窗口标题
+        }
+        var infoWindow = new BMap.InfoWindow(site.Location + ", " + site.Description, opts);  // 创建信息窗口对象
+        map.openInfoWindow(infoWindow, e.point); //开启信息窗口
+    }
+
+    function showSiteInfo(site){
+        $("#siteLoc").text(site.Location);
+        $("#siteDes").text(site.Description);
+        $("#siteLink").attr("href", "/radiation/index?siteId=" + site.SiteId);
+        $("#siteLink").text(site.Name);
+    }
+
+</script>

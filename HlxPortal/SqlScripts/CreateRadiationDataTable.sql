@@ -9,7 +9,7 @@
 	[Gate] TINYINT NOT NULL, 
     [Temperature] REAL NOT NULL, 
 	[Humidity] REAL NOT NULL,
-    [CameraImage] NCHAR(128) NOT NULL,
+    [CameraImage] NVARCHAR(128) NOT NULL,
 	[Dose1] REAL NOT NULL,
 	[Dose2] REAL NOT NULL,
 	[Dose3] REAL NOT NULL,

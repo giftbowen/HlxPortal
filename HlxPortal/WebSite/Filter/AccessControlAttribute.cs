@@ -22,7 +22,7 @@ namespace LeSan.HlxPortal.WebSite
                 var userSites = PerRequestData.Current.UserSites.Select(x => x.SiteId);
                 if (!userSites.Contains((byte)siteId))
                 {
-                    filterContext.Result = new RedirectResult("~/account/manage");
+                    filterContext.Result = new RedirectResult("~/Home/UnAuthorized?msg=您没有访问该站点的权限！");
                 }
             }
         }

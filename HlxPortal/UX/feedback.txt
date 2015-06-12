@@ -9,3 +9,12 @@
    change the logo image into the yellow one
 4. error page, unauthorized page:
     seperate icon and text
+	
+	
+inter process communication
+authorization filter, check site access
+global site baidu map
+global heat map
+
+look up geo coordinates
+http://jsfiddle.net/oue340kv/
