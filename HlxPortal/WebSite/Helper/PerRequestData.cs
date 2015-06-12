@@ -64,7 +64,7 @@ namespace LeSan.HlxPortal.WebSite
             //return;
 
             //data.AppUser = data.UserManager.FindById(userId);
-            data.AppUser = data.UserManager.FindByName("admin");
+            data.AppUser = data.UserManager.FindByName("xm1");
             data.SetUserSites();
 
             

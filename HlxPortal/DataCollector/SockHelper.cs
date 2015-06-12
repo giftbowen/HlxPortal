@@ -64,7 +64,7 @@ namespace LeSan.HlxPortal.DataCollector
             return msgs;
         }
 
-        public static List<Message> SendAndReceiveMsg(Socket socket, byte siteId, Message.DeclareType declare, byte[] command, int numExpected, ref DateTime lastTimeGetHeartBeat)
+        public static void SendMessage(Socket socket, byte siteId, Message.DeclareType declare, byte[] command)
         {
             var bytesToSend = Message.AssembleMessage(siteId, declare, command);
             int countSent = 0;
@@ -72,6 +72,11 @@ namespace LeSan.HlxPortal.DataCollector
             {
                 countSent = socket.Send(bytesToSend);
             }
+        }
+
+        public static List<Message> SendAndReceiveMsg(Socket socket, byte siteId, Message.DeclareType declare, byte[] command, int numExpected, ref DateTime lastTimeGetHeartBeat)
+        {
+            SendMessage(socket, siteId, declare, command);
 
             int retry = 0;
             List<Message> msgs = new List<Message>();
@@ -102,12 +107,7 @@ namespace LeSan.HlxPortal.DataCollector
 
         public static byte[] SendAndReceiveRadiationCameraImage(Socket socket, byte siteId, ref DateTime lastTimeGetHeartBeat)
         {
-            var bytesToSend = Message.AssembleMessage(siteId, Message.DeclareType.RadiationCamera, Message.CmdRadiationCamera);
-            int countSent = 0;
-            while (countSent != bytesToSend.Length)
-            {
-                countSent = socket.Send(bytesToSend);
-            }
+            SendMessage(socket, siteId, Message.DeclareType.RadiationCamera, Message.CmdRadiationCamera);
 
             int totalFrames = -1;
             int frameReceived = 0;
@@ -156,7 +156,6 @@ namespace LeSan.HlxPortal.DataCollector
             }
             
             return image;
-        }
-        
+        }        
     }
 }

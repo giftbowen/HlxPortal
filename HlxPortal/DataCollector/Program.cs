@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Pipes;
 using System.Drawing;
 using System.Drawing.Imaging;
 using LeSan.HlxPortal.Common;
@@ -26,8 +27,14 @@ namespace LeSan.HlxPortal.DataCollector
         //public tatic readonly string ConnectionString = @"Data Source=HLX-LT-SVR\SQLEXPRESS;Initial Catalog=HlxPortal;Integrated Security=True";
         public static readonly string ConnectionString = ConfigurationManager.ConnectionStrings["HlxPortal1"].ConnectionString;
 
+        private static object lockObj = new object();
+        private static List<byte> sitesToResetPlc = new List<byte>();
+        
         static void Main(string[] args)
-        {            
+        {
+            Thread ipcThread = new Thread(ServerThread);
+            ipcThread.Start();
+
             string strIP = ConfigurationManager.AppSettings["Ip"];
             int port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
             IPAddress ip = null;
@@ -51,6 +58,54 @@ namespace LeSan.HlxPortal.DataCollector
                 collectorThread.Start(dataSock);
             }
         }
+
+        private static void ServerThread(object data)
+        {
+            NamedPipeServerStream pipeServer = null;
+            while (true)
+            {
+                pipeServer = new NamedPipeServerStream(CommonConsts.IPCPipeName, PipeDirection.InOut, 1);
+                // Wait for a client to connect
+                pipeServer.WaitForConnection();
+
+                SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "HlxPortal website has connected to datacollector.");
+                try
+                {
+                    while (true)
+                    {
+                        // Read the request from the client.
+                        StreamString ss = new StreamString(pipeServer);
+                        string site = ss.ReadString();
+                        byte siteId;
+                        if (byte.TryParse(site, out siteId))
+                        {
+                            lock (lockObj)
+                            {
+                                sitesToResetPlc.Add(siteId);
+                            }
+                        }
+                        else
+                        {
+                            SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "DataCollector Ipc received incorrect site id from website :" + site);
+                        }
+                    }
+                }
+                // Catch the IOException that is raised if the pipe is broken or disconnected. 
+                catch (IOException ex)
+                {
+                    SharedTraceSources.Global.TraceException(ex);
+                    // swallow and continue
+                }
+                catch(Exception ex)
+                {
+                    SharedTraceSources.Global.TraceException(ex);
+                    break;
+                }
+            }
+            
+            pipeServer.Close();
+        }
+
 
         private static void CollectorThread(object dataSocket)
         {
@@ -230,6 +285,21 @@ namespace LeSan.HlxPortal.DataCollector
 
         public static void CollectPLCData(Socket dataSock, byte siteId, ref DateTime lastTimeGetHeartBeat)
         {
+            // try get if there's pending reset plc command to send
+            bool resetPlc = false;
+            lock(lockObj)
+            {
+                if (sitesToResetPlc.Any(x => x == siteId))
+                {
+                    resetPlc = true;
+                    sitesToResetPlc.RemoveAll(x => x == siteId);
+                }
+            }
+            if (resetPlc)
+            {
+                SockHelper.SendMessage(dataSock, siteId, Message.DeclareType.PLCReset, Message.CmdPLCReset);
+            }
+
             Message msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.PLCStatus, Message.CmdPLCStatus, 1, ref lastTimeGetHeartBeat)[0];
             if (!msg.ValidateDataLength(PlcDbData.PLC_TOTAL_LENGTH))
             {

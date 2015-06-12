@@ -167,9 +167,11 @@
     <Compile Include="Caching\RegularUpdateObjects.cs" />
     <Compile Include="Caching\RegularUpdateTasks.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RadiationController.cs" />
     <Compile Include="DataEntity\SiteDbData.cs" />
+    <Compile Include="Filter\AccessControlAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -179,6 +181,7 @@
     <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IpcNamedPipe.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
