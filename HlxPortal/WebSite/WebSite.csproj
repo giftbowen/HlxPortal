@@ -170,6 +170,7 @@
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RadiationController.cs" />
+    <Compile Include="DataEntity\HeatmapIndicator.cs" />
     <Compile Include="DataEntity\SiteDbData.cs" />
     <Compile Include="Filter\AccessControlAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -181,6 +182,7 @@
     <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\HeatmapDataService.cs" />
     <Compile Include="Service\IpcNamedPipe.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -290,6 +292,7 @@
     <Content Include="Views\Home\SiteMap.cshtml" />
     <Content Include="Views\Home\UnAuthorized.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\Heatmap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,4 +13,17 @@ namespace LeSan.HlxPortal.WebSite.Models
         public List<RadiationDbData> DataList { get; set; }
         public List<string> CameraImageBase64List { get; set; }
     }
+
+    public class HeatmapViewModel
+    {
+        public class SiteModel
+        {
+            public int SiteId { get; set; }
+            public SiteDbData SiteInfo { get; set; }
+            public Dictionary<string, int> HeatmapData { get; set; }
+        }
+
+        public List<SiteModel> SiteObjs { get; set; }
+        public List<HeatmapIndicator> Indicators { get; set; }
+    }
 }

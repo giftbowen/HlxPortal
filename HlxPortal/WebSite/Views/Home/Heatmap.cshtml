@@ -1,0 +1,70 @@
+﻿@model HeatmapViewModel
+@using LeSan.HlxPortal.WebSite.Models;
+
+@{
+    ViewBag.Title = "关键系统指标";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".hotSel a").click(function () {
+            index = $(this).index('.hotSel a');
+            $('.hSS a').removeClass("hK2").addClass("hK1");
+            $('.hSS').removeClass();
+            $('.hotSel li:eq(' + index + ')').addClass("hSS");
+            $('.hotSel li:eq(' + index + ') a').removeClass("hK1").addClass("hK2");
+            $('.hotSite:visible').hide();
+            $('.hotSite:eq(' + index + ')').show();
+        });
+
+        $('.hotSite:eq(0)').show();
+    });
+</script>
+
+<div class="itemTitle" style="background:url(/images/itemTitle1.jpg);"><b class="iTLText f14">关键系统指标</b></div>
+<div class="hotSel">
+    <ul>
+        <li class="hSS"><a class="hK2">@Model.Indicators[0].Name</a></li>
+        @for (int i = 1; i < Model.Indicators.Count; i++)
+        {   
+            <li><a class="hK1">@Model.Indicators[i].Name</a></li>
+        }
+    </ul>
+    <span class="iTRText">共 <span class="Tred">@Model.SiteObjs.Count</span> 台设备</span>
+</div>
+
+@for (int i = 0; i < Model.Indicators.Count; i++)
+{
+    var indicator = Model.Indicators[i];
+        
+    <div class="hotSite" style="display:none;">
+        <div class="hotKind">
+            <p>@indicator.Description</p> <br />
+            <span class="graph">图 示:&nbsp;&nbsp;<img src="/images/green.gif" />&nbsp;&nbsp;@indicator.Green&nbsp;&nbsp;<img src="/images/red.gif" />&nbsp;&nbsp;@indicator.Red&nbsp;&nbsp;<img src="/images/blue.gif" />&nbsp;&nbsp;没有数据&nbsp;&nbsp;</span>
+        </div>
+
+        <div class="hotPGroup">
+            @foreach(var site in Model.SiteObjs)
+            {
+                var colorClass = "stateY";
+                if (site.HeatmapData == null)
+                {
+                    colorClass = "stateB";
+                }
+                else if (site.HeatmapData[indicator.PropertyName] == 1)
+                {
+                    colorClass = "stateR";
+                }
+                else
+                {
+                    colorClass = "statueG";
+                }
+                <div class="hotPic">
+                    @Html.ActionLink(site.SiteInfo.Name, "Index", "Radiation", new { siteId = site.SiteId }, new { @class = colorClass })
+                </div>
+            }
+
+            <div class="clear"></div>
+        </div>
+    </div>
+}

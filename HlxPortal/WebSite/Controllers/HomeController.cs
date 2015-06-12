@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using LeSan.HlxPortal.Common;
 using LeSan.HlxPortal.WebSite.DataEntity;
+using LeSan.HlxPortal.WebSite.Models;
 
 namespace LeSan.HlxPortal.WebSite.Controllers
 {
@@ -32,18 +33,14 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             return View();
         }
 
-        public ActionResult HeatMap()
+        public ActionResult Heatmap()
         {
             var connstring = ConfigurationManager.ConnectionStrings[Consts.DbConnectionStringName].ConnectionString;
-            DataContext db = new DataContext(connstring);
-            var radiationTable = db.GetTable<RadiationDbData>();
-
+            
             DateTime dtStart = DateTime.Now.AddDays(-1); // 24 hours ealier
+            var model = HeatmapDataService.GetHeatmapData(connstring, dtStart, DateTime.Now);
 
-            var radiations = (from r in radiationTable where r.Date >= dtStart.Date && r.TimeStamp >= dtStart select r).ToList();
-
-            //select siteid, (case when max(dose1) >= 59 then 1 else 0 end ) as dose1,  from RadiationData where date >= '2015-06-09 00:00:00.000' and timestamp >= '2015-06-09 01:05:00.000' group by siteid
-            return View();
+            return View(model);
         }
     }
 }

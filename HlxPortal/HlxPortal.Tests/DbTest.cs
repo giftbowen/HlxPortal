@@ -43,21 +43,17 @@ namespace HlxPortal.Tests
             return (a + delta) % max;
         }
 
-        [TestMethod]
-        public void PopulateRadiationData()
+        public void PopulateSiteRadiationData(byte siteId, DateTime dtStart, DateTime dtEnd)
         {
-            DateTime dtStart = DateTime.Now.Date.AddDays(-1);
-            DateTime dtEnd = DateTime.Now;
-
             int dose1 = 10, dose2 = 20, dose3 = 30, dose4 = 40, dose5 = 50;
             byte b1 = 0, b2 = 1;
             float temperature = 5f;
             float humidity = 30f;
-            for(var dt = dtStart; dt < dtEnd; dt += TimeSpan.FromMinutes(5))
+            for (var dt = dtStart; dt < dtEnd; dt += TimeSpan.FromMinutes(5))
             {
                 var radiationData = new RadiationDbData()
                 {
-                    SiteId = 2,
+                    SiteId = siteId,
                     Date = dt.Date,
                     TimeStamp = dt,
                     CameraImage = "0",
@@ -82,6 +78,17 @@ namespace HlxPortal.Tests
                 temperature = (temperature + 0.1f) % 30;
                 humidity = (humidity + 0.2f) % 80;
             }
+        }
+
+        [TestMethod]
+        public void PopulateRadiationData()
+        {
+            DateTime dtStart = DateTime.Now.Date.AddDays(-1);
+            DateTime dtEnd = DateTime.Now;
+
+            PopulateSiteRadiationData(1, dtStart, dtEnd);
+            PopulateSiteRadiationData(2, dtStart, dtEnd);
+            PopulateSiteRadiationData(4, dtStart, dtEnd);
         }
 
 
