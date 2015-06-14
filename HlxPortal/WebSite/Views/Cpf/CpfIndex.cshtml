@@ -1,27 +1,13 @@
 ﻿@model SiteDbData
 @using LeSan.HlxPortal.WebSite.DataEntity
 
-@{
-    Layout = null;
-    ViewBag.Title = "扫描图像记录";
-}
+@{ViewBag.Title = "扫描图像记录";}
 
-@*<link rel="stylesheet" href="~/Content/kendo.common.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.common.min.css" />
 <link rel="stylesheet" href="~/Content/kendo.silver.min.css" />
 <link rel="stylesheet" href="~/Content/kendo.dataviz.min.css" />
 <link rel="stylesheet" href="~/Content/kendo.dataviz.silver.min.css" />
-<script src="http://cdn.kendostatic.com/2015.1.429/js/jquery.min.js"></script>
-<script src="~/Scripts/kendo.all.min.js"></script>*@
-
-<title></title>
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.common-material.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.material.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.dataviz.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.dataviz.material.min.css" />
-
-<script src="http://cdn.kendostatic.com/2015.1.429/js/jquery.min.js"></script>
-<script src="http://cdn.kendostatic.com/2015.1.429/js/kendo.all.min.js"></script>
-
+<script src="~/Scripts/kendo.all.min.js"></script>
 
 <div class="itemTitleL" style="background:url(/images/itemTitle4.jpg);"><b class="iTLText f14">扫描图像记录 - <span>@Model.Name</span></b><span class="selDate">选择时间&nbsp;&nbsp;<input id="startDate" style="width: 200px" />&nbsp;&nbsp;-&nbsp;&nbsp;<input id="endDate" style="width: 200px" />&nbsp;&nbsp;<input id="queryBt" type="button" class="confirm" onclick="getCpfData()"></span></div>
 
@@ -29,15 +15,17 @@
 
 <script type="text/javascript">
     var startDt = $("#startDate").kendoDatePicker({
-        value: new Date(),
+        value: new Date('2015-06-12'),
         max: new Date()
     }).data("kendoDatePicker");
     var endDt = $("#endDate").kendoDatePicker({
         value: new Date(),
         max: new Date()
     }).data("kendoDatePicker");
-
+    
     var cpfData = [];
+
+    setUpTable();
     getCpfData();
 
     function getCpfData() {
@@ -59,6 +47,14 @@
 
     function loadTableData()
     {
+        var dataSource = new kendo.data.DataSource({ data: cpfData, pageSize: 20 });
+        var grid = $('#grid').data("kendoGrid");
+        dataSource.read();
+        grid.setDataSource(dataSource);
+    }
+
+    function setUpTable()
+    {
         $("#grid").kendoGrid({
             dataSource: {
                 data: cpfData,
@@ -78,6 +74,7 @@
             dataBound: function () {
                 // expand all detail row by default
                 //this.expandRow(this.tbody.find("tr.k-master-row"));
+                this.expandRow(this.tbody.find("tr.k-master-row").first());
                 // remove hierarchy column (expand/collapse column)
                 //$(".k-hierarchy-cell").remove();
                 //$(".k-hierarchy-col").remove();
@@ -93,19 +90,20 @@
     }
 
     function detailInit(e) {
+        var rowData = $.grep(cpfData, function (d) { return d.TimeStamp == e.data.TimeStamp; });
         $("<div/>").appendTo(e.detailCell).kendoGrid({
             dataSource: {
-                data: e.data,
+                data: rowData,
             },
             scrollable: false,
             sortable: false,
             pageable: false,
             columns: [
-                //{ field: "Base64CpfImage", title: "hehe" },
-                //{ field: "Base64LpnImage", title: "hehe" },
+                { field: "Base64CpfImage", title: "CPF" },
+                { field: "Base64LpnImage", title: "LPN" },
                 { field: "TimeStamp", title: "扫描时间" },
-                { field: "DbData.PlateNumber", title: "车牌号码" },
-                { field: "DbData.VehicleType", title: "车辆类型" },
+                //{ field: "DbData.PlateNumber", title: "车牌号码" },
+                //{ field: "DbData.VehicleType", title: "车辆类型" },
             ]
         });
     }
@@ -117,12 +115,4 @@
 {
     display: none;
 }*/
-</style>
-
-
-<style>
-    html {
-        font-size: 12px;
-        font-family: Arial, Helvetica, sans-serif;
-    }
 </style>

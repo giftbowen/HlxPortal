@@ -24,6 +24,15 @@
 		  $(this).next().addClass("curr").slideDown();
 		}		
     });
+	$(".hotSel a").click(function(){		
+	  index=$(this).index('.hotSel a');
+	  $('.hSS a').removeClass("hK2").addClass("hK1");
+	  $('.hSS').removeClass();
+	  $('.hotSel li:eq('+index+')').addClass("hSS");
+	  $('.hotSel li:eq('+index+') a').removeClass("hK1").addClass("hK2");
+	  $('.curveData:visible').hide();
+	  $('.curveData:eq('+index+')').show();
+	});
   });
 </script>
 </head>
@@ -83,9 +92,34 @@
   </div>
   <div class="rContent">
     <div class="itemTitle" style="background:url(images/itemTitle3.jpg);"><b class="iTLText f14">放射剂量情况 - <span>站点或设备名称</span></b></div>
-    <div class="selBar"><span class="selDate">选择周期&nbsp;&nbsp;<input type="text" class="dateInput">&nbsp;&nbsp;-&nbsp;&nbsp;<input type="text" class="dateInput">&nbsp;&nbsp;<input type="button" class="confirm"></span></div>
-    <div class="curveMap"><img src="pic/curve.jpg" /></div>  
-    <div class="curveInfo"><b class="f14">设备放射剂情况报告</b><span class="Tgray">2015-10-10 10:10</span><br><p class="f14">中国日报网6月3日电（信莲）据韩联社6月3日报道，韩国教育部长黄祐吕当日宣布，为预防中东呼吸综合征（MERS）疫情传播，韩国209所学校当天停课。韩国国防部发言人当天确认，韩国军方已成立特别应对小组以防止疫情在军营传播。</p></div>
+    <div class="hotSel">
+      <ul>
+        <li class="hSS"><a class="hK2">最近三日</a></li>
+        <li><a class="hK1">历史记录</a></li>
+      </ul>
+    </div>
+    <div class="curveData">
+      <div class="cTitle f14" style="margin-top:24px;">曲线图名称</div>
+      <div class="curveMap"><img src="pic/curve.jpg" /></div>
+      <div class="cTitle f14">曲线图名称</div>
+      <div class="curveMap"><img src="pic/curve.jpg" /></div>
+      <div class="cTitle f14">曲线图名称</div>
+      <div class="curveMap"><img src="pic/curve.jpg" /></div>
+      <div class="cTitle f14">图片组名称</div>
+      <div class="cPicGroup">
+        <a href="#"><img src="pic/curveGroup.jpg" alt="名称" title="名称"/></a>
+        <a href="#"><img src="pic/curveGroup.jpg" alt="名称" title="名称"/></a>
+        <a href="#"><img src="pic/curveGroup.jpg" alt="名称" title="名称"/></a>
+        <a href="#"><img src="pic/curveGroup.jpg" alt="名称" title="名称"/></a>
+        <a href="#"><img src="pic/curveGroup.jpg" alt="名称" title="名称"/></a>
+        <a href="#"><img src="pic/curveGroup.jpg" alt="名称" title="名称"/></a>
+        <a href="#"><img src="pic/curveGroup.jpg" alt="名称" title="名称"/></a>
+      </div>  
+    </div>
+    <div class="curveData" style="display:none;">
+      <div class="cTitle f14" style="margin-top:24px;">曲线图名称</div>
+      <div class="curveMap"><img src="pic/curve.jpg" /></div>  
+    </div>
   </div>
   <div class="clear"></div>
 </div>

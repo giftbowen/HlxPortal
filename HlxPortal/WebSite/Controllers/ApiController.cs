@@ -53,8 +53,8 @@ namespace LeSan.HlxPortal.WebSite.Controllers
                 cpfPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_CPF.jpg";
                 lpnPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_LPN.jpg";
 
-                cpfModel.Base64CpfImage = Util.LoadJpgAsBase64(cpfPath);
-                cpfModel.Base64LpnImage = Util.LoadJpgAsBase64(lpnPath);
+                //cpfModel.Base64CpfImage = Util.LoadJpgAsBase64(cpfPath);
+                //cpfModel.Base64LpnImage = Util.LoadJpgAsBase64(lpnPath);
 
                 model.Add(cpfModel);
             }
