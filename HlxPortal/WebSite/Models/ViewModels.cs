@@ -26,4 +26,12 @@ namespace LeSan.HlxPortal.WebSite.Models
         public List<SiteModel> SiteObjs { get; set; }
         public List<HeatmapIndicator> Indicators { get; set; }
     }
+
+    public class CpfViewModel
+    {
+        public CpfDbData DbData { get; set; }
+        public DateTime TimeStamp { get; set; }
+        public string Base64CpfImage { get; set; }
+        public string Base64LpnImage { get; set; }
+    }
 }

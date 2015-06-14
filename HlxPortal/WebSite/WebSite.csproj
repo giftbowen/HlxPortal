@@ -168,6 +168,7 @@
     <Compile Include="Caching\RegularUpdateTasks.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\CpfController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RadiationController.cs" />
     <Compile Include="DataEntity\HeatmapIndicator.cs" />
@@ -285,7 +286,7 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Radiation\Index.cshtml" />
+    <Content Include="Views\Radiation\RaditaionIndex.cshtml" />
     <Content Include="Views\Radiation\LatestPartial.cshtml" />
     <Content Include="Views\Radiation\HistoryPartial.cshtml" />
     <Content Include="Scripts\kendo.all.min.js.map" />
@@ -293,6 +294,7 @@
     <Content Include="Views\Home\UnAuthorized.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\Heatmap.cshtml" />
+    <Content Include="Views\Cpf\CpfIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

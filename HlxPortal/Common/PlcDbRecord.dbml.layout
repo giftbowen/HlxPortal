@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="PlcDbRecord">
   <DataContextMoniker Name="/PlcDbRecordDataContext" />
   <nestedChildShapes>
-    <classShape Id="46c77790-6bdc-46f6-b954-5b9f53b28581" absoluteBounds="1.75, 1.25, 2, 1.3862939453125">
+    <classShape Id="71a70d85-f3ac-4f8d-9df4-184877491f23" absoluteBounds="1.625, 1.5, 2, 1.3862939453125">
       <DataClassMoniker Name="/PlcDbRecordDataContext/PlcDbRecord" />
       <nestedChildShapes>
-        <elementListCompartment Id="46579354-a507-4a45-a04d-3e47056b2b2d" absoluteBounds="1.7650000000000001, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="46af4153-a4aa-456b-8130-c23a810a1172" absoluteBounds="1.6400000000000001, 1.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

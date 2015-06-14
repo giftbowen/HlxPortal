@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HlxPortal" Class="PlcDbRecordDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=Bowenz-1;Initial Catalog=HlxPortal;Integrated Security=True" SettingsObjectName="LeSan.HlxPortal.DataCollector.Properties.Settings" SettingsPropertyName="HlxPortalConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\Projects;Initial Catalog=HlxPortal;Integrated Security=True;Connect Timeout=30" SettingsObjectName="LeSan.HlxPortal.Common.Properties.Settings" SettingsPropertyName="HlxPortalConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.PlcData" Member="PlcDbRecords">
     <Type Name="PlcDbRecord">
       <Column Name="SiteId" Type="System.Byte" DbType="TinyInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />

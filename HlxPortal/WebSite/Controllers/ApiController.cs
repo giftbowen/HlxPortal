@@ -1,4 +1,5 @@
 ﻿using LeSan.HlxPortal.Common;
+using LeSan.HlxPortal.WebSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,6 +23,43 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             var radiations = (from r in radiationTable where r.Date >= startDate.Date && r.Date <= endDate.Date && r.SiteId == siteId orderby r.TimeStamp select r).ToList();
 
             return radiations;
+        }
+    }
+
+    [Authorize]
+    public class CpfApiController : ApiController
+    {
+        public List<CpfViewModel> Get(int siteId, DateTime startDate, DateTime endDate)
+        {
+            var connstring = ConfigurationManager.ConnectionStrings[Consts.DbConnectionStringName].ConnectionString;
+            DataContext db = new DataContext(connstring);
+            var cpfTable = db.GetTable<CpfDbData>();
+
+            var cpfDatas = (from c in cpfTable where c.Date >= startDate.Date && c.Date <= endDate.Date && c.SiteId == siteId orderby c.SN select c).ToList();
+
+            List<CpfViewModel> model = new List<CpfViewModel>();
+
+            foreach(var cpf in cpfDatas)
+            {
+                var cpfModel = new CpfViewModel()
+                {
+                    DbData = cpf,
+                    TimeStamp = Util.FromSN(cpf.SN)
+                };
+
+                var cpfPath = Util.GetCpfImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigCpfLpnRoot], (byte)siteId, cpfModel.TimeStamp);
+                var lpnPath = Util.GetLpnImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigCpfLpnRoot], (byte)siteId, cpfModel.TimeStamp);
+
+                cpfPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_CPF.jpg";
+                lpnPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_LPN.jpg";
+
+                cpfModel.Base64CpfImage = Util.LoadJpgAsBase64(cpfPath);
+                cpfModel.Base64LpnImage = Util.LoadJpgAsBase64(lpnPath);
+
+                model.Add(cpfModel);
+            }
+
+            return model;
         }
     }
 }

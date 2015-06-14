@@ -321,7 +321,7 @@ namespace LeSan.HlxPortal.DataCollector
                 ControlGate = msg.Data[9],
                 OpenShutterTimeout = msg.Data[10],
                 PressureHigh = msg.Data[11],
-                RadiationGateStop = msg.Data[12],
+                RadiationRoomStop = msg.Data[12],
                 VehicleFollow = msg.Data[13],
                 ShutterFailure = msg.Data[14],
                 PressureLow = msg.Data[15],

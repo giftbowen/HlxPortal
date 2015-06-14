@@ -38,14 +38,8 @@ namespace LeSan.HlxPortal.WebSite.Controllers
                 try
                 {
                     var path = Util.GetRadiationImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigRadiationCameraRoot], (byte)siteId, r.CameraImage);
-                    Image img = Image.FromFile(path);
-                    byte[] arr;
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        arr = ms.ToArray();
-                    }
-                    cameraBase64s.Add(Convert.ToBase64String(arr));
+                    var image = Util.LoadJpgAsBase64(path);
+                    cameraBase64s.Add(image);
                 }
                 catch(Exception ex)
                 {
@@ -61,7 +55,7 @@ namespace LeSan.HlxPortal.WebSite.Controllers
                 CameraImageBase64List = cameraBase64s
             };
 
-            return View(model);
+            return View("RadiationIndex", model);
         }
     }
 }

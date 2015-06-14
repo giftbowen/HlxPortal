@@ -5,11 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Linq.Mapping;
 
-namespace LeSan.HlxPortal.DataCollector
+namespace LeSan.HlxPortal.Common
 {
     [Table(Name="CpfData")]
     public class CpfDbData
     {
+        //private DateTime? timeStamp = null;
+
+        ///// <summary>
+        ///// Non-column
+        ///// </summary>
+        //public DateTime TimeStamp
+        //{
+        //    get { timeStamp = timeStamp ?? Util.FromSN(SN); return timeStamp.Value; }
+        //}
+
         [Column]
         public DateTime Date { get; set; }
         [Column]

@@ -1,0 +1,128 @@
+﻿@model SiteDbData
+@using LeSan.HlxPortal.WebSite.DataEntity
+
+@{
+    Layout = null;
+    ViewBag.Title = "扫描图像记录";
+}
+
+@*<link rel="stylesheet" href="~/Content/kendo.common.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.silver.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.dataviz.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.dataviz.silver.min.css" />
+<script src="http://cdn.kendostatic.com/2015.1.429/js/jquery.min.js"></script>
+<script src="~/Scripts/kendo.all.min.js"></script>*@
+
+<title></title>
+<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.dataviz.min.css" />
+<link rel="stylesheet" href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.dataviz.material.min.css" />
+
+<script src="http://cdn.kendostatic.com/2015.1.429/js/jquery.min.js"></script>
+<script src="http://cdn.kendostatic.com/2015.1.429/js/kendo.all.min.js"></script>
+
+
+<div class="itemTitleL" style="background:url(/images/itemTitle4.jpg);"><b class="iTLText f14">扫描图像记录 - <span>@Model.Name</span></b><span class="selDate">选择时间&nbsp;&nbsp;<input id="startDate" style="width: 200px" />&nbsp;&nbsp;-&nbsp;&nbsp;<input id="endDate" style="width: 200px" />&nbsp;&nbsp;<input id="queryBt" type="button" class="confirm" onclick="getCpfData()"></span></div>
+
+<div id="grid"></div>
+
+<script type="text/javascript">
+    var startDt = $("#startDate").kendoDatePicker({
+        value: new Date(),
+        max: new Date()
+    }).data("kendoDatePicker");
+    var endDt = $("#endDate").kendoDatePicker({
+        value: new Date(),
+        max: new Date()
+    }).data("kendoDatePicker");
+
+    var cpfData = [];
+    getCpfData();
+
+    function getCpfData() {
+        $.ajax({
+            url: "api/CpfApi",
+            dataType: "json",
+            async: true,
+            data: {
+                siteId: "@Model.SiteId",
+                startDate: startDt.value().toDateString(),
+                endDate: endDt.value().toDateString()
+            },
+            success: function (jsonData, textStatus, qXHR) {
+                cpfData = jsonData;
+                loadTableData();
+            },
+        });
+    }
+
+    function loadTableData()
+    {
+        $("#grid").kendoGrid({
+            dataSource: {
+                data: cpfData,
+                pageSize: 20
+            },
+            height: 650,
+            scrollable: {
+                virtual: true
+            },
+            pageable: {
+                info: true,
+                numeric: true,
+                previousNext: true
+            },
+            sortable: true,
+            detailInit: detailInit,
+            dataBound: function () {
+                // expand all detail row by default
+                //this.expandRow(this.tbody.find("tr.k-master-row"));
+                // remove hierarchy column (expand/collapse column)
+                //$(".k-hierarchy-cell").remove();
+                //$(".k-hierarchy-col").remove();
+            },
+            columns: [
+                { field: "TimeStamp", title: "扫描时间"},
+                { field: "DbData.PlateNumber", title: "车牌号码" },
+                { field: "DbData.VehicleType", title: "车辆类型" },
+                { field: "DbData.Goods", title: "货物" },
+                { field: "DbData.Comments", title: "结论" }
+            ]
+        });
+    }
+
+    function detailInit(e) {
+        $("<div/>").appendTo(e.detailCell).kendoGrid({
+            dataSource: {
+                data: e.data,
+            },
+            scrollable: false,
+            sortable: false,
+            pageable: false,
+            columns: [
+                //{ field: "Base64CpfImage", title: "hehe" },
+                //{ field: "Base64LpnImage", title: "hehe" },
+                { field: "TimeStamp", title: "扫描时间" },
+                { field: "DbData.PlateNumber", title: "车牌号码" },
+                { field: "DbData.VehicleType", title: "车辆类型" },
+            ]
+        });
+    }
+</script>
+
+<style>
+/*hide detail table header*/
+/*.k-grid tbody .k-grid .k-grid-header
+{
+    display: none;
+}*/
+</style>
+
+
+<style>
+    html {
+        font-size: 12px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>

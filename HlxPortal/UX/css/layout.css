@@ -15,18 +15,18 @@ a:hover {text-decoration:underline;cursor:pointer;}
 .login,.content,.footer,.logSite {margin:0px auto;}
 .content,.footer {width:1240px;}
 .topSite,.topBanner,.allsel,.aSSel,.logBg {width:100%;}
-.date,.lContent,.iTLText,.hotSel ul li,.hotPic,.graph,.aSSel ul li {float:left;}
+.date,.lContent,.iTLText,.hotSel ul li,.hotPic,.graph,.aSSel ul li,.cPicGroup a {float:left;}
 .log,.iTRText,.hotKind select,.selDate {float:right;}
 .footer,.hotSel {vertical-align:middle;}
 .hotSel ul li,.hotPic a,.footer {text-align:center;}
-.totalList,.totalList li,.member,.siteSel li,.hotSel ul li,.hotPic a,.pClose,.aSSel ul li {display:block;}
-.rContent,.infoTab td,.hotPic,.dateInput,.infoInput {border:1px solid #d5d5d5;}
-.itemTitle,.allMap,.hotSel,.curveMap {border-bottom:1px solid #d5d5d5;}
+.totalList,.totalList li,.member,.siteSel li,.hotSel ul li,.hotPic a,.pClose,.aSSel ul li,.cPicGroup a {display:block;}
+.rContent,.infoTab td,.hotPic,.dateInput,.infoInput,.cPicGroup a {border:1px solid #d5d5d5;}
+.itemTitle,.allMap,.hotSel,.cPicGroup {border-bottom:1px solid #d5d5d5;}
 .dateInput,.infoInput,.picFrame {background:#fff;}
 .totalList li a:hover,.siteName:hover,.siteSel li a:hover,.hK1:hover,.blue:hover,.blue2:hover,.red:hover,.gray:hover {color:#f60;}
-.selName,.infoTab td,.curveInfo,.selDate,.picInfo,.infoInput,.password,.logInput {color:#5c5c5c;}
+.selName,.infoTab td,.selDate,.picInfo,.infoInput,.password,.logInput,.cTitle {color:#5c5c5c;}
 .hotSel,.hK1,.graph {color:#868686;}
-.selInfo,.hotSel,.curveMap,.curveInfo,.selBar {margin:24px auto 0px auto;}
+.selInfo,.hotSel,.curveMap,.selBar,.cPicGroup {margin:24px auto 0px auto;}
 .total,.allSite,.member {width:220px;height:46px;}
 .totalList,.aSList {width:194px;padding:0px 12px;border-left:1px solid #d5d5d5;border-right:1px solid #d5d5d5;background:#fff;}
 .siteName,.siteNameS,.totalList li,.siteSel li {height:29px;*height:31px;padding-top:15px;*padding-top:13px;border-bottom:1px solid #d5d5d5;}
@@ -81,9 +81,10 @@ body {min-width:1240px;background:url(../images/pageBg.gif) repeat;}
 .stateB {background:#57a5d5;}
 .stateY {background:#f4a40d;}
 .stateR {background:#cd4549;}
-.curveMap {width:928px;padding-bottom:24px;}
-.curveInfo {width:888px;padding:2px 0px 0px 40px;background:url(../images/siteInfo2.gif) no-repeat;line-height:28px;}
-.curveInfo span {margin-left:30px;}
+.curveMap {width:920px;padding-bottom:24px;}
+.cPicGroup {width:920px;height:454px;padding-top:20px;border-top:1px solid #d5d5d5;overflow-y:scroll;}
+.cPicGroup a {width:270px;height:203px;padding:1px;margin:0px 20px 20px 0px;}
+.cTitle {width:900px;margin:0px auto;background:url(../images/square.gif) no-repeat 0px 5px;padding-left:20px;font-weight:bold;}
 .selBar {width:928px;height:24px;}
 .dateInput {width:90px;height:12px;padding:5px;}
 .confirm {background-image:url(../images/confirm.gif);}

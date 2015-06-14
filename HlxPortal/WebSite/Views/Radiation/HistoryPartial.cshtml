@@ -6,7 +6,6 @@
         <input id="endDate" style="width: 200px"/>
         <input id="queryBt" type="button" class="confirm" onclick="getRadiationData()">
     </p>
-    
 </div>
 
 <div id="grid"></div>
@@ -25,8 +24,6 @@
     getRadiationData();
 
     function getRadiationData() {
-        var a = startDt.value().toISOString();
-        var b = new Date().toDateString();
         $.ajax({
             url: "api/RadiationApi",
             dataType: "json",

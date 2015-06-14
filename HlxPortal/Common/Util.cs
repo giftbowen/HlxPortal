@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -13,12 +14,12 @@ namespace LeSan.HlxPortal.Common
     {
         public static string GetCpfImagePath(string root, byte siteId, DateTime time)
         {
-            return string.Format(@"{0}{1:000}\{2:yyyy\\MM\\dd\\yyyyMMddHHmmss}_{1:000}_CPF.jpg", root, siteId, time);
+            return string.Format(@"{0}{1:000}\{2:yyyy\\MM\\dd\\yyyyMMddHHmmss}_{1:000}_CPF.jpg", root.Trim(), siteId, time);
         }
 
         public static string GetLpnImagePath(string root, byte siteId, DateTime time)
         {
-            return string.Format(@"{0}{1:000}\{2:yyyy\\MM\\dd\\yyyyMMddHHmmss}_{1:000}_LPN.jpg", root, siteId, time);
+            return string.Format(@"{0}{1:000}\{2:yyyy\\MM\\dd\\yyyyMMddHHmmss}_{1:000}_LPN.jpg", root.Trim(), siteId, time);
         }
         public static string GetRadiationImagePath(string root, byte siteId, string sn)
         {
@@ -27,7 +28,7 @@ namespace LeSan.HlxPortal.Common
 
         public static string GetRadiationImagePath(string root, byte siteId, DateTime time)
         {
-            return string.Format(@"{0}{1:000}\{2:yyyy\\MM\\dd\\yyyyMMddHHmmss}_{1:000}_RC.jpg", root, siteId, time);
+            return string.Format(@"{0}{1:000}\{2:yyyy\\MM\\dd\\yyyyMMddHHmmss}_{1:000}_RC.jpg", root.Trim(), siteId, time);
         }
 
         public static string GetSN(DateTime time)
@@ -37,7 +38,7 @@ namespace LeSan.HlxPortal.Common
 
         public static DateTime FromSN(string sn)
         {
-            return DateTime.ParseExact(sn, "yyyyMMddHHmmss", null, DateTimeStyles.AssumeLocal);
+            return DateTime.ParseExact(sn.Trim(), "yyyyMMddHHmmss", null, DateTimeStyles.AssumeLocal);
         }
 
         public static void CreateDirectoryOfFilePath(string fileFullPath)
@@ -75,6 +76,18 @@ namespace LeSan.HlxPortal.Common
                 }
             }
             return -1;
+        }
+
+        public static string LoadJpgAsBase64(string path)
+        {
+            Image img = Image.FromFile(path);
+            byte[] arr;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                arr = ms.ToArray();
+            }
+            return Convert.ToBase64String(arr);
         }
     }
 

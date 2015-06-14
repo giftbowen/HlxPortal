@@ -8,7 +8,8 @@
     @Styles.Render("~/Content/css")
     @*@Styles.Render("~/Content/css1")*@
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    <script src="http://cdn.kendostatic.com/2015.1.429/js/jquery.min.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
         $(document).ready(function () {
@@ -56,14 +57,14 @@
                     <a class="siteName">@site.Name</a>
                     <ul class="siteSel" style="display:none;">
                         <li>@Html.ActionLink("放射剂量信息", "Index", "Radiation", new {siteId = site.SiteId}, null)</li>
-                        <li>@Html.ActionLink("设备实时监控", "actionname", "controllername")</li>
-                        <li>@Html.ActionLink("图像扫描记录", "actionname", "controllername")</li>
+                        <li>@Html.ActionLink("设备实时监控", "actionname", "controllername", new { siteId = site.SiteId }, null)</li>
+                        <li>@Html.ActionLink("扫描图像记录", "Index", "Cpf", new { siteId = site.SiteId }, null)</li>
                     </ul>
                 }
             </div>
             <a href="#" class="member"></a>
         </div>
-        <div class="rContent">
+        <div class="rContent" style="min-width:1000px">
             @RenderBody()
         </div>
         <div class="clear"></div>

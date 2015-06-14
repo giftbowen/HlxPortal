@@ -34,7 +34,6 @@ namespace LeSan.HlxPortal.WebSite
             }
 
             sb.Append(" From RadiationData Where Date >= @startDate and Date <= @endDate and Timestamp >= @startTime and Timestamp <= @endTime Group By SiteId");
-            //sb.Append(" From RadiationData Group By SiteId");
             string query = sb.ToString();
 
             List<HeatmapViewModel.SiteModel> siteObjs = new List<HeatmapViewModel.SiteModel>();
@@ -56,10 +55,6 @@ namespace LeSan.HlxPortal.WebSite
                     SqlDataReader reader = comm.ExecuteReader();
                     while (reader.Read())
                     {
-
-                        var who = reader["SiteId"];
-                        var a1 = reader.GetOrdinal("SiteId");
-                        var a2 = reader.GetByte(a1);
                         int siteId = (byte)reader["SiteId"];
                         SiteDbData site = dictSites[siteId];
                         HeatmapViewModel.SiteModel siteObj = new HeatmapViewModel.SiteModel()
@@ -96,7 +91,6 @@ namespace LeSan.HlxPortal.WebSite
                     siteObjs.Add(new HeatmapViewModel.SiteModel() { SiteId = site.SiteId, SiteInfo = site, HeatmapData = null });
                 }
             }
-
 
             return new HeatmapViewModel() { Indicators = indicators, SiteObjs = siteObjs };
         }

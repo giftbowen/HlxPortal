@@ -91,24 +91,21 @@ namespace HlxPortal.Tests
             PopulateSiteRadiationData(4, dtStart, dtEnd);
         }
 
-
-
-        [TestMethod]
-        public void TestMethod2()
+        public void PopulateSiteCpfData(int siteId, DateTime dtStart, DateTime dtEnd)
         {
             var cpfList = new List<CpfDbData>();
-            for (int i = 0; i < 10; i++)
+            for (var dt = dtStart; dt < dtEnd; dt += TimeSpan.FromMinutes(5))
             {
                 var cpfData = new CpfDbData()
                 {
-                    Date = DateTime.Now.Date,
-                    SiteId = 10000 + i,
-                    SN ="2015 test sn",
+                    Date = dt.Date,
+                    SiteId = siteId,
+                    SN = Util.GetSN(dt),
                     DeviceId = 5,
-                    PlateNumber = "test plate number",
-                    VehicleType = "test vehicle type",
-                    Comments = "test comments",
-                    Goods = "test goods"
+                    PlateNumber = "京A45678挂 " + (dt - dtStart).TotalMinutes,
+                    VehicleType = "货车 " + (dt - dtStart).TotalMinutes,
+                    Comments = "货物合格" + (dt - dtStart).TotalMinutes,
+                    Goods = "各种货物" + (dt - dtStart).TotalMinutes
                 };
                 cpfList.Add(cpfData);
             }
@@ -116,6 +113,12 @@ namespace HlxPortal.Tests
             DbHelper.InsertCpfDbData(connString, cpfList);
         }
 
-
+        [TestMethod]
+        public void PopuldateCpfData()
+        {
+            PopulateSiteCpfData(2, DateTime.Now.AddDays(-1), DateTime.Now);
+            PopulateSiteCpfData(3, DateTime.Now.AddDays(-1), DateTime.Now);
+            PopulateSiteCpfData(4, DateTime.Now.AddDays(-1), DateTime.Now);
+        }
     }
 }
