@@ -120,5 +120,50 @@ namespace HlxPortal.Tests
             PopulateSiteCpfData(3, DateTime.Now.AddDays(-1), DateTime.Now);
             PopulateSiteCpfData(4, DateTime.Now.AddDays(-1), DateTime.Now);
         }
+
+        public void PopulateSitePlcData(int siteId, byte value)
+        {
+            var plcData = new PlcDbData()
+            {
+                SiteId = siteId,
+                TimeStamp = DateTime.Now,
+                StopNormal = value,
+                Ready = value,
+                RadiationPosition = value,
+                Radiation = value,
+                ShutterClosePosition = value,
+                OpenShutterCmd = value,
+                RadiationGate = value,
+                ShutterOpenPosition = value,
+                CollectCmd = value,
+                ControlGate = value,
+                OpenShutterTimeout = value,
+                PressureHigh = value,
+                RadiationRoomStop = value,
+                VehicleFollow = value,
+                ShutterFailure = value,
+                PressureLow = value,
+                VehicleBack = value,
+                Loops12Stop = value,
+                Loops23Stop = value,
+                Loops34Stop = value,
+                Authorize = value,
+                MainRoomStop = value,
+                ManualAuto = value,
+                LoopsPhotoelectric = value,
+                Photoelectirc1 = value,
+                Photoelectirc2 = value,
+                Photoelectirc3 = value,
+            };
+
+            DbHelper.InsertPlcData(connString, plcData);
+        }
+
+        [TestMethod]
+        public void PopuldatePlcData()
+        {
+            PopulateSitePlcData(1, 0);
+            PopulateSitePlcData(2, 1);
+        }
     }
 }

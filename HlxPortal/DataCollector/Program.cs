@@ -29,7 +29,7 @@ namespace LeSan.HlxPortal.DataCollector
 
         private static object lockObj = new object();
         private static List<byte> sitesToResetPlc = new List<byte>();
-        
+
         static void Main(string[] args)
         {
             Thread ipcThread = new Thread(ServerThread);
@@ -308,6 +308,7 @@ namespace LeSan.HlxPortal.DataCollector
 
             var plcData = new PlcDbData()
             {
+                SiteId = siteId,
                 TimeStamp = DateTime.Now,
                 StopNormal = msg.Data[0],
                 Ready = msg.Data[1],
@@ -338,24 +339,7 @@ namespace LeSan.HlxPortal.DataCollector
                 Photoelectirc3 = msg.Data[26],
             };
 
-            // Insert/Update/Delete using Linq2Sql require the table to have primary key, so only the plc db fits the requirement
-            // serialize plc data and store into db, keep the latest snapshot only
-            string plcKeyValueData = JsonConvert.SerializeObject(plcData);
-            PlcDbRecordDataContext db = new PlcDbRecordDataContext(ConnectionString);
-            var existingRecord = (from record in db.PlcDbRecords where record.SiteId == siteId select record);
-            // update the record with the same site-id if it exists
-            if (existingRecord.Any())
-            {
-                existingRecord.First().TimeStamp = plcData.TimeStamp;
-                existingRecord.First().KeyValueData = plcKeyValueData;
-            }
-            else
-            {
-                // insert a new record if the record with the same site-id doesn't exist
-                db.PlcDbRecords.InsertOnSubmit(new PlcDbRecord() { SiteId = siteId, TimeStamp = plcData.TimeStamp, KeyValueData = plcKeyValueData });
-            }
-            
-            db.SubmitChanges();
+            DbHelper.InsertPlcData(ConnectionString, plcData);
         }
 
         public static void CollectRadiationData(Socket dataSock, byte siteId, ref DateTime lastTimeGetHeartBeat)

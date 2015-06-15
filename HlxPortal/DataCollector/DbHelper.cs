@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LeSan.HlxPortal.Common;
+using Newtonsoft.Json;
 
 
 namespace LeSan.HlxPortal.DataCollector
@@ -80,6 +81,28 @@ namespace LeSan.HlxPortal.DataCollector
                 }
                 bulkCopy.WriteToServer(cpfTable);
             }
+        }
+
+        public static void InsertPlcData(string connectionString, PlcDbData plcData)
+        {
+            // Insert/Update/Delete using Linq2Sql require the table to have primary key, so only the plc db fits the requirement
+            // serialize plc data and store into db, keep the latest snapshot only
+            string plcKeyValueData = JsonConvert.SerializeObject(plcData);
+            PlcDbRecordDataContext db = new PlcDbRecordDataContext(connectionString);
+            var existingRecord = (from record in db.PlcDbRecords where record.SiteId == plcData.SiteId select record);
+            // update the record with the same site-id if it exists
+            if (existingRecord.Any())
+            {
+                existingRecord.First().TimeStamp = plcData.TimeStamp;
+                existingRecord.First().KeyValueData = plcKeyValueData;
+            }
+            else
+            {
+                // insert a new record if the record with the same site-id doesn't exist
+                db.PlcDbRecords.InsertOnSubmit(new PlcDbRecord() { SiteId = (byte)plcData.SiteId, TimeStamp = plcData.TimeStamp, KeyValueData = plcKeyValueData });
+            }
+            
+            db.SubmitChanges();
         }
     }
 }

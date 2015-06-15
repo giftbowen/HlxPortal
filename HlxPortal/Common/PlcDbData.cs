@@ -9,6 +9,7 @@ namespace LeSan.HlxPortal.Common
     public class PlcDbData
     {
         public const int PLC_TOTAL_LENGTH = 27;
+        public int SiteId { get; set; }
         public DateTime TimeStamp { get; set; }
         public byte StopNormal { get; set; }
         public byte Ready { get; set; }

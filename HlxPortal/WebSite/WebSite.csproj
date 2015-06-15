@@ -170,6 +170,7 @@
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\CpfController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlcController.cs" />
     <Compile Include="Controllers\RadiationController.cs" />
     <Compile Include="DataEntity\HeatmapIndicator.cs" />
     <Compile Include="DataEntity\SiteDbData.cs" />
@@ -295,6 +296,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\Heatmap.cshtml" />
     <Content Include="Views\Cpf\CpfIndex.cshtml" />
+    <Content Include="Views\Plc\PlcIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

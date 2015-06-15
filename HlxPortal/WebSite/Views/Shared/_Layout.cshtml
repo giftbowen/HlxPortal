@@ -56,7 +56,7 @@
                     <a class="siteName">@site.Name</a>
                     <ul class="siteSel" style="display:none;">
                         <li>@Html.ActionLink("放射剂量信息", "Index", "Radiation", new {siteId = site.SiteId}, null)</li>
-                        <li>@Html.ActionLink("设备实时监控", "actionname", "controllername", new { siteId = site.SiteId }, null)</li>
+                        <li>@Html.ActionLink("设备实时监控", "Index", "Plc", new { siteId = site.SiteId }, null)</li>
                         <li>@Html.ActionLink("扫描图像记录", "Index", "Cpf", new { siteId = site.SiteId }, null)</li>
                     </ul>
                 }
