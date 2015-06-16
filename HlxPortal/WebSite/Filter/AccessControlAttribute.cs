@@ -25,6 +25,8 @@ namespace LeSan.HlxPortal.WebSite
                     filterContext.Result = new RedirectResult("~/Home/UnAuthorized?msg=您没有访问该站点的权限！");
                 }
             }
+
+            var a = filterContext.Controller;
         }
     }
 

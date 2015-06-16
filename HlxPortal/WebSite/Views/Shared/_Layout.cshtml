@@ -45,7 +45,7 @@
     <div class="content">
         <div class="lContent">
             <div class="total"></div>
-            <ul class="totalList" style="display:none;">
+            <ul class="totalList">
                 <li>@Html.ActionLink("全国站点地图", "Index", "Home")</li>
                 <li style="border:none;">@Html.ActionLink("关键系统指标", "Heatmap", "Home")</li>
             </ul>
@@ -55,13 +55,13 @@
                 {
                     <a class="siteName">@site.Name</a>
                     <ul class="siteSel" style="display:none;">
-                        <li>@Html.ActionLink("放射剂量信息", "Index", "Radiation", new {siteId = site.SiteId}, null)</li>
-                        <li>@Html.ActionLink("设备实时监控", "Index", "Plc", new { siteId = site.SiteId }, null)</li>
-                        <li>@Html.ActionLink("扫描图像记录", "Index", "Cpf", new { siteId = site.SiteId }, null)</li>
+                        <li>@Html.ActionLink("放射剂量信息", "RadiationIndex", "Radiation", new {siteId = site.SiteId}, null)</li>
+                        <li>@Html.ActionLink("设备实时监控", "PlcIndex", "Plc", new { siteId = site.SiteId }, null)</li>
+                        <li>@Html.ActionLink("扫描图像记录", "CpfIndex", "Cpf", new { siteId = site.SiteId }, null)</li>
                     </ul>
                 }
             </div>
-            <a href="#" class="member"></a>
+            <a href="/Admin/AdminIndex" class="member"></a>
         </div>
         <div class="rContent" style="min-width:1000px">
             @RenderBody()

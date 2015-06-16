@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using LeSan.HlxPortal.WebSite;
+using System;
 
 namespace LeSan.HlxPortal.WebSite.Models
 {
@@ -7,6 +8,9 @@ namespace LeSan.HlxPortal.WebSite.Models
     public class ApplicationUser : IdentityUser
     {
         public string Password { get; set; }
+        public DateTime RegisterTime { get; set; }
+        public string RoleType { get; set; }
+        public string Comments { get; set; } 
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

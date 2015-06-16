@@ -15,6 +15,11 @@ namespace LeSan.HlxPortal.WebSite.Controllers
         // GET: /Plc/
         public ActionResult Index(int siteId)
         {
+            return RedirectToAction("PlcIndex", new { siteId = siteId });
+        }
+
+        public ActionResult PlcIndex(int siteId)
+        {
             var connstring = ConfigurationManager.ConnectionStrings[Consts.DbConnectionStringName].ConnectionString;
             PlcDbRecordDataContext db = new PlcDbRecordDataContext(connstring);
             var jsonData = (from record in db.PlcDbRecords where record.SiteId == siteId select record.KeyValueData).First();

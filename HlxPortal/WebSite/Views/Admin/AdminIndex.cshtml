@@ -1,0 +1,72 @@
+﻿@model List<UserViewModel>
+@using LeSan.HlxPortal.WebSite.Models
+@using LeSan.HlxPortal.WebSite
+@using Newtonsoft.Json
+@{ViewBag.Title = "用户管理";}
+
+<link rel="stylesheet" href="~/Content/kendo.common.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.silver.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.dataviz.min.css" />
+<link rel="stylesheet" href="~/Content/kendo.dataviz.silver.min.css" />
+<script src="~/Scripts/kendo.all.min.js"></script>
+
+
+<div class="itemTitleL" style="background:url(/images/itemTitle5.jpg);"><b class="iTLText f14">用户管理</b></div>
+<div id="grid"></div>
+&nbsp;&nbsp;<input type="button" class="addBtn" onclick="addUser()">
+<script type="text/javascript">
+    var allUsers = @Html.Raw(JsonConvert.SerializeObject(Model)) ;
+
+    $("#grid").kendoGrid({
+        dataSource: {
+            data: allUsers,
+            pageSize: 20
+        },
+        height: 650,
+        scrollable: {
+            virtual: true
+        },
+        pageable: {
+            info: true,
+            numeric: true,
+            previousNext: true
+        },
+        sortable: true,
+        columns: [
+            { field: "UserName", title: "YonghuMing"},
+            { field: "RoleType", title: "RoleType", 
+                template: function(dataItem) {
+                    if (dataItem.RoleType == "@Consts.RoleAdmin"){
+                        return "管理员";
+                    }else if (dataItem.RoleType == "@Consts.RoleVip"){
+                        return "白金用户";
+                    }else{
+                        return "普通用户";
+                    }
+                }
+            },
+            { field: "RegisterTime", title: "创建时间" },
+            { field: "Comments", title: "Comments" },
+            { command:[ { name:"editUser", text: "XiuGai", click: editUser }, { name:"deleteUser", text: "Shanchu", click: deleteUser }], title: "选择操作", width: "180px" }
+        ]
+    });
+
+    function addUser(){
+        window.location.href="/Admin/AddUser";
+    }
+
+    function editUser(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        window.location.href="/Admin/EditUser?uId=" + dataItem.Id;
+        //wnd.content(detailsTemplate(dataItem));
+        //wnd.center().open();
+    }
+
+    function deleteUser(e) {
+        e.preventDefault();
+
+    }
+</script>
+

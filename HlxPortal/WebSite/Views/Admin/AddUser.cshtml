@@ -1,0 +1,108 @@
+﻿@model UserViewModel
+@using LeSan.HlxPortal.WebSite.Models
+@using LeSan.HlxPortal.WebSite.DataEntity
+@{ViewBag.Title = "添加新用户";}
+
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<div class="itemTitleL" style="background:url(/images/itemTitle5.jpg);"><b class="iTLText f14">用户管理 - 添加新用户</b></div>
+
+@using (Html.BeginForm("AddUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <table class="infoTab" style="width:1002px;">
+        <tbody>
+            <tr>
+                <td width="200" align="center" bgcolor="#efefef">用户名</td>
+                <td width="790" bgcolor="#f7f7f7" >
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "infoInput" })
+                </td>
+            </tr>
+            <tr>
+                <td align="center" bgcolor="#efefef">设置密码</td>
+                <td bgcolor="#efefef">
+                    @Html.TextBoxFor(m => m.Password, new { @class = "infoInput" }) &nbsp; &nbsp; &nbsp; &nbsp;
+                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "Tgray" })
+                </td>
+            </tr>
+            <tr>
+                <td align="center" bgcolor="#efefef">确认密码</td>
+                <td bgcolor="#f7f7f7">
+                    @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "infoInput" }) &nbsp; &nbsp; &nbsp; &nbsp;
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "Tgray" })
+                </td>
+            </tr>
+            <tr>
+                <td align="center" bgcolor="#efefef">用户类别</td>
+                <td bgcolor="#efefef">
+                    @Html.DropDownListFor(m => m.RoleType, new List<SelectListItem>()
+                     {
+                        new SelectListItem() { Text = "管理员", Value = Consts.RoleAdmin, Selected = false },
+                        new SelectListItem() { Text = "白金用户", Value = Consts.RoleVip, Selected = false },
+                        new SelectListItem() { Text = "普通用户", Value = Consts.RoleNormal, Selected = true }
+                     }, new { @onchange = "onSelectRoleType()" })
+                </td>
+            </tr>
+            <tr>
+                <td align="center" bgcolor="#efefef">备注</td>
+                <td bgcolor="#efefef">
+                @Html.TextBoxFor(m => m.Comments, new { @class = "infoInput", @style = "width:98%" })
+                </td>
+            </tr>
+            <tr>
+                <td align="center" bgcolor="#efefef">查看权限</td>
+                <td bgcolor="#f7f7f7">
+                    <div class="allsel" style="border-bottom:1px solid #d5d5d5;"><input type="checkbox" id="selectall" onclick="checkAll()">&nbsp;&nbsp;&nbsp;&nbsp;全选 / 反选</div>
+                    <div class="aSSel">
+                        <ul id="sites">
+                            @{ List<SiteDbData> allSites = RegularUpdateObjects<List<SiteDbData>>.DefaultObjectInstance; }
+                            @foreach(var site in allSites)
+                            {
+                                <li><input type="checkbox" name="SiteList" value="@site.SiteId">&nbsp;&nbsp;&nbsp;&nbsp;@site.Name</li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" bgcolor="#efefef" style="height:34px;"><input type="submit" value="" class="saveBtn">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" class="backBtn" onclick="window.location.href='/Admin/Index'"></td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+<script type="text/javascript">
+
+    function onSelectRoleType()
+    {
+        var selectedVal = $("#RoleType").val();
+        var allSites = $("#sites input");
+        var disable = true;
+        if (selectedVal == "@Consts.RoleAdmin" || selectedVal == "@Consts.RoleVip") {
+            $("#selectall")[0].checked = true;
+            checkAll();
+            disable = true;
+        } else {
+            $("#selectall")[0].checked = false;
+            checkAll();
+            disable = false;
+        }
+
+        $("#selectall")[0].disabled = disable;
+        for (var i = 0; i < allSites.length; i++) {
+            allSites[i].disabled = disable;
+        }
+    }
+
+    function checkAll()
+    {
+        var allSites = $("#sites input");
+        var check = $("#selectall")[0].checked;
+
+        for (var i = 0; i < allSites.length; i++)
+        {
+            allSites[i].checked = check;
+        }
+    }
+</script>

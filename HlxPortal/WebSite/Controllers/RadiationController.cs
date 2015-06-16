@@ -21,6 +21,10 @@ namespace LeSan.HlxPortal.WebSite.Controllers
         // GET: Radiation
         public ActionResult Index(int siteId)
         {
+            return RedirectToAction("RadiationIndex", new { siteId = siteId });
+        }
+        public ActionResult RadiationIndex(int siteId)
+        {
             var connstring = ConfigurationManager.ConnectionStrings[Consts.DbConnectionStringName].ConnectionString;
             DataContext db = new DataContext(connstring);
             var radiationTable = db.GetTable<RadiationDbData>();
@@ -55,7 +59,7 @@ namespace LeSan.HlxPortal.WebSite.Controllers
                 CameraImageBase64List = cameraBase64s
             };
 
-            return View("RadiationIndex", model);
+            return View(model);
         }
     }
 }

@@ -19,12 +19,17 @@ namespace LeSan.HlxPortal.WebSite.Controllers
     [AccessControl]
     public class CpfController : Controller
     {
-        // GET: Radiation
+        // GET: Cpf
         public ActionResult Index(int siteId)
+        {
+            return RedirectToAction("CpfIndex", new { siteId = siteId });
+        }
+
+        public ActionResult CpfIndex(int siteId)
         {
             List<SiteDbData> allSites = RegularUpdateObjects<List<SiteDbData>>.DefaultObjectInstance;
             SiteDbData model = allSites.Where(x => x.SiteId == siteId).First();
-            return View("CpfIndex", model);
+            return View(model);
         }
     }
 }

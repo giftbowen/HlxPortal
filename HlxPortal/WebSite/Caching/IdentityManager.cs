@@ -6,6 +6,9 @@ using LeSan.HlxPortal.WebSite.DataEntity;
 using LeSan.HlxPortal.WebSite.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using LeSan.HlxPortal.Common;
+using System.Diagnostics;
 
 namespace LeSan.HlxPortal.WebSite
 {
@@ -20,6 +23,10 @@ namespace LeSan.HlxPortal.WebSite
             AppUserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(AppDbContext));
         }
 
+        /// <summary>
+        /// Store site id as Role.RoleName
+        /// </summary>
+        /// <returns></returns>
         public static List<SiteDbData> UpdateRolesAndGetAllSites()
         {
             var connstring = ConfigurationManager.ConnectionStrings[Consts.DbConnectionStringName].ConnectionString;
@@ -49,8 +56,7 @@ namespace LeSan.HlxPortal.WebSite
 
             foreach (var role in roleList)
             {
-                if (role.Name != Consts.RoleAdmin && role.Name != Consts.RoleVip 
-                    && !siteIdList.Contains(role.Name))
+                if (!siteIdList.Contains(role.Name))
                 {
                     DeleteRole(role.Id);
                 }
@@ -59,48 +65,140 @@ namespace LeSan.HlxPortal.WebSite
             AppDbContext.SaveChanges();
         }
 
-        public static void InitiBasicRoles()
+        public static void InitiBasicUsers()
         {
-            var roleNameList = AppDbContext.Roles.Select(r => r.Name).ToList();
-            if (!roleNameList.Contains(Consts.RoleAdmin))
+            AddUser(new UserViewModel()
             {
-                AppDbContext.Roles.Add(new IdentityRole(Consts.RoleAdmin));
+                UserName = "Admin",
+                Password = "111111",
+                RoleType = Consts.RoleAdmin,
+                Comments = "HLX's Admin User"
+            });
+            AddUser(new UserViewModel()
+            {
+                UserName = "Vip",
+                Password = "111111",
+                RoleType = Consts.RoleVip,
+                Comments = "HLX's Vip User"
+            });
+            AddUser(new UserViewModel()
+            {
+                UserName = "xm1",
+                Password = "111111",
+                RoleType = Consts.RoleNormal,
+                Comments = "HLX's Normal User",
+                SiteList = new List<string>() { "1", "2", "3" }
+            });
+
+            AddUser(new UserViewModel()
+            {
+                UserName = "xm3",
+                Password = "111111",
+                RoleType = Consts.RoleNormal,
+                Comments = "HLX's Normal User",
+                SiteList = new List<string>() { "1", "2", "3" }
+            });
+
+            DeleteUser("xm3");
+
+            var xm = AppUserManager.FindByName("xm4");
+            AppUserManager.AddToRole(xm.Id, "3");
+            AppUserManager.AddToRole(xm.Id, "4");
+
+            UpdateUser(new UserViewModel()
+            {
+                UserName = "xm4",
+                RoleType = Consts.RoleVip,
+                Comments = "update 1 for xm4",
+                SiteList = new List<string>() { "1", "2"}
+            });
+        }
+
+        public static string ValidateRoleType(string roleType)
+        {
+            if (roleType == Consts.RoleAdmin || roleType == Consts.RoleVip || roleType == Consts.RoleNormal)
+            {
+                return roleType;
             }
-            if (!roleNameList.Contains(Consts.RoleVip))
+            else
             {
-                AppDbContext.Roles.Add(new IdentityRole(Consts.RoleVip));
+                return Consts.RoleNormal;
+            }
+        }
+
+        public static IEnumerable<string> AddUser(UserViewModel user)
+        {
+            ApplicationUser appUser = new ApplicationUser()
+            {
+                UserName = user.UserName,
+                Password = user.Password,
+                RegisterTime = DateTime.Now,
+                RoleType = ValidateRoleType(user.RoleType),
+                Comments = user.Comments
+            };
+
+            var result = AppUserManager.Create(appUser, user.Password);
+            if (!result.Succeeded)
+            {
+                SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "Create user failed");
+                return result.Errors ;
+            }
+            
+            if (user.SiteList != null && user.RoleType != Consts.RoleAdmin && user.RoleType != Consts.RoleVip)
+            {
+                foreach (var siteId in user.SiteList)
+                {
+                    var res = AppUserManager.AddToRole(appUser.Id, siteId);
+                    if (!res.Succeeded)
+                    {
+                        SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, string.Format("Grant user access to site {0} failed", siteId));
+                        return result.Errors;
+                    }
+                }
+            }
+            
+            return null;
+        }
+
+        public static string UpdateUser(UserViewModel user)
+        {
+            var appUser = AppUserManager.FindByName(user.UserName);
+            appUser.RoleType = user.RoleType;
+            appUser.Comments = user.Comments;
+            
+            // role(site) to delete
+            var rolesToDelete = appUser.Roles.Where(x => !user.SiteList.Contains(x.Role.Name)).ToList();
+            foreach(var role in rolesToDelete)
+            {
+                AppUserManager.RemoveFromRole(appUser.Id, role.Role.Name);
             }
 
-            AddUser("admin", "111111");
-            AddUser("vip", "111111");
-            AddUser("xm1", "111111");
-
-            var user = AppUserManager.FindByName("admin");
-            AppUserManager.AddToRole(user.Id, Consts.RoleAdmin);
-            user = AppUserManager.FindByName("vip");
-            AppUserManager.AddToRole(user.Id, Consts.RoleVip);
-            user = AppUserManager.FindByName("xm1");
-            AppUserManager.AddToRole(user.Id, "1");
-            AppUserManager.AddToRole(user.Id, "3");
-            AppUserManager.AddToRole(user.Id, "4");
+            var curRoles = appUser.Roles.Select(x => x.Role.Name);
+            // role(site) to add
+            var rolesToAdd = user.SiteList.Where(x => !curRoles.Contains(x));
+            foreach(var role in rolesToAdd)
+            {
+                AppUserManager.AddToRole(appUser.Id, role);
+            }
 
             AppDbContext.SaveChanges();
-
-            //var role1 = aa.Roles.Add(new IdentityRole("site1"));
-            //int a1 = aa.SaveChanges();
-            //var u1 = await UserManager.FindAsync("xm1", "111111");
-            //var res = UserManager.AddToRole(u1.Id, "site1");
-            //var a = UserManager.IsInRole(u1.Id, "site1");
-            //return null;
+            return null;
         }
 
-        public static void AddUser(string userName, string passWord)
+        public static void DeleteUser(string userName)
         {
-            var user = new ApplicationUser() { UserName = userName };
-            var result = AppUserManager.Create(user, passWord);
+            var appUser = AppUserManager.FindByName(userName);
+
+            var rolesToDelete = appUser.Roles.ToList();
+            foreach (var role in rolesToDelete)
+            {
+                AppUserManager.RemoveFromRole(appUser.Id, role.Role.Name);
+            }
+
+            AppDbContext.Users.Remove(appUser);
+
+            AppDbContext.SaveChanges();
         }
-
-
 
         private static void DeleteRole(string roleId)
         {
@@ -113,6 +211,28 @@ namespace LeSan.HlxPortal.WebSite
             }
 
             AppDbContext.Roles.Remove(role);
+        }
+
+        public static List<ApplicationUser> GetAllUsers()
+        {
+            return AppDbContext.Users.ToList();
+        }
+
+        public static UserViewModel GetUser(string id)
+        {
+            var user = AppUserManager.FindById(id);
+            var model = new UserViewModel()
+            {
+                Id = id,
+                UserName = user.UserName,
+                Password = user.Password,
+                RoleType = user.RoleType,
+                RegisterTime = user.RegisterTime,
+                Comments = user.Comments,
+                SiteList = user.Roles.Select(x => x.Role.Name).ToList()
+            };
+
+            return model;
         }
     }
 }

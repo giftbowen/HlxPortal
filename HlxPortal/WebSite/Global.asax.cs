@@ -22,7 +22,7 @@ namespace LeSan.HlxPortal.WebSite
             this.BeginRequest += Application_BeginRequest;
             this.PostAuthorizeRequest += this.Application_PostAuthorizeRequest;
 
-            IdentityManager.InitiBasicRoles();
+            IdentityManager.InitiBasicUsers();
             CreateRegularUpdateObjects();
         }
 
