@@ -10,9 +10,10 @@ namespace LeSan.HlxPortal.WebSite.Models
 {
     public class RadiationViewModel
     {
-        public int SiteId { get; set; }
+        public SiteDbData Site { get; set; }
         public List<RadiationDbData> DataList { get; set; }
         public List<string> CameraImageBase64List { get; set; }
+        public List<string> CameraImageTimeStamp { get; set; }
     }
 
     public class HeatmapViewModel

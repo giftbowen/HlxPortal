@@ -3,8 +3,12 @@ authorization filter, add admin controller check
 add heatmap data
 
 Pages done:
-login£¬layout£¬home/sitemap
+login£¬layout£¬home/sitemap, home/heatmap£¬ radiation page(current&history)
 
 
 feedback:
-1.heatmap, need red, green, gray 3 colors
+1.heatmap, need red, green, gray 3 color
+2.heatmap, text inside the box need to be in center in both horizontal and vertical
+3.radiation data, chart name and pictures name, horizontal center, not left align
+4.radiation cameras, only one picture in a row 640 * 480, make it in center, and in the left of the picture, mark the picture with it's timestamp
+4.radiation history table, use È·¶¨ button, with class confirm, can't aligh with datetime control

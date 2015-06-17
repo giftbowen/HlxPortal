@@ -1,17 +1,18 @@
 ﻿@model LeSan.HlxPortal.WebSite.Models.RadiationViewModel
 <div>
-    <h4>Select start and end date:</h4>
-    <p>
-        <input id="startDate" style="width: 200px"/>
-        <input id="endDate" style="width: 200px"/>
-        <input id="queryBt" type="button" class="confirm" onclick="getRadiationData()">
-    </p>
+    <span>
+        选择日期 :
+        &nbsp;&nbsp;<input id="startDate" style="width: 120px"/>
+        &nbsp;&nbsp;--&nbsp;&nbsp;<input id="endDate" style="width: 120px"/>
+        &nbsp;&nbsp;<input id="queryBt" type="button" class="confirm" style ="margin-bottom:10px" onclick="getRadiationData()">
+    </span>
 </div>
 
 <div id="grid"></div>
 
 <script type="text/javascript">
     var startDt = $("#startDate").kendoDatePicker({
+        //value: new Date("2015-06-17"),
         value: new Date(),
         max: new Date()
     }).data("kendoDatePicker");
@@ -21,15 +22,17 @@
     }).data("kendoDatePicker");
 
     var radiationData = [];
+
+    setUpTable();
     getRadiationData();
 
     function getRadiationData() {
         $.ajax({
-            url: "api/RadiationApi",
+            url: "/api/RadiationApi",
             dataType: "json",
             async: true,
             data: {
-                siteId: "@Model.SiteId",
+                siteId: "@Model.Site.SiteId",
                 startDate: startDt.value().toDateString(),
                 endDate: endDt.value().toDateString()
             },
@@ -39,15 +42,22 @@
             },
         });
     }
-    
+
     function loadTableData()
+    {
+        var dataSource = new kendo.data.DataSource({ data: radiationData, pageSize: 20 });
+        var grid = $('#grid').data("kendoGrid");
+        dataSource.read();
+        grid.setDataSource(dataSource);
+    }
+
+    function setUpTable()
     {
         $("#grid").kendoGrid({
             dataSource: {
                 data: radiationData,
-                pageSize: 10
+                pageSize: 20
             },
-            height: 543,
             scrollable: {
                 virtual: true
             },
@@ -57,21 +67,37 @@
                 previousNext: true
             },
             columns: [
-                { field: "TimeStamp", title: "时间"},
-                { field: "Dose1", title: "dose1"},
-                { field: "Dose2", title: "dose2"},
-                { field: "Dose3", title: "dose3"},
-                { field: "Dose4", title: "dose4"},
-                { field: "Dose5", title: "dose5"},
-                { field: "Temperature", title: "temperature"},
-                { field: "Humidity", title: "humidity"},
-                { field: "Flame", title: "flame"},
-                { field: "Shutter", title: "shutter"},
-                { field: "Position", title: "position"},
-                { field: "Gate", title: "gate"},
+                {
+                    field: "TimeStamp", title: "数据时间", template: function (dataItem) {
+                        return kendo.toString(new Date(dataItem.TimeStamp), "yyyy-MM-dd HH:mm");
+                    }, width: "110px"
+                },
+                { field: "Dose1", title: "剂量1" },
+                { field: "Dose2", title: "剂量2" },
+                { field: "Dose3", title: "剂量3" },
+                { field: "Dose4", title: "剂量4" },
+                { field: "Dose5", title: "剂量5" },
+                {
+                    field: "Temperature", title: "温度", template: function (dataItem) {
+                        return dataItem.Temperature.toFixed(2);
+                    }
+                },
+                {
+                    field: "Humidity", title: "湿度", template: function (dataItem) {
+                        return dataItem.Humidity.toFixed(2);
+                    }
+                },
+                { field: "Flame", title: "火焰"},
+                { field: "Shutter", title: "快门状态"},
+                { field: "Position", title: "位置/震动/倾斜", width: "100px" },
+                { field: "Gate", title: "源室门" },
             ]
         });
     }
+
+    
+
+    
 
     
 </script>

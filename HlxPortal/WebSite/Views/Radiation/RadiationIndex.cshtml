@@ -1,24 +1,22 @@
-﻿@{
-    ViewBag.Title = "放射剂量";
-}
+﻿@model LeSan.HlxPortal.WebSite.Models.RadiationViewModel
+@{ViewBag.Title = "放射剂量";}
 
 @Styles.Render("~/Content/kendo")
 @Scripts.Render("~/bundles/kendo")
 
-<div class="itemTitle" style="background:url(images/itemTitle3.jpg);"><b class="iTLText f14">放射剂量情况 - <span>站点或设备名称</span></b></div>
+<div class="itemTitle" style="background:url(/images/itemTitle3.jpg);"><b class="iTLText f14">放射剂量情况 - <span>@Model.Site.Name</span></b></div>
 <div class="hotSel">
     <ul>
         <li class="hSS"><a class="hK2">当前状态</a></li>
         <li><a class="hK1">历史数据</a></li>
     </ul>
 </div>
-<div class="hotSite">
+<div class="hotSite" style="height:1400px">
     <div class="hotKind">
-        <span class="graph">图 示:&nbsp;&nbsp;<img src="images/green.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/blue.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/yellow.gif" />&nbsp;&nbsp;图示说明&nbsp;&nbsp;<img src="images/red.gif" />&nbsp;&nbsp;图示说明</span>
         @Html.Partial("LatestPartial")
     </div>
 </div>
-<div class="hotSite" style="display:none;">
+<div class="hotSite" style="display: none; height: 700px">
     <div class="hotKind">
         @Html.Partial("HistoryPartial")
     </div>
