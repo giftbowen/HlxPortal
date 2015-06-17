@@ -23,12 +23,22 @@ namespace LeSan.HlxPortal.WebSite
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                      "~/Scripts/kendo.all.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css1").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/layout.css"));
+            
+            bundles.Add(new StyleBundle("~/Content/kendo").Include(
+                      "~/Content/kendo.common.min.css",
+                      "~/Content/kendo.silver.min.css",
+                      "~/Content/kendo.dataviz.min.css",
+                      "~/Content/kendo.dataviz.silver.min.css"
+            ));
         }
     }
 }

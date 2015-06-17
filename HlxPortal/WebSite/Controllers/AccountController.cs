@@ -49,7 +49,7 @@ namespace LeSan.HlxPortal.WebSite.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", "用户名或密码输入错误，请重新输入。");
                 }
             }
 
@@ -63,32 +63,6 @@ namespace LeSan.HlxPortal.WebSite.Controllers
         public ActionResult Register()
         {
             return View();
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    AddErrors(result);
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
         }
 
         //
@@ -177,16 +151,6 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             }
         }
 
-        private bool HasPassword()
-        {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
-        }
-
         public enum ManageMessageId
         {
             ChangePasswordSuccess,
@@ -207,34 +171,6 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             }
         }
 
-        //private class ChallengeResult : HttpUnauthorizedResult
-        //{
-        //    private const string XsrfKey = "XsrfId";
-        //    public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)
-        //    {
-        //    }
-
-        //    public ChallengeResult(string provider, string redirectUri, string userId)
-        //    {
-        //        LoginProvider = provider;
-        //        RedirectUri = redirectUri;
-        //        UserId = userId;
-        //    }
-
-        //    public string LoginProvider { get; set; }
-        //    public string RedirectUri { get; set; }
-        //    public string UserId { get; set; }
-
-        //    public override void ExecuteResult(ControllerContext context)
-        //    {
-        //        var properties = new AuthenticationProperties() { RedirectUri = RedirectUri };
-        //        if (UserId != null)
-        //        {
-        //            properties.Dictionary[XsrfKey] = UserId;
-        //        }
-        //        context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
-        //    }
-        //}
         #endregion
     }
 }

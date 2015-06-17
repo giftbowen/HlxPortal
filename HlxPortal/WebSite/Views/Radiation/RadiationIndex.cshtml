@@ -1,11 +1,9 @@
 ﻿@{
     ViewBag.Title = "放射剂量";
 }
-<link rel="stylesheet" href="~/Content/kendo.common.min.css" />
-<link rel="stylesheet" href="~/Content/kendo.silver.min.css" />
-<link rel="stylesheet" href="~/Content/kendo.dataviz.min.css" />
-<link rel="stylesheet" href="~/Content/kendo.dataviz.silver.min.css" />
-<script src="~/Scripts/kendo.all.min.js"></script>
+
+@Styles.Render("~/Content/kendo")
+@Scripts.Render("~/bundles/kendo")
 
 <div class="itemTitle" style="background:url(images/itemTitle3.jpg);"><b class="iTLText f14">放射剂量情况 - <span>站点或设备名称</span></b></div>
 <div class="hotSel">

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, IE=EmulateIE7" http-equiv="X-UA-Compatible">
     <title>@ViewBag.Title - TC-SCAN</title>
     @Styles.Render("~/Content/css")
-    @*@Styles.Render("~/Content/css1")*@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -34,7 +33,7 @@
     <div class="topSite">
         <div class="topBanner"></div>
         <div class="login">
-            <span class="date">@DateTime.Now.ToLongDateString()</span>
+            <span class="date">@DateTime.Now.ToString("yyyy 年 M 月 d 日")</span>
             @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
             {
                 @Html.AntiForgeryToken()
