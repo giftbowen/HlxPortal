@@ -12,14 +12,23 @@ namespace LeSan.HlxPortal.WebSite
     public class IpcNamedPipe
     {
         private static NamedPipeClientStream pipeClient = null;
-        static IpcNamedPipe()
+
+        public static void Init()
         {
-            NamedPipeClientStream pipeClient =
+            try
+            {
+                NamedPipeClientStream pipeClient =
                     new NamedPipeClientStream(".", CommonConsts.IPCPipeName,
                         PipeDirection.InOut, PipeOptions.None);
 
-            SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "HlxPortal website Ipc named pipe is connecting to datacollector(server)...");
-            pipeClient.Connect(1000);
+                SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "HlxPortal website Ipc named pipe is connecting to datacollector(server)...");
+                pipeClient.Connect(1000);
+            }
+            catch (Exception ex)
+            {
+                SharedTraceSources.Global.TraceException(ex, "Init class IpcNamedPipe failed!");
+                // swallow the exception
+            }
         }
 
         public static string SendDataResetPlc(int siteId)

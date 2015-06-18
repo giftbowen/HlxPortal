@@ -62,4 +62,13 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             return model;
         }
     }
+
+    [Authorize]
+    public class PlcResetApiController : ApiController
+    {
+        public string Get(int siteId)
+        {
+            return IpcNamedPipe.SendDataResetPlc(siteId);
+        }
+    }
 }

@@ -23,6 +23,7 @@ namespace LeSan.HlxPortal.WebSite
             this.PostAuthorizeRequest += this.Application_PostAuthorizeRequest;
 
             IdentityManager.InitiBasicUsers();
+            IpcNamedPipe.Init();
             CreateRegularUpdateObjects();
         }
 

@@ -36,8 +36,10 @@
             <div class="mLW"></div>
         }
     </div>
+    <span id="resetres"></span>
     <div class="moniC">
-        <input type="button" class="mRes">
+        
+        <input type="button" class="mRes" onclick="plcReset()">
         @if (Model.RadiationRoomStop == 1)
         {
             <div class="rState" style="margin:44px auto 0px auto;">急停</div>
@@ -83,7 +85,7 @@
         @DrawDataLabel("源室门", Model.RadiationGate, "关", "否", 0)
         @DrawDataLabel("快门开位置", Model.ShutterOpenPosition , "是", "否", 1)
         @DrawDataLabel("采集指令", Model.CollectCmd , "是", "否", 1)
-        @DrawDataLabel("控制柜门", Model.ControlGate , "是", "否", 0)
+        @DrawDataLabel("控制柜门", Model.ControlGate, "关", "否", 0)
         @DrawDataLabel("开快门超时", Model.OpenShutterTimeout , "是", "否", 1)
         @DrawDataLabel("气压高", Model.PressureHigh , "是", "否", 1)
         @DrawDataLabel("源室急停", Model.RadiationRoomStop , "是", "否", 1)
@@ -123,3 +125,21 @@
         <li class="@className">@text0</li>
     }
 }
+
+<script type="text/javascript">
+    function plcReset()
+    {
+        $("#resetres").text("");
+        $.ajax({
+            url: "/api/PlcResetApi",
+            dataType: "json",
+            async: true,
+            data: {
+                siteId: "@Model.SiteId"
+            },
+            success: function (jsonData, textStatus, qXHR) {
+                $("#resetres").text(jsonData);
+            },
+        });
+    }
+</script>
