@@ -44,15 +44,17 @@ namespace LeSan.HlxPortal.WebSite.Controllers
                 var cpfModel = new CpfViewModel()
                 {
                     DbData = cpf,
-                    TimeStamp = Util.FromSN(cpf.SN)
+                    TimeStamp = Util.FromSN(cpf.SN),
+                    Base64CpfImage = "",
+                    Base64LpnImage = ""
                 };
 
-                var cpfPath = Util.GetCpfImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigCpfLpnRoot], (byte)siteId, cpfModel.TimeStamp);
-                var lpnPath = Util.GetLpnImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigCpfLpnRoot], (byte)siteId, cpfModel.TimeStamp);
+                //var cpfPath = Util.GetCpfImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigCpfLpnRoot], (byte)siteId, cpfModel.TimeStamp);
+                //var lpnPath = Util.GetLpnImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigCpfLpnRoot], (byte)siteId, cpfModel.TimeStamp);
 
-                cpfPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_CPF.jpg";
-                lpnPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_LPN.jpg";
-
+                //cpfPath = @"C:\SD\Github\HlxPortal\HlxPortal\WebSite\images\loading.jpg";
+                //lpnPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_LPN.jpg";
+                
                 //cpfModel.Base64CpfImage = Util.LoadJpgAsBase64(cpfPath);
                 //cpfModel.Base64LpnImage = Util.LoadJpgAsBase64(lpnPath);
 
@@ -60,6 +62,30 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             }
 
             return model;
+        }
+    }
+
+    [Authorize]
+    public class CpfImageApiController : ApiController
+    {
+        public CpfViewModel Get(int siteId, string sn)
+        {
+            DateTime timestamp = Util.FromSN(sn);
+            var cpfPath = Util.GetCpfImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigCpfLpnRoot], (byte)siteId, timestamp);
+            var lpnPath = Util.GetLpnImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigCpfLpnRoot], (byte)siteId, timestamp);
+
+            cpfPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_CPF.jpg";
+            lpnPath = @"c:\temp\CpfLpn\003\2015\06\13\20150613000222_003_LPN.jpg";
+
+            var image = new CpfViewModel()
+            {
+                DbData = null,
+                TimeStamp = timestamp,
+                Base64CpfImage = Util.LoadJpgAsBase64(cpfPath),
+                Base64LpnImage = Util.LoadJpgAsBase64(lpnPath)
+            };
+
+            return image;
         }
     }
 

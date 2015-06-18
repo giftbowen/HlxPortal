@@ -3,7 +3,7 @@ authorization filter, add admin controller check
 test reset plc call ipc
 
 Pages done:
-login，layout，home/sitemap, home/heatmap， radiation page(current&history)， plc page
+login，layout，home/sitemap, home/heatmap， radiation page(current&history)， plc page， cpf page
 
 
 feedback:
@@ -14,3 +14,5 @@ feedback:
 5.radiation history table, use 确定 button, with class confirm, can't aligh with datetime control
 6.plc page, need a style to place data last update time, need another style to place return string of reset plc
 7.plc page, 相邻的两列状态 连起来了，要有一定的间隔
+8.cpf 页，出一个 loading的图标，jpg，gif 均可，100*100
+9.cpf 页，确定按钮低于时间选择框，在style中使其居中
