@@ -58,14 +58,6 @@ namespace LeSan.HlxPortal.WebSite.Controllers
         }
 
         //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
         // GET: /Account/Manage
         //[Authorize(ClaimTypes.ro)]
         public ActionResult Manage(ManageMessageId? message)

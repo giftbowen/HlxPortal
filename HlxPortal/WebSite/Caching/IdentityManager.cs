@@ -21,6 +21,10 @@ namespace LeSan.HlxPortal.WebSite
         {
             AppDbContext = new ApplicationDbContext();
             AppUserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(AppDbContext));
+            AppUserManager.UserValidator = new UserValidator<ApplicationUser>(AppUserManager)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
         }
 
         /// <summary>
@@ -72,46 +76,48 @@ namespace LeSan.HlxPortal.WebSite
                 UserName = "Admin",
                 Password = "111111",
                 RoleType = Consts.RoleAdmin,
-                Comments = "HLX's Admin User"
+                Comments = "管理员用户具有最高权限"
             });
             AddUser(new UserViewModel()
             {
                 UserName = "Vip",
                 Password = "111111",
                 RoleType = Consts.RoleVip,
-                Comments = "HLX's Vip User"
-            });
-            AddUser(new UserViewModel()
-            {
-                UserName = "xm1",
-                Password = "111111",
-                RoleType = Consts.RoleNormal,
-                Comments = "HLX's Normal User",
-                SiteList = new List<string>() { "1", "2", "3" }
+                Comments = "Vip 用户 可访问所有站点"
             });
 
-            AddUser(new UserViewModel()
-            {
-                UserName = "xm3",
-                Password = "111111",
-                RoleType = Consts.RoleNormal,
-                Comments = "HLX's Normal User",
-                SiteList = new List<string>() { "1", "2", "3" }
-            });
+            // should be test code
+            //AddUser(new UserViewModel()
+            //{
+            //    UserName = "xm1",
+            //    Password = "111111",
+            //    RoleType = Consts.RoleNormal,
+            //    Comments = "HLX's Normal User",
+            //    SiteList = new List<string>() { "1", "2", "3" }
+            //});
 
-            DeleteUser("xm3");
+            //AddUser(new UserViewModel()
+            //{
+            //    UserName = "xm3",
+            //    Password = "111111",
+            //    RoleType = Consts.RoleNormal,
+            //    Comments = "HLX's Normal User",
+            //    SiteList = new List<string>() { "1", "2", "3" }
+            //});
 
-            var xm = AppUserManager.FindByName("xm4");
-            AppUserManager.AddToRole(xm.Id, "3");
-            AppUserManager.AddToRole(xm.Id, "4");
+            //DeleteUser("xm3");
 
-            UpdateUser(new UserViewModel()
-            {
-                UserName = "xm4",
-                RoleType = Consts.RoleVip,
-                Comments = "update 1 for xm4",
-                SiteList = new List<string>() { "1", "2"}
-            });
+            //var xm = AppUserManager.FindByName("xm4");
+            //AppUserManager.AddToRole(xm.Id, "3");
+            //AppUserManager.AddToRole(xm.Id, "4");
+
+            //UpdateUser(new UserViewModel()
+            //{
+            //    UserName = "xm4",
+            //    RoleType = Consts.RoleVip,
+            //    Comments = "update 1 for xm4",
+            //    SiteList = new List<string>() { "1", "2"}
+            //});
         }
 
         public static string ValidateRoleType(string roleType)
@@ -165,6 +171,11 @@ namespace LeSan.HlxPortal.WebSite
             var appUser = AppUserManager.FindByName(user.UserName);
             appUser.RoleType = user.RoleType;
             appUser.Comments = user.Comments;
+
+            if (user.RoleType == Consts.RoleAdmin || user.RoleType == Consts.RoleVip)
+            {
+                user.SiteList = new List<string>();
+            }
             
             // role(site) to delete
             var rolesToDelete = appUser.Roles.Where(x => !user.SiteList.Contains(x.Role.Name)).ToList();

@@ -22,7 +22,6 @@
             data: allUsers,
             pageSize: 20
         },
-        height: 650,
         scrollable: {
             virtual: true
         },
@@ -33,8 +32,8 @@
         },
         sortable: true,
         columns: [
-            { field: "UserName", title: "YonghuMing"},
-            { field: "RoleType", title: "RoleType", 
+            { field: "UserName", title: "用户名"},
+            { field: "RoleType", title: "用户类别",
                 template: function(dataItem) {
                     if (dataItem.RoleType == "@Consts.RoleAdmin"){
                         return "管理员";
@@ -45,9 +44,13 @@
                     }
                 }
             },
-            { field: "RegisterTime", title: "创建时间" },
-            { field: "Comments", title: "Comments" },
-            { command:[ { name:"editUser", text: "XiuGai", click: editUser }, { name:"deleteUser", text: "Shanchu", click: deleteUser }], title: "选择操作", width: "180px" }
+            {
+                field: "RegisterTime", title: "创建时间", template: function (dataItem) {
+                    return kendo.toString(new Date(dataItem.RegisterTime), "yyyy-MM-dd HH:mm:ss");
+                }
+            },
+            { field: "Comments", title: "备注" },
+            { command:[ { name:"editUser", text: "查看/修改", click: editUser }, { name:"deleteUser", text: "删除", click: deleteUser }], title: "选择操作", width: "180px" }
         ]
     });
 
@@ -57,16 +60,36 @@
 
     function editUser(e) {
         e.preventDefault();
-
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         window.location.href="/Admin/EditUser?uId=" + dataItem.Id;
-        //wnd.content(detailsTemplate(dataItem));
-        //wnd.center().open();
     }
 
     function deleteUser(e) {
         e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
+        $.ajax({
+            url: "/api/DeleteUserApi",
+            dataType: "json",
+            async: true,
+            data: {
+                userName: dataItem.UserName,
+            },
+            success: function (jsonData, textStatus, qXHR) {
+                if (jsonData != "ok"){
+                    return;
+                }
+
+                // delete success, delete user from raw data
+                var deleted = $.grep(allUsers, function (d) { return d.Id == dataItem.Id; })[0];
+                var index = allUsers.indexOf(deleted);
+                allUsers.splice(index, 1);
+                 
+                $('#grid').data('kendoGrid').dataSource.read();
+                $('#grid').data('kendoGrid').refresh();
+            },
+        });
     }
+
 </script>
 

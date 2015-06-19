@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using LeSan.HlxPortal.WebSite.Controllers;
 
 namespace LeSan.HlxPortal.WebSite
 {
@@ -22,11 +23,19 @@ namespace LeSan.HlxPortal.WebSite
                 var userSites = PerRequestData.Current.UserSites.Select(x => x.SiteId);
                 if (!userSites.Contains((byte)siteId))
                 {
-                    filterContext.Result = new RedirectResult("~/Home/UnAuthorized?msg=您没有访问该站点的权限！");
+                    filterContext.Result = new RedirectResult("~/Home/UnAuthorized?msg=您没有访问该站点的权限。");
                 }
             }
 
-            var a = filterContext.Controller;
+            // if it's admin controller, then user's role type must be admin
+            var adminController = filterContext.Controller as AdminController;
+            if (adminController != null)
+            {
+                if (PerRequestData.Current.AppUser.RoleType != Consts.RoleAdmin)
+                {
+                    filterContext.Result = new RedirectResult("~/Home/UnAuthorized?msg=您没有权限访问该资源。");
+                }
+            }
         }
     }
 

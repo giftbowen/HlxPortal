@@ -1,9 +1,8 @@
 remaining:
-authorization filter, add admin controller check
 test reset plc call ipc
 
 Pages done:
-login，layout，home/sitemap, home/heatmap， radiation page(current&history)， plc page， cpf page
+login，layout，home/sitemap, home/heatmap， radiation page(current&history)， plc page， cpf page， admin: index, add user, edit user, unauthorized page, error page
 
 
 feedback:
@@ -16,3 +15,5 @@ feedback:
 7.plc page, 相邻的两列状态 连起来了，要有一定的间隔
 8.cpf 页，出一个 loading的图标，jpg，gif 均可，100*100
 9.cpf 页，确定按钮低于时间选择框，在style中使其居中
+10. add/edit user page, 需要一个select 控件的style
+11. add/edit user page, password control need style, ***** and view

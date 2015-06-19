@@ -16,7 +16,7 @@
             <tr>
                 <td width="200" align="center" bgcolor="#efefef">用户名</td>
                 <td width="790" bgcolor="#f7f7f7">
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "infoInput", @style="disable:true" })
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "infoInput", @readonly = "readonly" })
                 </td>
             </tr>
             <tr>
@@ -33,7 +33,7 @@
             <tr>
                 <td align="center" bgcolor="#efefef">创建时间</td>
                 <td bgcolor="#efefef">
-                    @Html.TextBoxFor(m => m.RegisterTime, new { @class = "infoInput", @style = "width:98%" })
+                    @Html.TextBoxFor(m => m.RegisterTime, new { @class = "infoInput", @readonly = "readonly" })
                 </td>
             </tr>
             <tr>

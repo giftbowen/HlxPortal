@@ -9,6 +9,7 @@ using System.Web.Mvc;
 namespace LeSan.HlxPortal.WebSite.Controllers
 {
     [AccessControl]
+    [Authorize]
     public class AdminController : Controller
     {
         //

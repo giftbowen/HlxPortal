@@ -26,6 +26,10 @@ namespace LeSan.HlxPortal.WebSite
         {
             this.DbContext = new ApplicationDbContext();
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.DbContext));
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
         }
 
         /// <summary>
@@ -60,21 +64,21 @@ namespace LeSan.HlxPortal.WebSite
 
             var userId = HttpContext.Current.User.Identity.GetUserId();
 
-            //HttpContext.Current.RewritePath("Account/Login");
-            //return;
+            // anonymous user
+            if (string.IsNullOrEmpty(userId))
+            {
+                return;
+            }
 
-            //data.AppUser = data.UserManager.FindById(userId);
-            data.AppUser = data.UserManager.FindByName("xm1");
+            data.AppUser = data.UserManager.FindById(userId);
             data.SetUserSites();
-
-            
         }
 
         private void SetUserSites()
         {
             List<SiteDbData> allSites = RegularUpdateObjects<List<SiteDbData>>.DefaultObjectInstance;
 
-            if (UserManager.IsInRole(AppUser.Id, Consts.RoleAdmin) || UserManager.IsInRole(AppUser.Id, Consts.RoleAdmin))
+            if (AppUser.RoleType == Consts.RoleAdmin || AppUser.RoleType == Consts.RoleVip)
             {
                 this.UserSites = allSites;
             }

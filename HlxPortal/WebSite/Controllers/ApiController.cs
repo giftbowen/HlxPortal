@@ -97,4 +97,24 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             return IpcNamedPipe.SendDataResetPlc(siteId);
         }
     }
+
+    [Authorize]
+    public class DeleteUserApiController : ApiController
+    {
+        public string Get(string userName)
+        {
+            if (PerRequestData.Current.AppUser.RoleType != Consts.RoleAdmin)
+            {
+                return "Not admin, can not delete user!";
+            }
+
+            if (userName.ToLowerInvariant() == "Admin")
+            {
+                return "Can not delete default admin user!";
+            }
+
+            IdentityManager.DeleteUser(userName);
+            return "ok";
+        }
+    }
 }

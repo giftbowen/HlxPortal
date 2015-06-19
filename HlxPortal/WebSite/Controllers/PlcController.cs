@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 
 namespace LeSan.HlxPortal.WebSite.Controllers
 {
+    [AccessControl]
+    [Authorize]
     public class PlcController : Controller
     {
         //

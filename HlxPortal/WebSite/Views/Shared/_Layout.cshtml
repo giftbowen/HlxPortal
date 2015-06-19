@@ -60,7 +60,10 @@
                     </ul>
                 }
             </div>
-            <a href="/Admin/AdminIndex" class="member"></a>
+            @if (PerRequestData.Current.AppUser.RoleType == Consts.RoleAdmin)
+            {
+                <a href="/Admin/AdminIndex" class="member"></a>
+            }
         </div>
         <div class="rContent" style="min-width:1000px">
             @RenderBody()
