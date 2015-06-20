@@ -22,13 +22,13 @@ namespace LeSan.HlxPortal.WebSite.Controllers
 
         public ActionResult UnAuthorized(string msg)
         {
-            ViewBag.Msg = msg ?? "您没有权限进行该操作！";
+            ViewBag.Msg = msg ?? "您没有权限进行该操作。";
 
             return View();
         }
         public ActionResult Error(string msg)
         {
-            ViewBag.Msg = msg ?? "对不起！该页面无法显示";
+            ViewBag.Msg = msg ?? "对不起！该页面无法显示。";
 
             return View();
         }

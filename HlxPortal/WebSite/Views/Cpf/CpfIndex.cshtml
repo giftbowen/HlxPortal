@@ -3,11 +3,8 @@
 
 @{ViewBag.Title = "扫描图像记录";}
 
-<link rel="stylesheet" href="~/Content/kendo.common.min.css" />
-<link rel="stylesheet" href="~/Content/kendo.silver.min.css" />
-<link rel="stylesheet" href="~/Content/kendo.dataviz.min.css" />
-<link rel="stylesheet" href="~/Content/kendo.dataviz.silver.min.css" />
-<script src="~/Scripts/kendo.all.min.js"></script>
+@Styles.Render("~/Content/kendo")
+@Scripts.Render("~/bundles/kendo")
 
 <div class="itemTitleL" style="background:url(/images/itemTitle4.jpg);"><b class="iTLText f14">扫描图像记录 - <span>@Model.Name</span></b><span class="selDate">选择时间&nbsp;&nbsp;<input id="startDate" style="width: 120px" />&nbsp;&nbsp;-&nbsp;&nbsp;<input id="endDate" style="width: 120px" />&nbsp;&nbsp;<input id="queryBt" type="button" class="confirm" onclick="getCpfData()"></span></div>
 <div id="grid"></div>
@@ -22,7 +19,7 @@
         value: new Date(),
         max: new Date()
     }).data("kendoDatePicker");
-    
+
     var cpfData = [];
 
     setUpTable();
@@ -69,7 +66,7 @@
                 previousNext: true
             },
             sortable: true,
-            detailInit: detailInit,           
+            detailInit: detailInit,
             columns: [
                 {
                     field: "TimeStamp", title: "扫描时间", template: function (dataItem) {

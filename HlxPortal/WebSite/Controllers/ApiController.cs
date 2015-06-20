@@ -105,12 +105,12 @@ namespace LeSan.HlxPortal.WebSite.Controllers
         {
             if (PerRequestData.Current.AppUser.RoleType != Consts.RoleAdmin)
             {
-                return "Not admin, can not delete user!";
+                return "只有管理员可以删除用户";
             }
 
             if (userName.ToLowerInvariant() == "Admin")
             {
-                return "Can not delete default admin user!";
+                return "不能删除系统内置管理员账户";
             }
 
             IdentityManager.DeleteUser(userName);

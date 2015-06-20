@@ -45,12 +45,12 @@ namespace LeSan.HlxPortal.WebSite.Models
         public string UserName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "1111 The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "密码至少要有 {2} 个字符.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "输入的密码和确认密码不一致")]
         public string ConfirmPassword { get; set; }
 
         public DateTime RegisterTime { get; set; }

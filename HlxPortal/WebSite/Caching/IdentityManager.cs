@@ -86,38 +86,14 @@ namespace LeSan.HlxPortal.WebSite
                 Comments = "Vip 用户 可访问所有站点"
             });
 
-            // should be test code
-            //AddUser(new UserViewModel()
-            //{
-            //    UserName = "xm1",
-            //    Password = "111111",
-            //    RoleType = Consts.RoleNormal,
-            //    Comments = "HLX's Normal User",
-            //    SiteList = new List<string>() { "1", "2", "3" }
-            //});
-
-            //AddUser(new UserViewModel()
-            //{
-            //    UserName = "xm3",
-            //    Password = "111111",
-            //    RoleType = Consts.RoleNormal,
-            //    Comments = "HLX's Normal User",
-            //    SiteList = new List<string>() { "1", "2", "3" }
-            //});
-
-            //DeleteUser("xm3");
-
-            //var xm = AppUserManager.FindByName("xm4");
-            //AppUserManager.AddToRole(xm.Id, "3");
-            //AppUserManager.AddToRole(xm.Id, "4");
-
-            //UpdateUser(new UserViewModel()
-            //{
-            //    UserName = "xm4",
-            //    RoleType = Consts.RoleVip,
-            //    Comments = "update 1 for xm4",
-            //    SiteList = new List<string>() { "1", "2"}
-            //});
+            AddUser(new UserViewModel()
+            {
+                UserName = "xm1",
+                Password = "111111",
+                RoleType = Consts.RoleNormal,
+                Comments = "用户1可访问站点 1 2 3",
+                SiteList = new List<string>() { "1", "2", "3" }
+            });
         }
 
         public static string ValidateRoleType(string roleType)
@@ -137,7 +113,6 @@ namespace LeSan.HlxPortal.WebSite
             ApplicationUser appUser = new ApplicationUser()
             {
                 UserName = user.UserName,
-                Password = user.Password,
                 RegisterTime = DateTime.Now,
                 RoleType = ValidateRoleType(user.RoleType),
                 Comments = user.Comments
@@ -236,7 +211,6 @@ namespace LeSan.HlxPortal.WebSite
             {
                 Id = id,
                 UserName = user.UserName,
-                Password = user.Password,
                 RoleType = user.RoleType,
                 RegisterTime = user.RegisterTime,
                 Comments = user.Comments,

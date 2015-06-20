@@ -24,7 +24,8 @@ namespace LeSan.HlxPortal.WebSite
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
-                      "~/Scripts/kendo.all.min.js"));
+                      "~/Scripts/kendo.all.min.js",
+                      "~/Scripts/kendo.messages.zh-CN.js"));
 
             bundles.Add(new StyleBundle("~/Content/css1").Include(
                       "~/Content/bootstrap.css",
