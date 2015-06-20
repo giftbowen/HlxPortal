@@ -59,15 +59,9 @@ namespace LeSan.HlxPortal.WebSite.Controllers
 
         //
         // GET: /Account/Manage
-        //[Authorize(ClaimTypes.ro)]
-        public ActionResult Manage(ManageMessageId? message)
+        public ActionResult Manage(string message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : "";
+            ViewBag.StatusMessage = message;
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
         }
@@ -76,7 +70,6 @@ namespace LeSan.HlxPortal.WebSite.Controllers
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles="Admin")]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
         {
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -86,7 +79,7 @@ namespace LeSan.HlxPortal.WebSite.Controllers
                 IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+                    return RedirectToAction("Manage", new { Message = "修改密码成功" });
                 }
                 else
                 {
@@ -141,14 +134,6 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             {
                 ModelState.AddModelError("", error);
             }
-        }
-
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            Error
         }
 
         private ActionResult RedirectToLocal(string returnUrl)

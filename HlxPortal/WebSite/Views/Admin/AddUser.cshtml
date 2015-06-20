@@ -3,8 +3,8 @@
 @using LeSan.HlxPortal.WebSite.DataEntity
 @{ViewBag.Title = "添加新用户";}
 
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@*<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
 <div class="itemTitleL" style="background:url(/images/itemTitle5.jpg);"><b class="iTLText f14">用户管理 - 添加新用户</b></div>
 
 @using (Html.BeginForm("AddUser", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -22,15 +22,15 @@
             <tr>
                 <td align="center" bgcolor="#efefef">设置密码</td>
                 <td bgcolor="#efefef">
-                    @Html.TextBoxFor(m => m.Password, new { @class = "infoInput" }) &nbsp; &nbsp; &nbsp; &nbsp;
-                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "Tgray" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "infoInput" }) &nbsp; &nbsp; &nbsp; &nbsp;
+                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "Tred" })
                 </td>
             </tr>
             <tr>
                 <td align="center" bgcolor="#efefef">确认密码</td>
                 <td bgcolor="#f7f7f7">
-                    @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "infoInput" }) &nbsp; &nbsp; &nbsp; &nbsp;
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "Tgray" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "infoInput" }) &nbsp; &nbsp; &nbsp; &nbsp;
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "Tred" })
                 </td>
             </tr>
             <tr>
@@ -41,7 +41,7 @@
                         new SelectListItem() { Text = "管理员", Value = Consts.RoleAdmin, Selected = false },
                         new SelectListItem() { Text = "白金用户", Value = Consts.RoleVip, Selected = false },
                         new SelectListItem() { Text = "普通用户", Value = Consts.RoleNormal, Selected = true }
-                     }, new { @onchange = "onSelectRoleType()" })
+                     }, new { @onchange = "onSelectRoleType()", @style = "width:150px;height:28px", @class = "infoInput"})
                 </td>
             </tr>
             <tr>

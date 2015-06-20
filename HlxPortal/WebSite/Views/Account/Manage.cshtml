@@ -12,24 +12,35 @@
     @using (Html.BeginForm("Manage", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     { 
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
+        @Html.ValidationSummary(true, "", new { @class = "erorrTips f14" })
         <table>
             <tbody>
                 <tr>
                     <td width="140">输入原密码</td>
-                    <td width="300">@Html.PasswordFor(m => m.OldPassword, new { @class = "infoInput" })</td>
+                    <td width="300">
+                        @Html.PasswordFor(m => m.OldPassword, new { @class = "infoInput" })
+                        @Html.ValidationMessageFor(m => m.OldPassword, null, new { @class = "Tred" })
+                    </td>
                 </tr>
                 <tr>
                     <td>输入新密码</td>
-                    <td>@Html.PasswordFor(m => m.NewPassword, new { @class = "infoInput" })</td>
+                    <td>
+                        @Html.PasswordFor(m => m.NewPassword, new { @class = "infoInput" })
+                        @Html.ValidationMessageFor(m => m.NewPassword, null, new { @class = "Tred" })
+                    </td>
+                    
                 </tr>
                 <tr>
                     <td>确认新密码</td>
-                    <td>@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "infoInput" })</td>
+                    <td>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "infoInput" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "Tred" })
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td colspan="2" align="left"><input type="submit" class="saveBtn" value=""></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>

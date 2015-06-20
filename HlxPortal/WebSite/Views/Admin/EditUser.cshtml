@@ -27,7 +27,7 @@
                         new SelectListItem() { Text = "管理员", Value = Consts.RoleAdmin, Selected = Consts.RoleAdmin == Model.RoleType },
                         new SelectListItem() { Text = "白金用户", Value = Consts.RoleVip, Selected = Consts.RoleAdmin == Model.RoleType },
                         new SelectListItem() { Text = "普通用户", Value = Consts.RoleNormal, Selected = Consts.RoleAdmin == Model.RoleType }
-                     }, new { @onchange = "onSelectRoleType()" })
+                     }, new { @onchange = "onSelectRoleType()", @style = "width:150px;height:28px", @class = "infoInput" })
                 </td>
             </tr>
             <tr>
