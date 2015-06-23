@@ -40,16 +40,16 @@
     <div class="hotSite" style="display:none;">
         <div class="hotKind">
             <p>@indicator.Description</p> <br />
-            <span class="graph">图 示:&nbsp;&nbsp;<img src="/images/green.gif" />&nbsp;&nbsp;@indicator.Green&nbsp;&nbsp;<img src="/images/red.gif" />&nbsp;&nbsp;@indicator.Red&nbsp;&nbsp;<img src="/images/blue.gif" />&nbsp;&nbsp;没有数据&nbsp;&nbsp;</span>
+            <span class="graph">图 示:&nbsp;&nbsp;<img src="/images/green.gif" />&nbsp;&nbsp;@indicator.Green&nbsp;&nbsp;<img src="/images/red.gif" />&nbsp;&nbsp;@indicator.Red&nbsp;&nbsp;<img src="/images/gray.gif" />&nbsp;&nbsp;没有数据&nbsp;&nbsp;</span>
         </div>
 
         <div class="hotPGroup">
             @foreach(var site in Model.SiteObjs)
             {
-                var colorClass = "stateY";
+                var colorClass = "stateH";
                 if (site.HeatmapData == null)
                 {
-                    colorClass = "stateB";
+                    colorClass = "stateH";
                 }
                 else if (site.HeatmapData[indicator.PropertyName] == 1)
                 {

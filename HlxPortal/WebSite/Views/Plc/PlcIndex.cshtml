@@ -8,7 +8,8 @@
 }
 <div class="itemTitle" style="background:url(/images/itemTitle2.jpg);"><b class="iTLText f14">设备实时监控 - <span>@siteInfo.Name</span></b></div>
 
-<p>数据更新时间 : "@Model.TimeStamp" </p>
+<div class="moniDate">数据更新时间 : @Model.TimeStamp</div>
+
 <div class="monitor">
     <div class="moniL">
         @if (Model.Ready == 1)  // 就绪

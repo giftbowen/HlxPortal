@@ -15,16 +15,16 @@ a:hover {text-decoration:underline;cursor:pointer;}
 .login,.content,.footer,.logSite {margin:0px auto;}
 .content,.footer {width:1240px;}
 .topSite,.topBanner,.allsel,.aSSel,.logBg,.warning div {width:100%;}
-.date,.lContent,.iTLText,.hotSel ul li,.hotPic,.graph,.aSSel ul li,.cPicGroup a,.moniData ul li,.moniC,.moniL {float:left;}
+.date,.lContent,.iTLText,.hotSel ul li,.hotPic,.graph,.aSSel ul li,.moniData ul li,.moniC,.moniL {float:left;}
 .log,.iTRText,.hotKind select,.selDate,.moniR {float:right;}
-.footer,.hotSel,.erorrTips,.moniData ul li {vertical-align:middle;}
-.hotSel ul li,.hotPic a,.footer,.warning div,.moniC {text-align:center;}
-.totalList,.totalList li,.member,.siteSel li,.hotSel ul li,.hotPic a,.pClose,.aSSel ul li,.cPicGroup a,.moniData ul li {display:block;}
-.rContent,.infoTab td,.hotPic,.dateInput,.infoInput,.cPicGroup a {border:1px solid #d5d5d5;}
+.footer,.hotSel,.erorrTips,.moniData ul li,.hotPic a {vertical-align:middle;}
+.hotSel ul li,.hotPic a,.footer,.warning div,.moniC,.cTitle {text-align:center;}
+.totalList,.totalList li,.member,.siteSel li,.hotSel ul li,.hotPic a,.pClose,.aSSel ul li,.moniData ul li {display:block;}
+.rContent,.infoTab td,.hotPic,.dateInput,.infoInput {border:1px solid #d5d5d5;}
 .itemTitle,.allMap,.hotSel,.cPicGroup,.moniData ul li {border-bottom:1px solid #d5d5d5;}
 .dateInput,.infoInput,.picFrame {background:#fff;}
 .totalList li a:hover,.siteName:hover,.siteSel li a:hover,.hK1:hover,.blue:hover,.blue2:hover,.red:hover,.gray:hover {color:#f60;}
-.selName,.infoTab td,.selDate,.picInfo,.infoInput,.password,.logInput,.cTitle,.mDName {color:#5c5c5c;}
+.selName,.infoTab td,.selDate,.picInfo,.infoInput,.password,.logInput,.cTitle,.mDName,.moniDate,.cPicGroup table td {color:#5c5c5c;}
 .hotSel,.hK1,.graph {color:#868686;}
 .selInfo,.hotSel,.curveMap,.selBar,.cPicGroup {margin:24px auto 0px auto;}
 .total,.allSite,.member {width:220px;height:46px;}
@@ -38,8 +38,7 @@ a:hover {text-decoration:underline;cursor:pointer;}
 .confirm:active,.addBtn:active,.backBtn:active,.clearBtn:active,.resetBtn:active,.saveBtn:active,.cancelBtn:active {background-position:0px -48px;}
 .logInput,.logbtn,.erorrTips {margin-bottom:30px;margin-left:63px;}
 .password div,.erorrTips {width:300px;height:34px;line-height:34px;padding-left:50px;background: url(../images/erorr.gif) no-repeat;}
-.monitor,.moniData {width:830px;}
-.mDStateN,.mDStateU {width:41px;text-align:center;}
+.mDStateN,.mDStateU {width:41px;text-align:center;margin-right:20px;border-right:1px solid #d5d5d5;}
 .rState,.gState {width:26px;height:12px;padding-left:16px;background-repeat:no-repeat;background-position:0px 2px;line-height:14px;}
 .mLR,.mLW,.mLG {float:left;width:14px;height:14px;margin-right:42px;}
 
@@ -82,15 +81,15 @@ body {min-width:1240px;background:url(../images/pageBg.gif) repeat;}
 .graph img {width:14px;height:14px; vertical-align:-2px;}
 .hotPGroup {width:960px;}
 .hotPic {width:76px;height:76px;padding:1px;margin-right:40px;margin-bottom:40px;}
-.hotPic a {width:76px;height:60px;color:#fff;padding-top:16px;line-height:22px;}
+.hotPic a {width:76px;height:76px;color:#fff;line-height:76px;}
 .stateG {background:#2bc66b;}
-.stateB {background:#57a5d5;}
-.stateY {background:#f4a40d;}
+.stateH {background:#a1a7aa;}
 .stateR {background:#cd4549;}
 .curveMap {width:920px;padding-bottom:24px;}
-.cPicGroup {width:920px;height:434px;padding-top:20px;padding-bottom:20px;border-top:1px solid #d5d5d5;overflow-y:scroll;}
-.cPicGroup a {width:270px;height:203px;padding:1px;margin:0px 20px 20px 0px;}
-.cTitle {width:900px;margin:0px auto;background:url(../images/square.gif) no-repeat 0px 5px;*background:url(../images/square.gif) no-repeat 0px 6px;padding-left:20px;font-weight:bold;}
+.cPicGroup {width:920px;height:498px;padding-top:20px;padding-bottom:20px;border-top:1px solid #d5d5d5;overflow-y:scroll;}
+.cPicGroup table {width:890px;border:1px solid #d5d5d5;margin-bottom:20px;}
+.cPicGroup table td {padding:6px;}
+.cTitle {width:900px;margin:0px auto;padding-left:20px;font-weight:bold;}
 .selBar {width:928px;height:24px;}
 .dateInput {width:90px;height:12px;padding:5px;*vertical-align:-5px;}
 .confirm {background-image:url(../images/confirm.gif);*vertical-align:-5px;}
@@ -124,7 +123,7 @@ body {min-width:1240px;background:url(../images/pageBg.gif) repeat;}
 .warning {width:1000px;height:370px;padding-top:180px;background:url(../images/errorBg.jpg);}
 .warning div {height:76px;font-size:24px;font-family:"\5FAE\8F6F\96C5\9ED1","\9ED1\4F53",sans-serif;color:#929292;}
 .warning div img {width:84px;height:76px;margin-right:30px;vertical-align:-30px;}
-.monitor {height:400px;margin:30px auto 0px auto;background:url(../images/moniBg.jpg) no-repeat 0px bottom;}
+.monitor {width:830px;height:400px;margin:0px auto;background:url(../images/moniBg.jpg) no-repeat 0px bottom;}
 .moniL {width:170px;height:14px;background:url(../images/moniL.gif) no-repeat;margin-top:114px;margin-right:160px;}
 .mLR {background:url(../images/rl.gif);}
 .mLW {background:url(../images/wl.gif);} 
@@ -137,15 +136,17 @@ body {min-width:1240px;background:url(../images/pageBg.gif) repeat;}
 .mMoni {width:54px;height:53px;background:url(../images/monitor.gif);margin:30px auto 0px auto;*margin:42px auto 0px auto;}
 .rState {color:#b32b43;background-image:url(../images/redPoint.gif);}
 .gState {color:#31ba34;background-image:url(../images/greenPoint.gif);}
-.moniData {margin:26px 0px 0px 85px;border-top:1px solid #d5d5d5;}
-.moniData ul li {height:30px;line-height:30px;}
-.mDName {width:85px;padding:0px 20px;background:url(../images/mN.gif) repeat-x;}
+.moniData {width:854px;margin:26px 0px 0px 85px;}
+.moniData ul li {height:30px;line-height:30px;border-top:1px solid #d5d5d5;margin-bottom:10px;}
+.mDName {width:87px;padding:0px 10px;background:url(../images/mN.gif) repeat-x;border-left:1px solid #d5d5d5;}
 .mDStateN {color:#d9e4d3;background:url(../images/mDN.gif);}
 .mDStateU {color:#ead0d3;background:url(../images/mDU.gif);}
+.moniDate {width:815px;height:14px;line-height:100%;margin:30px auto 20px auto;background:url(../images/square.gif) no-repeat 0px 3px;padding-left:15px;}
 .curr {}
 
 /* CSS Font */
 .f14 {font-size:14px;}
+.lh26 {line-height:26px;}
 .Tred {color:#b32b43;}
 .Tgray {color:#9e9e9e;}
 .Tgreen {color:#31ba34;}

@@ -12,3 +12,5 @@ HlxPortal/Common/obj/*
 HlxPortal/Cloud1/bin/*
 HlxPortal/Cloud1/csx/*
 HlxPortal/Cloud1/obj/*
+HlxPortal/packages/*
+HlxPortal/WebSite/WebRole.cs

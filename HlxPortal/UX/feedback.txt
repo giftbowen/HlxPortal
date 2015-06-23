@@ -5,19 +5,6 @@ Pages done:
 login，layout，home/sitemap, home/heatmap， radiation page(current&history)， plc page， cpf page， admin: index, add user, edit user, unauthorized page, error page
 change password page,
 
-feedback:
-1.heatmap, need red, green, gray 3 color
-2.heatmap, text inside the box need to be in center in both horizontal and vertical
-3.radiation data, chart name and pictures name, horizontal center, not left align
-4.radiation cameras, only one picture in a row 640 * 480, make it in center, and in the left of the picture, mark the picture with it's timestamp
-5.radiation history table, use 确定 button, with class confirm, can't aligh with datetime control
-6.plc page, need a style to place data last update time, need another style to place return string of reset plc
-7.plc page, 相邻的两列状态 连起来了，要有一定的间隔
-8.cpf 页，出一个 loading的图标，jpg，gif 均可，100*100
-9.cpf 页，确定按钮低于时间选择框，在style中使其居中
-10. change password upper-left corner, password change successful, text style, consider use plc's left upper corner text style
-
-
 1st round end
 2nd round end
 
@@ -26,3 +13,10 @@ locationlization
 deployment
 tune UI
 
+
+
+feedback:
+1.heatmap , miss gray.gif
+2.plc page, need another style to place return string of reset plc
+3.cpf/radiation history table, use 确定 button, with class confirm, can't aligh with datetime control
+4.change password upper-left corner, password change successful, text style, consider use plc's left upper corner text style

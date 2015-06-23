@@ -12,10 +12,17 @@
 <div class="cPicGroup">
 @for (int i = 0; i < Model.CameraImageBase64List.Count; i++)
 {
-    <span> @Model.CameraImageTimeStamp[i]
-        <img src="data:image/jpeg;base64,@Model.CameraImageBase64List[i]" />
-    </span>
-    <br />
+    <table class="f14">
+        <tbody>
+        <tr>
+            <td colspan="2" height="4" bgcolor="#d5d5d5" style="padding:0px;"></td>
+        </tr>
+        <tr>
+            <td width="238"><span class="lh26">拍照时间：  @Model.CameraImageTimeStamp[i]</span></td>
+            <td width="640"><img src="data:image/jpeg;base64,@Model.CameraImageBase64List[i]" /></td>
+        </tr>
+        </tbody>
+    </table>
 }
 </div>
 
