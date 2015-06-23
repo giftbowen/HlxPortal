@@ -274,7 +274,7 @@
     <Content Include="Images\itemTitle5.jpg" />
     <Content Include="Images\itemTitle6.jpg" />
     <Content Include="Images\itemTitle7.jpg" />
-    <Content Include="Images\loading.jpg" />
+    <Content Include="Images\loading.gif" />
     <Content Include="Images\logBg.jpg" />
     <Content Include="Images\loginBtn.gif" />
     <Content Include="Images\mCtrl.gif" />
