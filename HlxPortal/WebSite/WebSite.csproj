@@ -263,6 +263,7 @@
     <Content Include="Images\error2.jpg" />
     <Content Include="Images\errorBg.jpg" />
     <Content Include="Images\gl.gif" />
+    <Content Include="Images\gray.gif" />
     <Content Include="Images\green.gif" />
     <Content Include="Images\greenPoint.gif" />
     <Content Include="Images\hotKind.gif" />
