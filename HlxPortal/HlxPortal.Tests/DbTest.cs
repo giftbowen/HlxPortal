@@ -9,9 +9,11 @@ namespace HlxPortal.Tests
     [TestClass]
     public class DbTest
     {
+        private const string connectionString = @"Server=tcp:vn6gqwmdp2.database.windows.net,1433;Database=HochTestDb;User ID=unimatrixcache@vn6gqwmdp2;Password=07Apples_unimatrix;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         private const string connectionString0 = @"Data Source=(localdb)\Projects;Initial Catalog=HlxPortal;Integrated Security=True;Connect Timeout=30";
         private const string connectionString1 = @"Data Source=Bowenz-1;Initial Catalog=HlxPortal;Integrated Security=True";
-        private const string connString = connectionString0;
+
+        private const string connString = connectionString;
 
         [TestMethod]
         public void TestMethod1()

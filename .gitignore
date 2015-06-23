@@ -1,3 +1,4 @@
+*.user
 *.userosscache
 *.suo
 HlxPortal/DataCollector/bin/*
@@ -8,4 +9,6 @@ HlxPortal/WebSite/bin/*
 HlxPortal/WebSite/obj/*
 HlxPortal/Common/bin/*
 HlxPortal/Common/obj/*
-*.user
+HlxPortal/Cloud1/bin/*
+HlxPortal/Cloud1/csx/*
+HlxPortal/Cloud1/obj/*
