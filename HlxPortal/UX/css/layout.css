@@ -17,8 +17,8 @@ a:hover {text-decoration:underline;cursor:pointer;}
 .topSite,.topBanner,.allsel,.aSSel,.logBg,.warning div {width:100%;}
 .date,.lContent,.iTLText,.hotSel ul li,.hotPic,.graph,.aSSel ul li,.moniData ul li,.moniC,.moniL {float:left;}
 .log,.iTRText,.hotKind select,.selDate,.moniR {float:right;}
-.footer,.hotSel,.erorrTips,.moniData ul li,.hotPic a {vertical-align:middle;}
-.hotSel ul li,.hotPic a,.footer,.warning div,.moniC,.cTitle {text-align:center;}
+.footer,.hotSel,.moniData ul li,.hotPic a {vertical-align:middle;}
+.hotSel ul li,.hotPic a,.footer,.warning div,.moniC,.cTitle,.bCShow {text-align:center;}
 .totalList,.totalList li,.member,.siteSel li,.hotSel ul li,.hotPic a,.pClose,.aSSel ul li,.moniData ul li {display:block;}
 .rContent,.infoTab td,.hotPic,.dateInput,.infoInput {border:1px solid #d5d5d5;}
 .itemTitle,.allMap,.hotSel,.cPicGroup,.moniData ul li {border-bottom:1px solid #d5d5d5;}
@@ -37,7 +37,9 @@ a:hover {text-decoration:underline;cursor:pointer;}
 .confirm:hover,.addBtn:hover,.backBtn:hover,.clearBtn:hover,.resetBtn:hover,.saveBtn:hover,.cancelBtn:hover {cursor:pointer;background-position:0px -24px;}
 .confirm:active,.addBtn:active,.backBtn:active,.clearBtn:active,.resetBtn:active,.saveBtn:active,.cancelBtn:active {background-position:0px -48px;}
 .logInput,.logbtn,.erorrTips {margin-bottom:30px;margin-left:63px;}
-.password div,.erorrTips {width:300px;height:34px;line-height:34px;padding-left:50px;background: url(../images/erorr.gif) no-repeat;}
+.passErorr,.erorrTips,.succeTips {width:300px;height:34px;line-height:34px;padding-left:50px;vertical-align:middle;}
+.passErorr,.erorrTips {background: url(../images/erorr.gif) no-repeat;}
+.passErorr,.succeTips {margin-left:354px;margin-top:30px;}
 .mDStateN,.mDStateU {width:41px;text-align:center;margin-right:20px;border-right:1px solid #d5d5d5;}
 .rState,.gState {width:26px;height:12px;padding-left:16px;background-repeat:no-repeat;background-position:0px 2px;line-height:14px;}
 .mLR,.mLW,.mLG {float:left;width:14px;height:14px;margin-right:42px;}
@@ -110,7 +112,8 @@ body {min-width:1240px;background:url(../images/pageBg.gif) repeat;}
 .password {width:1000px;height:470px;padding-top:80px;background:url(../images/bgPic.jpg);}
 .password table {width:400px;margin-left:354px;}
 .password table td {height:50px;}
-.password div {margin-left:354px;margin-top:30px;color:#9C3031;}
+.passErorr {color:#9C3031;}
+.succeTips {background:url(../images/succe.gif) no-repeat;color:#158d6a;}
 .clear {height:0px;clear:both;overflow:hidden;}
 .footer {height:46px;line-height:46px;background:#000;color:#838383;}
 .logBg {height:842px;background: url(../images/logBg.jpg) no-repeat center -12px;}
@@ -123,12 +126,13 @@ body {min-width:1240px;background:url(../images/pageBg.gif) repeat;}
 .warning {width:1000px;height:370px;padding-top:180px;background:url(../images/errorBg.jpg);}
 .warning div {height:76px;font-size:24px;font-family:"\5FAE\8F6F\96C5\9ED1","\9ED1\4F53",sans-serif;color:#929292;}
 .warning div img {width:84px;height:76px;margin-right:30px;vertical-align:-30px;}
-.monitor {width:830px;height:400px;margin:0px auto;background:url(../images/moniBg.jpg) no-repeat 0px bottom;}
+.monitor {width:830px;height:430px;margin:0px auto;background:url(../images/moniBg.jpg) no-repeat 0px bottom;}
 .moniL {width:170px;height:14px;background:url(../images/moniL.gif) no-repeat;margin-top:114px;margin-right:160px;}
 .mLR {background:url(../images/rl.gif);}
 .mLW {background:url(../images/wl.gif);} 
 .mLG {background:url(../images/gl.gif);}
-.moniC {width:156px;height:130px;background:url(../images/mRBg.gif);margin-top:40px;}
+.moniC {width:156px;height:160px;background:url(../images/mRBg.gif) no-repeat 0px bottom;margin-top:40px;}
+.bCShow {width:156px;height:14px;margin-bottom:16px;}
 .mRes {width:78px;height:26px;border:none;background-image:url(../images/res.gif);}
 .mRes:hover {background-position:0px -26px;cursor:pointer;}
 .mRes:active {background-position:0px -52px;}

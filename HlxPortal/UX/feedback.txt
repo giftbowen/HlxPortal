@@ -13,10 +13,5 @@ locationlization
 deployment
 tune UI
 
-
-
 feedback:
-1.heatmap , miss gray.gif
-2.plc page, need another style to place return string of reset plc
-3.cpf/radiation history table, use È·¶¨ button, with class confirm, can't aligh with datetime control
-4.change password upper-left corner, password change successful, text style, consider use plc's left upper corner text style
+3.cpf/radiation history table, use "Enter" button, with class confirm, can't aligh with datetime control
