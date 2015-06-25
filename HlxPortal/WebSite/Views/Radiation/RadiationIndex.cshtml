@@ -4,7 +4,7 @@
 @Styles.Render("~/Content/kendo")
 @Scripts.Render("~/bundles/kendo")
 
-<div class="itemTitle" style="background:url(/images/itemTitle3.jpg);"><b class="iTLText f14">放射剂量情况 - <span>@Model.Site.Name</span></b></div>
+<div class="itemTitle" style="background:url(@Url.Content("~/images/itemTitle3.jpg"));"><b class="iTLText f14">放射剂量情况 - <span>@Model.Site.Name</span></b></div>
 <div class="hotSel">
     <ul>
         <li class="hSS"><a class="hK2">当前状态</a></li>

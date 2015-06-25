@@ -3,7 +3,7 @@
     ViewBag.Title = "错误";
 }
 
-<div class="itemTitle" style="background:url(/images/itemTitle6.jpg);"><b class="iTLText f14">错误提示</b></div>
+<div class="itemTitle" style="background:url(@Url.Content("~/images/itemTitle6.jpg"));"><b class="iTLText f14">错误提示</b></div>
 <p> @ViewBag.Msg </p>
-<img src="/images/error2.jpg" /> 
+<img src="@Url.Content("~/images/error2.jpg")" /> 
 

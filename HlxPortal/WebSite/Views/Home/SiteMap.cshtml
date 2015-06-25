@@ -7,7 +7,7 @@
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PRq4PIKtTrZSZzEeHvuuzSuq"></script>
 
-<div class="itemTitle" style="background:url(/images/itemTitle1.jpg);"><b class="iTLText f14">全国站点分布情况</b><span class="iTRText">共 <span class="Tred">@Model.Count</span> 个站点</span></div>
+<div class="itemTitle" style="background:url(@Url.Content("~/images/itemTitle1.jpg"));"><b class="iTLText f14">全国站点分布情况</b><span class="iTRText">共 <span class="Tred">@Model.Count</span> 个站点</span></div>
 <div id="allmap" style="width:1000px;height:800px;overflow:auto;margin:0;font-family:'Microsoft YaHei'"></div>
 <div class="selInfo">
     <div class="selName f14"><b><a id="siteLink">地图上选择站点名称</a></b></div>
@@ -71,7 +71,7 @@
     function showSiteInfo(site){
         $("#siteLoc").text(site.Location);
         $("#siteDes").text(site.Description);
-        $("#siteLink").attr("href", "/radiation/index?siteId=" + site.SiteId);
+        $("#siteLink").attr("href", "@Url.Action("index", "radiation")" + "?siteId=" + site.SiteId);
         $("#siteLink").text(site.Name);
     }
 

@@ -6,7 +6,7 @@
 @Styles.Render("~/Content/kendo")
 @Scripts.Render("~/bundles/kendo")
 
-<div class="itemTitleL" style="background:url(/images/itemTitle4.jpg);"><b class="iTLText f14">扫描图像记录 - <span>@Model.Name</span></b><span class="selDate">选择时间&nbsp;&nbsp;<input id="startDate" style="width: 120px" />&nbsp;&nbsp;-&nbsp;&nbsp;<input id="endDate" style="width: 120px" />&nbsp;&nbsp;<input id="queryBt" type="button" class="confirm" onclick="getCpfData()"></span></div>
+<div class="itemTitleL" style="background:url(@Url.Content("~/images/itemTitle4.jpg"));"><b class="iTLText f14">扫描图像记录 - <span>@Model.Name</span></b><span class="selDate">选择时间&nbsp;&nbsp;<input id="startDate" style="width: 120px" />&nbsp;&nbsp;-&nbsp;&nbsp;<input id="endDate" style="width: 120px" />&nbsp;&nbsp;<input id="queryBt" type="button" class="confirm" onclick="getCpfData()"></span></div>
 <div id="grid"></div>
 
 <script type="text/javascript">
@@ -27,7 +27,7 @@
 
     function getCpfData() {
         $.ajax({
-            url: "/api/CpfApi",
+            url: "@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "CpfApi" })",
             dataType: "json",
             async: true,
             data: {
@@ -40,110 +40,110 @@
                 loadTableData();
             },
         });
-    }
+        }
 
-    function loadTableData()
-    {
-        var dataSource = new kendo.data.DataSource({ data: cpfData, pageSize: 20 });
-        dataSource.read();
-        var grid = $('#grid').data("kendoGrid");
-        grid.setDataSource(dataSource);
-    }
+        function loadTableData()
+        {
+            var dataSource = new kendo.data.DataSource({ data: cpfData, pageSize: 20 });
+            dataSource.read();
+            var grid = $('#grid').data("kendoGrid");
+            grid.setDataSource(dataSource);
+        }
 
-    function setUpTable()
-    {
-        $("#grid").kendoGrid({
-            dataSource: {
-                data: cpfData,
-                pageSize: 20
-            },
-            scrollable: {
-                virtual: true
-            },
-            pageable: {
-                info: true,
-                numeric: true,
-                previousNext: true
-            },
-            sortable: true,
-            detailInit: detailInit,
-            columns: [
-                {
-                    field: "TimeStamp", title: "扫描时间", template: function (dataItem) {
-                        return kendo.toString(new Date(dataItem.TimeStamp), "yyyy-MM-dd HH:mm");
-                    }
+        function setUpTable()
+        {
+            $("#grid").kendoGrid({
+                dataSource: {
+                    data: cpfData,
+                    pageSize: 20
                 },
-                { field: "DbData.PlateNumber", title: "车牌号码" },
-                { field: "DbData.VehicleType", title: "车辆类型" },
-                { field: "DbData.Goods", title: "货物" },
-                { field: "DbData.Comments", title: "结论" }
-            ]
-        });
-    }
-
-    function detailInit(e) {
-        var rowData = $.grep(cpfData, function (d) { return d.TimeStamp == e.data.TimeStamp; });
-        var detailDiv = $("<div/>").appendTo(e.detailCell);
-
-        detailDiv.kendoGrid({
-            dataSource: {
-                data: rowData,
-            },
-            scrollable: false,
-            sortable: false,
-            pageable: false,
-            columns: [
-                { field: "Base64CpfImage", title: "CPF", template: '#= imageTemplate(Base64CpfImage) #' },
-                { field: "Base64LpnImage", title: "LPN", template: "#= imageTemplate(Base64LpnImage) #" }
-            ]
-        });
-
-        // images are loaded, no need to load again
-        if (rowData[0].Base64CpfImage != "") {
-            return;
+                scrollable: {
+                    virtual: true
+                },
+                pageable: {
+                    info: true,
+                    numeric: true,
+                    previousNext: true
+                },
+                sortable: true,
+                detailInit: detailInit,
+                columns: [
+                    {
+                        field: "TimeStamp", title: "扫描时间", template: function (dataItem) {
+                            return kendo.toString(new Date(dataItem.TimeStamp), "yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    { field: "DbData.PlateNumber", title: "车牌号码" },
+                    { field: "DbData.VehicleType", title: "车辆类型" },
+                    { field: "DbData.Goods", title: "货物" },
+                    { field: "DbData.Comments", title: "结论" }
+                ]
+            });
         }
 
-        // images are not loaded, load images from server
-        var grid = detailDiv.data("kendoGrid");
-        getImage(grid, rowData[0].DbData.SN);
-    }
+        function detailInit(e) {
+            var rowData = $.grep(cpfData, function (d) { return d.TimeStamp == e.data.TimeStamp; });
+            var detailDiv = $("<div/>").appendTo(e.detailCell);
 
-    // load images from server and update raw data in cpfData
-    function getImage(imageGrid, sn) {
+            detailDiv.kendoGrid({
+                dataSource: {
+                    data: rowData,
+                },
+                scrollable: false,
+                sortable: false,
+                pageable: false,
+                columns: [
+                    { field: "Base64CpfImage", title: "CPF", template: '#= imageTemplate(Base64CpfImage) #' },
+                    { field: "Base64LpnImage", title: "LPN", template: "#= imageTemplate(Base64LpnImage) #" }
+                ]
+            });
 
-        $.ajax({
-            url: "/api/CpfImageApi",
-            dataType: "json",
-            async: true,
-            data: {
-                siteId: "@Model.SiteId",
-                sn: sn
-            },
-            success: function (jsonData, textStatus, qXHR) {
-                // update data in cpfData
-                var cpfRow = $.grep(cpfData, function (d) { return d.DbData.SN == sn; })[0];
-                cpfRow.Base64CpfImage = jsonData.Base64CpfImage;
-                cpfRow.Base64LpnImage = jsonData.Base64LpnImage;
-                // reload image
-                reloadImage(cpfRow, imageGrid);
-            },
-        });
-    }
+            // images are loaded, no need to load again
+            if (rowData[0].Base64CpfImage != "") {
+                return;
+            }
 
-    function reloadImage(data, imageGrid) {
-        var imageRows = [];
-        imageRows.push(data);
-        var dataSource = new kendo.data.DataSource({ data: imageRows });
-        dataSource.read();
-        imageGrid.setDataSource(dataSource);
-    }
-
-    function imageTemplate(imageStr) {
-        if (imageStr && imageStr != "") {
-            return '<img src="data:image/jpeg;base64,' + imageStr + '"/>';
-        } else {
-            return '<img src="/images/loading.gif" />';
+            // images are not loaded, load images from server
+            var grid = detailDiv.data("kendoGrid");
+            getImage(grid, rowData[0].DbData.SN);
         }
-    }
+
+        // load images from server and update raw data in cpfData
+        function getImage(imageGrid, sn) {
+
+            $.ajax({
+                url: "@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "CpfImageApi" })",
+                dataType: "json",
+                async: true,
+                data: {
+                    siteId: "@Model.SiteId",
+                    sn: sn
+                },
+                success: function (jsonData, textStatus, qXHR) {
+                    // update data in cpfData
+                    var cpfRow = $.grep(cpfData, function (d) { return d.DbData.SN == sn; })[0];
+                    cpfRow.Base64CpfImage = jsonData.Base64CpfImage;
+                    cpfRow.Base64LpnImage = jsonData.Base64LpnImage;
+                    // reload image
+                    reloadImage(cpfRow, imageGrid);
+                },
+            });
+        }
+
+        function reloadImage(data, imageGrid) {
+            var imageRows = [];
+            imageRows.push(data);
+            var dataSource = new kendo.data.DataSource({ data: imageRows });
+            dataSource.read();
+            imageGrid.setDataSource(dataSource);
+        }
+
+        function imageTemplate(imageStr) {
+            if (imageStr && imageStr != "") {
+                return '<img src="data:image/jpeg;base64,' + imageStr + '"/>';
+            } else {
+                return '<img src="' + '@Url.Content("~/images/loading.gif")' + '" />';
+            }
+        }
 
 </script>

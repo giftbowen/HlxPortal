@@ -6,7 +6,7 @@
     List<SiteDbData> allSites = RegularUpdateObjects<List<SiteDbData>>.DefaultObjectInstance;
     SiteDbData siteInfo = allSites.Where(x => x.SiteId == Model.SiteId).First();
 }
-<div class="itemTitle" style="background:url(/images/itemTitle2.jpg);"><b class="iTLText f14">设备实时监控 - <span>@siteInfo.Name</span></b></div>
+<div class="itemTitle" style="background:url(@Url.Content("~/images/itemTitle2.jpg"));"><b class="iTLText f14">设备实时监控 - <span>@siteInfo.Name</span></b></div>
 
 <div class="moniDate">数据更新时间 : @Model.TimeStamp</div>
 
@@ -132,7 +132,7 @@
     {
         $("#resetres").text("");
         $.ajax({
-            url: "/api/PlcResetApi",
+            url: "@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "PlcResetApi" })",
             dataType: "json",
             async: true,
             data: {
@@ -142,5 +142,5 @@
                 $("#resetres").text(jsonData);
             },
         });
-    }
+        }
 </script>

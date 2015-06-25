@@ -11,7 +11,7 @@
 <script src="~/Scripts/kendo.all.min.js"></script>
 
 
-<div class="itemTitleL" style="background:url(/images/itemTitle5.jpg);"><b class="iTLText f14">用户管理</b></div>
+<div class="itemTitleL" style="background:url(@Url.Content("~/images/itemTitle5.jpg"));"><b class="iTLText f14">用户管理</b></div>
 <div id="grid"></div>
 &nbsp;&nbsp;<input type="button" class="addBtn" onclick="addUser()">
 <script type="text/javascript">
@@ -55,13 +55,13 @@
     });
 
     function addUser(){
-        window.location.href="/Admin/AddUser";
+        window.location.href= "@Url.Action("AddUser","Admin")";
     }
 
     function editUser(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.location.href="/Admin/EditUser?uId=" + dataItem.Id;
+        window.location.href= "@Url.Action("EditUser", "Admin")" + "/?uId=" +dataItem.Id;
     }
 
     function deleteUser(e) {
@@ -69,7 +69,7 @@
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
         $.ajax({
-            url: "/api/DeleteUserApi",
+            url: "@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "DeleteUserApi" })",
             dataType: "json",
             async: true,
             data: {
@@ -84,7 +84,7 @@
                 var deleted = $.grep(allUsers, function (d) { return d.Id == dataItem.Id; })[0];
                 var index = allUsers.indexOf(deleted);
                 allUsers.splice(index, 1);
-                 
+
                 $('#grid').data('kendoGrid').dataSource.read();
                 $('#grid').data('kendoGrid').refresh();
             },

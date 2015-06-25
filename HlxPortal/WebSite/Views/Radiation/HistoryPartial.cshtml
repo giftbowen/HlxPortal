@@ -28,7 +28,7 @@
 
     function getRadiationData() {
         $.ajax({
-            url: "/api/RadiationApi",
+            url: "@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "RadiationApi" })",
             dataType: "json",
             async: true,
             data: {
@@ -41,63 +41,63 @@
                 loadTableData();
             },
         });
-    }
+        }
 
-    function loadTableData()
-    {
-        var dataSource = new kendo.data.DataSource({ data: radiationData, pageSize: 20 });
-        var grid = $('#grid').data("kendoGrid");
-        dataSource.read();
-        grid.setDataSource(dataSource);
-    }
+        function loadTableData()
+        {
+            var dataSource = new kendo.data.DataSource({ data: radiationData, pageSize: 20 });
+            var grid = $('#grid').data("kendoGrid");
+            dataSource.read();
+            grid.setDataSource(dataSource);
+        }
 
-    function setUpTable()
-    {
-        $("#grid").kendoGrid({
-            dataSource: {
-                data: radiationData,
-                pageSize: 20
-            },
-            scrollable: {
-                virtual: true
-            },
-            pageable: {
-                info: true,
-                numeric: true,
-                previousNext: true
-            },
-            columns: [
-                {
-                    field: "TimeStamp", title: "数据时间", template: function (dataItem) {
-                        return kendo.toString(new Date(dataItem.TimeStamp), "yyyy-MM-dd HH:mm");
-                    }, width: "110px"
+        function setUpTable()
+        {
+            $("#grid").kendoGrid({
+                dataSource: {
+                    data: radiationData,
+                    pageSize: 20
                 },
-                { field: "Dose1", title: "剂量1" },
-                { field: "Dose2", title: "剂量2" },
-                { field: "Dose3", title: "剂量3" },
-                { field: "Dose4", title: "剂量4" },
-                { field: "Dose5", title: "剂量5" },
-                {
-                    field: "Temperature", title: "温度", template: function (dataItem) {
-                        return dataItem.Temperature.toFixed(2);
-                    }
+                scrollable: {
+                    virtual: true
                 },
-                {
-                    field: "Humidity", title: "湿度", template: function (dataItem) {
-                        return dataItem.Humidity.toFixed(2);
-                    }
+                pageable: {
+                    info: true,
+                    numeric: true,
+                    previousNext: true
                 },
-                { field: "Flame", title: "火焰"},
-                { field: "Shutter", title: "快门状态"},
-                { field: "Position", title: "位置/震动/倾斜", width: "100px" },
-                { field: "Gate", title: "源室门" },
-            ]
-        });
-    }
+                columns: [
+                    {
+                        field: "TimeStamp", title: "数据时间", template: function (dataItem) {
+                            return kendo.toString(new Date(dataItem.TimeStamp), "yyyy-MM-dd HH:mm");
+                        }, width: "110px"
+                    },
+                    { field: "Dose1", title: "剂量1" },
+                    { field: "Dose2", title: "剂量2" },
+                    { field: "Dose3", title: "剂量3" },
+                    { field: "Dose4", title: "剂量4" },
+                    { field: "Dose5", title: "剂量5" },
+                    {
+                        field: "Temperature", title: "温度", template: function (dataItem) {
+                            return dataItem.Temperature.toFixed(2);
+                        }
+                    },
+                    {
+                        field: "Humidity", title: "湿度", template: function (dataItem) {
+                            return dataItem.Humidity.toFixed(2);
+                        }
+                    },
+                    { field: "Flame", title: "火焰"},
+                    { field: "Shutter", title: "快门状态"},
+                    { field: "Position", title: "位置/震动/倾斜", width: "100px" },
+                    { field: "Gate", title: "源室门" },
+                ]
+            });
+        }
 
-    
 
-    
 
-    
+
+
+
 </script>

@@ -5,9 +5,12 @@
     ViewBag.Title = "修改密码";
 }
 
-<div class="itemTitle" style="background:url(/images/itemTitle7.jpg);"><b class="iTLText f14">修改密码</b></div>
+<div class="itemTitle" style="background:url(@Url.Content("~/images/itemTitle7.jpg"));"><b class="iTLText f14">修改密码</b></div>
 
-<div class="succeTips">@ViewBag.StatusMessage</div>
+@if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+{
+    <div class="succeTips">@ViewBag.StatusMessage</div>
+}
 <div class="password f14">
     @using (Html.BeginForm("Manage", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     { 

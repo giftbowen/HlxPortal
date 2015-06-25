@@ -6,14 +6,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <title>华力兴设备监控系统</title>
-    <link href="~/Content/layout.css" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/layout.css")" rel="stylesheet" type="text/css">
     @Scripts.Render("~/bundles/jquery")
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
     }
 </head>
 
-<body style="background:#032c4e url(/images/blackLine.png) repeat-x;padding-top:12px;">
+<body style="background:#032c4e url(@Url.Content("~/images/blackLine.png")) repeat-x;padding-top:12px;">
     <div class="logBg">
         <div class="logSite">
             <section id="loginForm">
@@ -21,9 +21,9 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "erorrTips f14" })
-                    @Html.TextBoxFor(m => m.UserName, new { @class = "logInput", style = "background:url(/images/username.gif);" })
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "logInput", style = "background:url(" + Url.Content("~/images/username.gif") + ");" })
                     <br>
-                    @Html.PasswordFor(m => m.Password, new { @class = "logInput", style = "background:url(/images/password.gif);" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "logInput", style = "background:url(" + Url.Content("~/images/password.gif") + ");" })
                     <br>
                     <input type="submit" class="logbtn" value="">
                 }

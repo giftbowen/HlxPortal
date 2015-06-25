@@ -62,7 +62,7 @@
             </div>
             @if (PerRequestData.Current.AppUser.RoleType == Consts.RoleAdmin)
             {
-                <a href="/Admin/AdminIndex" class="member"></a>
+                <a href="@Url.Action("AdminIndex", "Admin")" class="member"></a>
             }
         </div>
         <div class="rContent" style="min-width:1000px">
