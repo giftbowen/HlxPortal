@@ -88,7 +88,7 @@ namespace LeSan.HlxPortal.WebSite
 
             AddUser(new UserViewModel()
             {
-                UserName = "xm1",
+                UserName = "User1",
                 Password = "111111",
                 RoleType = Consts.RoleNormal,
                 Comments = "用户1可访问站点 1 2 3",

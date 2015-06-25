@@ -47,9 +47,11 @@ namespace LeSan.HlxPortal.WebSite.Models
         [Required]
         [StringLength(100, ErrorMessage = "密码至少要有 {2} 个字符.", MinimumLength = 6)]
         [DataType(DataType.Password)]
+        [Display(Name = "密码")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
+        [Display(Name = "确认密码")]
         [Compare("Password", ErrorMessage = "输入的密码和确认密码不一致")]
         public string ConfirmPassword { get; set; }
 

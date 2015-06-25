@@ -25,7 +25,5 @@ namespace LeSan.HlxPortal.WebSite
         public const string ConfigCpfLpnRoot = "CpfLpnRoot";
 
         public const string DbConnectionStringName = "HlxPortal";
-        //public const string DbConnectionStringName = "HlxPortal0";
-        //public const string DbConnectionStringName = "HlxPortal1";
     }
 }

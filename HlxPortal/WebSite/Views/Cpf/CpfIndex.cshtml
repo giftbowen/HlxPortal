@@ -85,16 +85,18 @@
             var rowData = $.grep(cpfData, function (d) { return d.TimeStamp == e.data.TimeStamp; });
             var detailDiv = $("<div/>").appendTo(e.detailCell);
 
+            var images = createRowDetailData(rowData[0]);
+            
             detailDiv.kendoGrid({
                 dataSource: {
-                    data: rowData,
+                    data: images,
                 },
                 scrollable: false,
                 sortable: false,
                 pageable: false,
+
                 columns: [
-                    { field: "Base64CpfImage", title: "CPF", template: '#= imageTemplate(Base64CpfImage) #' },
-                    { field: "Base64LpnImage", title: "LPN", template: "#= imageTemplate(Base64LpnImage) #" }
+                    { field: "img", title: "", template: '#= imageTemplate(img) #' }
                 ]
             });
 
@@ -131,16 +133,27 @@
         }
 
         function reloadImage(data, imageGrid) {
-            var imageRows = [];
-            imageRows.push(data);
-            var dataSource = new kendo.data.DataSource({ data: imageRows });
+
+            var images = createRowDetailData(data);
+            var dataSource = new kendo.data.DataSource({ data: images });
             dataSource.read();
             imageGrid.setDataSource(dataSource);
         }
 
+        function createRowDetailData(rowData)
+        {
+            var img1 = {}; img1.img = rowData.Base64CpfImage;
+            var img2 = {}; img2.img = rowData.Base64LpnImage;
+
+            var images = [];
+            images.push(img1); images.push(img2);
+
+            return images;
+        }
+
         function imageTemplate(imageStr) {
             if (imageStr && imageStr != "") {
-                return '<img src="data:image/jpeg;base64,' + imageStr + '"/>';
+                return '<div style="overflow-x:scroll"> <img src="data:image/jpeg;base64,' + imageStr + '"/></div>';
             } else {
                 return '<img src="' + '@Url.Content("~/images/loading.gif")' + '" />';
             }

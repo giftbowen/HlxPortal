@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HlxPortal.Tests", "HlxPortal.Tests\HlxPortal.Tests.csproj", "{5F6A2C51-D1E2-4C3B-B9B3-7ACE20EF6782}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSite", "WebSite\WebSite.csproj", "{D5C25947-3F35-41DE-8F36-6F679174D3F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{C95960D1-1FB0-4C05-8936-21FB26FCEB7F}"
-EndProject
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Cloud1", "Cloud1\Cloud1.ccproj", "{40557A40-D646-4C08-967A-33D39AEAA3E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{C95960D1-1FB0-4C05-8936-21FB26FCEB7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C95960D1-1FB0-4C05-8936-21FB26FCEB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C95960D1-1FB0-4C05-8936-21FB26FCEB7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40557A40-D646-4C08-967A-33D39AEAA3E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40557A40-D646-4C08-967A-33D39AEAA3E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40557A40-D646-4C08-967A-33D39AEAA3E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40557A40-D646-4C08-967A-33D39AEAA3E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

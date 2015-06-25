@@ -6,17 +6,17 @@ namespace LeSan.HlxPortal.WebSite.Models
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [Display(Name = "当前密码")]
         public string OldPassword { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "密码至少要有 {2} 个字符.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [Display(Name = "新密码")]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
+        [Display(Name = "确认密码")]
         [Compare("NewPassword", ErrorMessage = "输入的密码和确认密码不一致")]
         public string ConfirmPassword { get; set; }
     }
@@ -29,7 +29,7 @@ namespace LeSan.HlxPortal.WebSite.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "密码")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
