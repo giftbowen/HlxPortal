@@ -14,4 +14,4 @@ deployment
 tune UI
 
 feedback:
-3.cpf/radiation history table, use "Enter" button, with class confirm, can't aligh with datetime control
+1.cpf/radiation history table, use "Enter" button, with class confirm, can't aligh with datetime control

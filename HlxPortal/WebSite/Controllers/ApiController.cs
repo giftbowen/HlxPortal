@@ -108,7 +108,7 @@ namespace LeSan.HlxPortal.WebSite.Controllers
                 return "只有管理员可以删除用户";
             }
 
-            if (userName.ToLowerInvariant() == "Admin")
+            if (userName.ToLowerInvariant() == "admin")
             {
                 return "不能删除系统内置管理员账户";
             }
