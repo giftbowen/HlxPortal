@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSite", "WebSite\WebSite.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{C95960D1-1FB0-4C05-8936-21FB26FCEB7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeDataProvider", "FakeDataProvider\FakeDataProvider.csproj", "{6BEEB29C-13AE-496F-9B35-4D66496AA8A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C95960D1-1FB0-4C05-8936-21FB26FCEB7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C95960D1-1FB0-4C05-8936-21FB26FCEB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C95960D1-1FB0-4C05-8936-21FB26FCEB7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BEEB29C-13AE-496F-9B35-4D66496AA8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BEEB29C-13AE-496F-9B35-4D66496AA8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BEEB29C-13AE-496F-9B35-4D66496AA8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BEEB29C-13AE-496F-9B35-4D66496AA8A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

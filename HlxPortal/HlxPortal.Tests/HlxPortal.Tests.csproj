@@ -105,6 +105,10 @@
       <Project>{1fbff72b-53a3-41ad-94fd-9f0eba3a87a4}</Project>
       <Name>DataCollector</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FakeDataProvider\FakeDataProvider.csproj">
+      <Project>{6beeb29c-13ae-496f-9b35-4d66496aa8a1}</Project>
+      <Name>FakeDataProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

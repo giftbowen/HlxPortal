@@ -24,8 +24,7 @@ namespace LeSan.HlxPortal.DataCollector
     class Program
     {
         private static Socket listener = null;
-        //public tatic readonly string ConnectionString = @"Data Source=HLX-LT-SVR\SQLEXPRESS;Initial Catalog=HlxPortal;Integrated Security=True";
-        public static readonly string ConnectionString = ConfigurationManager.ConnectionStrings["HlxPortal1"].ConnectionString;
+        public static readonly string ConnectionString = ConfigurationManager.ConnectionStrings["HlxPortal"].ConnectionString;
 
         private static object lockObj = new object();
         private static List<byte> sitesToResetPlc = new List<byte>();

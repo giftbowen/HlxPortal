@@ -9,6 +9,8 @@ HlxPortal/WebSite/bin/*
 HlxPortal/WebSite/obj/*
 HlxPortal/Common/bin/*
 HlxPortal/Common/obj/*
+HlxPortal/FakeDataProvider/bin/*
+HlxPortal/FakeDataProvider/obj/*
 HlxPortal/Cloud1/bin/*
 HlxPortal/Cloud1/csx/*
 HlxPortal/Cloud1/obj/*
