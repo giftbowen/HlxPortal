@@ -31,6 +31,8 @@ namespace LeSan.HlxPortal.DataCollector
 
         static void Main(string[] args)
         {
+            SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Enter DataCollector::Main");
+
             Thread ipcThread = new Thread(ServerThread);
             ipcThread.Start();
 
@@ -52,6 +54,8 @@ namespace LeSan.HlxPortal.DataCollector
             while (true)
             {
                 Socket dataSock = listener.Accept();  // thread blocks here until a connection accepted
+                IPEndPoint remoteIpEndPoint = dataSock.RemoteEndPoint as IPEndPoint;
+                SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Connected with " + remoteIpEndPoint.Address);
                 dataSock.ReceiveTimeout = 1000 * 60 * 1000;
                 Thread collectorThread = new Thread(CollectorThread);
                 collectorThread.Start(dataSock);
@@ -218,6 +222,7 @@ namespace LeSan.HlxPortal.DataCollector
 
         public static void CollectCPFData(Socket dataSock, byte siteId, ref DateTime lastTimeGetHeartBeat)
         {
+            SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Enter collect cpf data thread, site id:" + siteId);
             // in the case of CPF image, data will auto sent to sever whenever there's a new record.
             var msgs = SockHelper.ReceiveAndParseMessages(dataSock, siteId, Message.DeclareType.CPFImage, ref lastTimeGetHeartBeat);
 
@@ -284,6 +289,7 @@ namespace LeSan.HlxPortal.DataCollector
 
         public static void CollectPLCData(Socket dataSock, byte siteId, ref DateTime lastTimeGetHeartBeat)
         {
+            SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Enter collect plc data thread, site id:" + siteId);
             // try get if there's pending reset plc command to send
             bool resetPlc = false;
             lock(lockObj)
@@ -343,6 +349,8 @@ namespace LeSan.HlxPortal.DataCollector
 
         public static void CollectRadiationData(Socket dataSock, byte siteId, ref DateTime lastTimeGetHeartBeat)
         {
+            SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Enter collect radiation data thread, site id:" + siteId);
+
             var radiationData = new RadiationDbData() { SiteId = siteId, TimeStamp = DateTime.Now };
             radiationData.Date = radiationData.TimeStamp.Date;
 
