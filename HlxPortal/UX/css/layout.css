@@ -169,3 +169,12 @@ body {min-width:1240px;background:url(../images/pageBg.gif) repeat;}
 .siteSel2 li {display:block;width:130px;height:29px;*height:31px;padding-top:15px;*padding-top:13px;padding-left:44px;border-bottom:1px solid #d5d5d5;background:#f2f6f7 url(../images/siteSel2.gif);}
 .siteSel2 li a {color:#707676;}
 .siteSel2 li a:hover {color:#f60;}
+
+/* 2015-06-28 */
+.itemTitleP {width:942px;height:40px;padding-left:42px;padding-right:16px;border-top:1px solid #d5d5d5;border-left:1px solid #d5d5d5;border-right:1px solid #d5d5d5;color:#5c5c5c;background:url(../images/itemTitle4.jpg);}
+.iTSite {float:left;width:250px;height:40px;line-height:40px;vertical-align:middle;}
+.dSSite {float:right;width:310px;height:32px;padding-left:70px;padding-top:8px;background: url(../images/dateSel.gif);}
+.dSel {float:left;width:100px;height:22px;border:1px solid #d5d5d5;margin-right:16px;background:#fff;}
+.confirmP {float:left;width:68px;height:24px;border:none;background-image:url(../images/confirm.gif);}
+.confirmP:hover {cursor:pointer;background-position:0px -24px;}
+.confirmP:active {background-position:0px -48px;}
