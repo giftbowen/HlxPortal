@@ -299,6 +299,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\HlxServer.pubxml" />
     <None Include="Properties\PublishProfiles\PackageDeploy.pubxml" />
+    <None Include="Properties\PublishProfiles\PackageDeployCompany.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Cultures\kendo.culture.en-US.min.js" />
     <Content Include="Scripts\Cultures\kendo.culture.zh-CHS.min.js" />

@@ -55,7 +55,7 @@ namespace LeSan.HlxPortal.DataCollector
             {
                 Socket dataSock = listener.Accept();  // thread blocks here until a connection accepted
                 IPEndPoint remoteIpEndPoint = dataSock.RemoteEndPoint as IPEndPoint;
-                SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Connected with " + remoteIpEndPoint.Address);
+                SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Connected with " + remoteIpEndPoint.Address + ":" + remoteIpEndPoint.Port);
                 dataSock.ReceiveTimeout = 1000 * 60 * 1000;
                 Thread collectorThread = new Thread(CollectorThread);
                 collectorThread.Start(dataSock);
