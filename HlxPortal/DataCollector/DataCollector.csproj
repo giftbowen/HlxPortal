@@ -58,6 +58,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SiteInfo.cs" />
     <Compile Include="SockHelper.cs" />
   </ItemGroup>
   <ItemGroup>

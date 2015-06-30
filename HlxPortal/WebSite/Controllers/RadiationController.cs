@@ -52,12 +52,12 @@ namespace LeSan.HlxPortal.WebSite.Controllers
             {
                 try
                 {
-                    //var path = Util.GetRadiationImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigRadiationCameraRoot], (byte)siteId, r);
-                    var path = @"C:\temp\RadiationCamera\003\2015\06\13\20150613000222_003_RC.jpg";
+                    var path = Util.GetRadiationImagePath((string)ConfigurationManager.AppSettings[Consts.ConfigRadiationCameraRoot], (byte)siteId, sn);
+                    //var path = @"C:\temp\RadiationCamera\003\2015\06\13\20150613000222_003_RC.jpg";
                     var image = Util.LoadJpgAsBase64(path);
                     cameraBase64s.Add(image);
-                    //var timeStamp = Util.FromSN(sn).ToString("yyyy-MM-dd HH:mm");
-                    var timeStamp = Util.FromSN("20150613000222").ToString("yyyy-MM-dd HH:mm");
+                    var timeStamp = Util.FromSN(sn).ToString("yyyy-MM-dd HH:mm");
+                    //var timeStamp = Util.FromSN("20150613000222").ToString("yyyy-MM-dd HH:mm");
                     timeStamps.Add(timeStamp);
                 }
                 catch(Exception ex)

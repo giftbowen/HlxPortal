@@ -132,7 +132,7 @@ namespace LeSan.HlxPortal.Common
 
             if (string.IsNullOrWhiteSpace(message))
             {
-                message = "----- [Unimatrix Exception] -----";
+                message = "----- [HlxPortal Exception] -----";
             }
 
             sb.AppendLine(message);

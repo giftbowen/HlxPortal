@@ -243,5 +243,19 @@ namespace LeSan.HlxPortal.DataCollector
 
             return true;
         }
+
+        public static bool EndsWithETX(byte[] buf, int size)
+        {
+            if (size >= ETX.Length)
+            {
+                var presumedETX = buf.Skip(size - ETX.Length).Take(ETX.Length);
+                if (presumedETX.SequenceEqual(ETX))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace LeSan.HlxPortal.DataCollector
         {
             SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Enter DataCollector::Main");
 
-            Thread ipcThread = new Thread(ServerThread);
+            Thread ipcThread = new Thread(IpcServerThread);
             ipcThread.Start();
 
             string strIP = ConfigurationManager.AppSettings["Ip"];
@@ -62,7 +62,7 @@ namespace LeSan.HlxPortal.DataCollector
             }
         }
 
-        private static void ServerThread(object data)
+        private static void IpcServerThread(object data)
         {
             NamedPipeServerStream pipeServer = null;
             while (true)
@@ -113,9 +113,15 @@ namespace LeSan.HlxPortal.DataCollector
         private static void CollectorThread(object dataSocket)
         {
             Socket dataSock = (Socket)dataSocket;
+            IPEndPoint remoteIpEndPoint = dataSock.RemoteEndPoint as IPEndPoint;
+            SiteInfo siteInfo = new SiteInfo()
+            {
+                Ip = remoteIpEndPoint.Address.ToString(),
+                Port = remoteIpEndPoint.Port,
+                SiteId = 0,
+                DeviceId = 0,
+            };
             List<Message> msgs = new List<Message>();
-            byte siteId = 0;
-            byte deviceId = 0;
             bool errorOccured = false;
             DateTime lastTimeGetHeartBeat = DateTime.Now;
 
@@ -125,29 +131,31 @@ namespace LeSan.HlxPortal.DataCollector
                 {
                     if (SockHelper.IsSockTimeout(lastTimeGetHeartBeat))
                     {
-                        SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "Timeout when receiving heart beat, closing the connection");
+                        SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "Timeout when receiving heart beat, closing the connection, " + siteInfo);
                         errorOccured = true;
                         break;
                     }
 
-                    byte[] stream = SockHelper.ReceiveMessage(dataSock);
+                    // try to receive heart beat message
+                    byte[] stream = SockHelper.ReceiveMessage(dataSock, 1);
 
                     byte[] fake1 = new byte[] { 0x36, 0x35, 0x34, 0x33, 0x32, 0x31, 0x0D, 0x0A };
                     byte[] fake2 = new byte[] { 0x23, 0x23, 0x23, 0x04, 0x01, 0x2A, 0x2A, 0x2A };
-                    if (stream.IndexOfPattern(fake2) != -1)
+                    if (stream.IndexOfPattern(fake1) != -1)
                     {
                         Thread.Sleep(TimeSpan.FromDays(1));
                     }
 
                     msgs.AddRange(Message.ParseMessages(stream, stream.Length));
 
-                    if (stream.IndexOfPattern(fake1) != -1)
-                    {
-                        msgs.Add(new Message() { IsHeartBeat = true, Address = 3, Declare = 1 });
-                    }
+                    //if (stream.IndexOfPattern(fake1) != -1)
+                    //{
+                    //    msgs.Add(new Message() { IsHeartBeat = true, Address = 3, Declare = 1 });
+                    //}
+
                     if (msgs.Count == 0)
                     {
-                        SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "No message parsed out of the received bytes");
+                        SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "No message parsed out of the received bytes, " + siteInfo);
                         continue;
                     }
 
@@ -155,15 +163,15 @@ namespace LeSan.HlxPortal.DataCollector
                     int index = msgs.FindIndex(x => x.IsHeartBeat);
                     if (index < 0)
                     {
-                        SharedTraceSources.Global.TraceEvent(TraceEventType.Warning, 0, "The first messages receive contains no hear beat message, cann't get device id, try again to receive heart beat message");
+                        SharedTraceSources.Global.TraceEvent(TraceEventType.Warning, 0, "The first messages receive contains no hear beat message, cann't get device id, try again to receive heart beat message, " + siteInfo);
                         continue;
                     }
                     lastTimeGetHeartBeat = DateTime.Now;
 
-                    siteId = msgs[index].Address;
-                    deviceId = msgs[index].Declare;
+                    siteInfo.SiteId = msgs[index].Address;
+                    siteInfo.DeviceId = msgs[index].Declare;
                     msgs.RemoveAll(x => x.IsHeartBeat); // remove heart beat messages, keep the data messages
-                    SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, string.Format("heart beat received with siteId {0}, deviceId {1}", siteId, deviceId));
+                    SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, string.Format("heart beat received with {0}", siteInfo));
                     break;
                 }
                 catch (Exception ex)
@@ -184,10 +192,10 @@ namespace LeSan.HlxPortal.DataCollector
             // site id and device id parsed, begin the collection process
             while (true)
             {
-                if (SockHelper.IsSockTimeout(lastTimeGetHeartBeat))
+                if (SockHelper.IsSockTimeout(lastTimeGetHeartBeat, 60 * 5))
                 {
                     // it's the only way to exit the collecting loop
-                    SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "Timeout after the last heart beat received, closing the connection");
+                    SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "Timeout after the last heart beat received, closing the connection," + siteInfo);
                     break;
                 }
                 int intervalRadiation = Convert.ToInt32(ConfigurationManager.AppSettings["IntervalCollectRadiationDataInMinutes"]) * 1000;
@@ -195,22 +203,23 @@ namespace LeSan.HlxPortal.DataCollector
                 intervalRadiation = intervalPlc = 1;
                 try
                 {
-                    switch (deviceId)
+                    switch (siteInfo.DeviceId)
                     {
-                        case 1: CollectRadiationData(dataSock, siteId, ref lastTimeGetHeartBeat); Thread.Sleep(intervalRadiation); break;
-                        case 2: CollectCPFData(dataSock, siteId, ref lastTimeGetHeartBeat); break;
-                        case 3: CollectPLCData(dataSock, siteId, ref lastTimeGetHeartBeat); Thread.Sleep(intervalPlc); break;
+                        case 1: CollectRadiationData(dataSock, siteInfo.SiteId, ref lastTimeGetHeartBeat); Thread.Sleep(intervalRadiation); break;
+                        case 2: CollectCPFData(dataSock, siteInfo.SiteId, ref lastTimeGetHeartBeat); break;
+                        case 3: CollectPLCData(dataSock, siteInfo.SiteId, ref lastTimeGetHeartBeat); Thread.Sleep(intervalPlc); break;
                         default:
-                            SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, "Invalid device Id:" + deviceId + " . Closing the connection");
+                            SharedTraceSources.Global.TraceEvent(TraceEventType.Error, 0, string.Format("Invalid device Id: {0} in site {1}. Closing the connection", siteInfo.DeviceId, siteInfo.SiteId));
+                            dataSock.Close();
                             return;
                     }
                 }
                 catch (Exception ex)
                 {
                     // catch any exception here, trace it and continue the process until the heart beat times out.
-                    SharedTraceSources.Global.TraceException(ex, "Swallow the exception and continue the process until heart beat times out");
+                    SharedTraceSources.Global.TraceException(ex, "Swallow the exception and continue the process until heart beat times out, " + siteInfo);
 
-                    switch(deviceId)
+                    switch(siteInfo.DeviceId)
                     {
                         case 1: Thread.Sleep(intervalRadiation); break;
                         case 3: Thread.Sleep(intervalPlc); break;
@@ -224,7 +233,8 @@ namespace LeSan.HlxPortal.DataCollector
         {
             SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Enter collect cpf data thread, site id:" + siteId);
             // in the case of CPF image, data will auto sent to sever whenever there's a new record.
-            var msgs = SockHelper.ReceiveAndParseMessages(dataSock, siteId, Message.DeclareType.CPFImage, ref lastTimeGetHeartBeat);
+            var cpfTimeout = Convert.ToInt32(ConfigurationManager.AppSettings["TimeoutCpfDataInSeconds"]);
+            var msgs = SockHelper.ReceiveAndParseMessages(dataSock, siteId, Message.DeclareType.CPFImage, ref lastTimeGetHeartBeat, cpfTimeout);
 
             List<CpfXmlData> cpfXmlList = new List<CpfXmlData>();
             foreach (var msg in msgs)
@@ -241,7 +251,7 @@ namespace LeSan.HlxPortal.DataCollector
                     }
                 }catch(Exception ex)
                 {
-                    SharedTraceSources.Global.TraceException(ex, "Error when deserialize cpf xml file, drop this record and continue to process the next");
+                    SharedTraceSources.Global.TraceException(ex, "Error when deserialize cpf xml file, drop this record and continue to process the next, site id:" + siteId);
                 }
             }
 
@@ -305,7 +315,8 @@ namespace LeSan.HlxPortal.DataCollector
                 SockHelper.SendMessage(dataSock, siteId, Message.DeclareType.PLCReset, Message.CmdPLCReset);
             }
 
-            Message msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.PLCStatus, Message.CmdPLCStatus, 1, ref lastTimeGetHeartBeat)[0];
+            var plcTimeout = Convert.ToInt32(ConfigurationManager.AppSettings["TimeoutPlcDataInSeconds"]);
+            Message msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.PLCStatus, Message.CmdPLCStatus, 1, ref lastTimeGetHeartBeat, plcTimeout)[0];
             if (!msg.ValidateDataLength(PlcDbData.PLC_TOTAL_LENGTH))
             {
                 return;
@@ -354,8 +365,10 @@ namespace LeSan.HlxPortal.DataCollector
             var radiationData = new RadiationDbData() { SiteId = siteId, TimeStamp = DateTime.Now };
             radiationData.Date = radiationData.TimeStamp.Date;
 
+            var radiationTimeout = Convert.ToInt32(ConfigurationManager.AppSettings["TimeoutRadiationDataInSeconds"]);
+
             // radiation flame
-            Message msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.RadiationFlame, Message.CmdRadiationFlame, 1, ref lastTimeGetHeartBeat)[0];
+            Message msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.RadiationFlame, Message.CmdRadiationFlame, 1, ref lastTimeGetHeartBeat, radiationTimeout)[0];
             if (!msg.ValidateDataLength(1))
             {
                 return;// continue;
@@ -363,7 +376,7 @@ namespace LeSan.HlxPortal.DataCollector
             radiationData.Flame = msg.Data[0];
 
             // radiation temperature and humidity
-            msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.TemperatureHumidity, Message.CmdTemperatureHumidity, 1, ref lastTimeGetHeartBeat)[0];
+            msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.TemperatureHumidity, Message.CmdTemperatureHumidity, 1, ref lastTimeGetHeartBeat, radiationTimeout)[0];
             if (!msg.ValidateDataLength(4))
             {
                 return;// continue;
@@ -373,7 +386,7 @@ namespace LeSan.HlxPortal.DataCollector
             radiationData.Temperature = BigEndianBitConverter.ToUInt16(msg.Data, 2) / 10.0F;
 
             // radiatoin shutter status
-            msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.ShutterStatus, Message.CmdShutterStatus, 1, ref lastTimeGetHeartBeat)[0];
+            msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.ShutterStatus, Message.CmdShutterStatus, 1, ref lastTimeGetHeartBeat, radiationTimeout)[0];
             if (!msg.ValidateDataLength(1))
             {
                 return;// continue;
@@ -381,7 +394,7 @@ namespace LeSan.HlxPortal.DataCollector
             radiationData.Shutter = msg.Data[0];
 
             // radiation positioin status
-            msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.Position, Message.CmdPosition, 1, ref lastTimeGetHeartBeat)[0];
+            msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.Position, Message.CmdPosition, 1, ref lastTimeGetHeartBeat, radiationTimeout)[0];
             if (!msg.ValidateDataLength(1))
             {
                 return;// continue;
@@ -389,7 +402,7 @@ namespace LeSan.HlxPortal.DataCollector
             radiationData.Position = msg.Data[0];
 
             // radiaton gate data
-            msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.RadiationGate, Message.CmdRadiationGate, 1, ref lastTimeGetHeartBeat)[0];
+            msg = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.RadiationGate, Message.CmdRadiationGate, 1, ref lastTimeGetHeartBeat, radiationTimeout)[0];
             if (!msg.ValidateDataLength(1))
             {
                 return;// continue;
@@ -397,7 +410,7 @@ namespace LeSan.HlxPortal.DataCollector
             radiationData.Gate = msg.Data[0];
 
             // radiaton dose
-            var msgs = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.RadiationDose, Message.CmdRadiationDose, Message.DoseDetectorNumber, ref lastTimeGetHeartBeat);
+            var msgs = SockHelper.SendAndReceiveMsg(dataSock, siteId, Message.DeclareType.RadiationDose, Message.CmdRadiationDose, Message.DoseDetectorNumber, ref lastTimeGetHeartBeat, radiationTimeout);
             // parse dose data
             List<DoseData> doseList = new List<DoseData>();
             for (int i = 0; i < Message.DoseDetectorNumber; i++ )
@@ -438,7 +451,7 @@ namespace LeSan.HlxPortal.DataCollector
                 cameraImageSN = Util.GetSN(radiationData.TimeStamp);
             }catch(Exception ex)
             {
-                SharedTraceSources.Global.TraceException(ex, "Save camera image failed for the record of " + Util.GetSN(radiationData.TimeStamp));
+                SharedTraceSources.Global.TraceException(ex, string.Format("Save camera image failed for the record of {0}, siteId {1}.", Util.GetSN(radiationData.TimeStamp), siteId));
             }
 
             radiationData.CameraImage = cameraImageSN;

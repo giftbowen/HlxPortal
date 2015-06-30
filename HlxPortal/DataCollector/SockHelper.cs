@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
@@ -12,12 +13,12 @@ namespace LeSan.HlxPortal.DataCollector
 {
     public static class SockHelper
     {
-        public static bool IsSockTimeout(DateTime lastTimeGetHeartBeat)
+        public static bool IsSockTimeout(DateTime lastTimeGetHeartBeat, int timeoutInSeconds = 60)
         {
-            return (DateTime.Now - lastTimeGetHeartBeat).TotalSeconds > 60;
+            return (DateTime.Now - lastTimeGetHeartBeat).TotalSeconds > timeoutInSeconds;
         }
 
-        public static byte[] ReceiveMessage(Socket socket)
+        public static byte[] ReceiveMessage(Socket socket, int maxWaitTimeInSeconds)
         {
             List<byte[]> listBufs = new List<byte[]>();
             List<int> listSize = new List<int>();
@@ -29,6 +30,19 @@ namespace LeSan.HlxPortal.DataCollector
                 received = socket.Receive(buf, bufSize, SocketFlags.None);
                 listBufs.Add(buf);
                 listSize.Add(received);
+
+                // if there's no avaible data now and data not ends with ETX, means there should be more data coming
+                if (socket.Available <= 0 && !Message.EndsWithETX(buf, received))
+                {
+                    for (int i = 1; i <= maxWaitTimeInSeconds; i++)
+                    {
+                        if (socket.Available > 0)
+                        {
+                            break;
+                        }
+                        Thread.Sleep(1000);
+                    }
+                }
             }
             while (socket.Available > 0);
 
@@ -43,9 +57,9 @@ namespace LeSan.HlxPortal.DataCollector
             return stream;
         }
 
-        public static List<Message> ReceiveAndParseMessages(Socket socket, byte siteId, Message.DeclareType declare, ref DateTime lastTimeGetHeartBeat)
+        public static List<Message> ReceiveAndParseMessages(Socket socket, byte siteId, Message.DeclareType declare, ref DateTime lastTimeGetHeartBeat, int timeoutInSeconds)
         {
-            var buf = ReceiveMessage(socket);
+            var buf = ReceiveMessage(socket, timeoutInSeconds);
             var msgs = Message.ParseMessages(buf, buf.Length);
             // update the heart beat receive time and remove the heart beat messages
             if (msgs.Any(x => x.Address == siteId && x.IsHeartBeat))
@@ -74,7 +88,7 @@ namespace LeSan.HlxPortal.DataCollector
             }
         }
 
-        public static List<Message> SendAndReceiveMsg(Socket socket, byte siteId, Message.DeclareType declare, byte[] command, int numExpected, ref DateTime lastTimeGetHeartBeat)
+        public static List<Message> SendAndReceiveMsg(Socket socket, byte siteId, Message.DeclareType declare, byte[] command, int numExpected, ref DateTime lastTimeGetHeartBeat, int timeOutInSeconds)
         {
             SendMessage(socket, siteId, declare, command);
 
@@ -82,9 +96,9 @@ namespace LeSan.HlxPortal.DataCollector
             List<Message> msgs = new List<Message>();
             while (retry < 15)
             {
-                Thread.Sleep(1000); // sleep a while before every receive
+                Thread.Sleep(1000); // sleep a while before every receive, to make sure we get corresponding response message of the request message
 
-                var partialList = ReceiveAndParseMessages(socket, siteId, declare, ref lastTimeGetHeartBeat);
+                var partialList = ReceiveAndParseMessages(socket, siteId, declare, ref lastTimeGetHeartBeat, timeOutInSeconds);
                 msgs.AddRange(partialList);
 
                 if (msgs.Count < numExpected)
@@ -112,9 +126,10 @@ namespace LeSan.HlxPortal.DataCollector
             int totalFrames = -1;
             int frameReceived = 0;
             List<Message> frames = new List<Message>();
+            var cameraTimeout = Convert.ToInt32(ConfigurationManager.AppSettings["TimeoutRadiationCameraInSeconds"]);
             while (true)
             {
-                var msgs = ReceiveAndParseMessages(socket, siteId, Message.DeclareType.RadiationCamera, ref lastTimeGetHeartBeat);
+                var msgs = ReceiveAndParseMessages(socket, siteId, Message.DeclareType.RadiationCamera, ref lastTimeGetHeartBeat, cameraTimeout);
 
                 if (msgs.Count == 0) continue;
                 // first time receive camera data, initialize total frame number
