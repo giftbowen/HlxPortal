@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace LeSan.HlxPortal.DataCollector
 {
@@ -20,9 +21,11 @@ namespace LeSan.HlxPortal.DataCollector
         public string G { get; set; }
     }
 
+    [XmlRoot(ElementName = "HLX", Namespace = "")]    
     [Serializable]
-    public class CpfXmlDataList
+    public class CpfXmlRoot
     {
-        public List<CpfXmlData> ROW { get; set; }
+        [XmlElement("ROW")]
+        public List<CpfXmlData> ROWs { get; set; }
     }
 }

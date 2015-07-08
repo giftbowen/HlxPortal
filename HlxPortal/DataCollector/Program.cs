@@ -29,8 +29,32 @@ namespace LeSan.HlxPortal.DataCollector
         private static object lockObj = new object();
         private static List<byte> sitesToResetPlc = new List<byte>();
 
+        
+
         static void Main(string[] args)
         {
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load(@"C:\logs\111.xml");
+
+            //var bytesData = Encoding.Default.GetBytes(doc.OuterXml);
+            //byte[] trimedBytes = null;
+            //using (MemoryStream ms = new MemoryStream(bytesData))
+            //{
+            //    var a1 = Encoding.Default.GetString(bytesData);
+            //    int a2 = a1.LastIndexOf(">");
+            //    string trimedStr = a1.Substring(0, a2 + 1);
+            //    trimedBytes = Encoding.Default.GetBytes(trimedStr);
+            //    XmlDocument doc1 = new XmlDocument();
+            //    doc1.LoadXml(trimedStr);
+            //    doc1.Save(@"c:\logs\112.xml");
+            //}
+
+            //using (MemoryStream ms = new MemoryStream(trimedBytes))
+            //{
+            //    XmlSerializer xmlserilize = new XmlSerializer(typeof(CpfXmlRoot));
+            //    var records = (CpfXmlRoot)xmlserilize.Deserialize(ms);
+            //}
+            
             SharedTraceSources.Global.TraceEvent(TraceEventType.Information, 0, "Enter DataCollector::Main");
 
             Thread ipcThread = new Thread(IpcServerThread);
@@ -241,14 +265,19 @@ namespace LeSan.HlxPortal.DataCollector
             {
                 try
                 {
-                    XmlDocument doc = new XmlDocument();
-                    using (MemoryStream ms = new MemoryStream(msg.Data))
+                    var dirtyXmlString = Encoding.Default.GetString(msg.Data);
+                    int indexEOF = dirtyXmlString.LastIndexOf(">");
+                    string trimedStr = dirtyXmlString.Substring(0, indexEOF + 1);
+
+                    byte[] trimedBytes = Encoding.Default.GetBytes(trimedStr);
+
+                    using (MemoryStream ms = new MemoryStream(trimedBytes))
                     {
-                        doc.Load(ms);
-                        XmlSerializer xmlserilize = new XmlSerializer(typeof(CpfXmlDataList));
-                        var records = (CpfXmlDataList)xmlserilize.Deserialize(ms);
-                        cpfXmlList.AddRange(records.ROW);
+                        XmlSerializer xmlserilize = new XmlSerializer(typeof(CpfXmlRoot));
+                        var xmlRoot = (CpfXmlRoot)xmlserilize.Deserialize(ms);
+                        cpfXmlList.AddRange(xmlRoot.ROWs);
                     }
+
                 }catch(Exception ex)
                 {
                     SharedTraceSources.Global.TraceException(ex, "Error when deserialize cpf xml file, drop this record and continue to process the next, site id:" + siteId);
@@ -266,10 +295,10 @@ namespace LeSan.HlxPortal.DataCollector
                     SiteId = siteId,
                     DeviceId = record.DID,
                     SN = record.SN,
-                    PlateNumber = record.CN,
-                    VehicleType = record.VT,
-                    Comments = record.S,
-                    Goods = record.G
+                    PlateNumber = record.CN ?? string.Empty,
+                    VehicleType = record.VT ?? string.Empty,
+                    Comments = record.S ?? string.Empty,
+                    Goods = record.G ?? string.Empty
                 };
                 // save cpf image and plate image to local
                 string cpfLpnRoot = ConfigurationManager.AppSettings["CpfLpnRoot"];
