@@ -27,6 +27,7 @@ namespace LeSan.HlxPortal.FakeDataProvider
 
         public static void PopuldateCpfData()
         {
+            FakeDataGenerator.PopulateSiteCpfData(1, DateTime.Now.AddDays(-1), DateTime.Now);
             FakeDataGenerator.PopulateSiteCpfData(2, DateTime.Now.AddDays(-1), DateTime.Now);
             FakeDataGenerator.PopulateSiteCpfData(3, DateTime.Now.AddDays(-1), DateTime.Now);
             FakeDataGenerator.PopulateSiteCpfData(4, DateTime.Now.AddDays(-1), DateTime.Now);
@@ -35,6 +36,8 @@ namespace LeSan.HlxPortal.FakeDataProvider
         {
             FakeDataGenerator.PopulateSitePlcData(1, 0);
             FakeDataGenerator.PopulateSitePlcData(2, 1);
+            FakeDataGenerator.PopulateSitePlcData(3, 0);
+            FakeDataGenerator.PopulateSitePlcData(4, 1);
         }
     }
 }
